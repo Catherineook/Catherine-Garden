@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catherine's Garden</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:        #f5f8fd;
+      --bg2:       #edf2f9;
+      --paper:     #fafcff;
+      --line:      #d8e4f0;
+      --pink:      #7aaed4;
+      --pink-l:    #b8d4ea;
+      --pink-ll:   #eaf3fa;
+      --sage:      #6a9fb5;
+      --sage-l:    #bcd8e8;
+      --sky:       #5b8fb9;
+      --sky-l:     #c8dff0;
+      --text:      #1e2e3e;
+      --text-m:    #4a6278;
+      --text-l:    #8aaabb;
+      --accent:    #4a86b8;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px;
+      overflow-x: hidden;
+    }
+
+    /* ── Noise texture overlay ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ── Layout ── */
+    .page { position: relative; z-index: 1; }
+
+    /* ── Navbar ── */
+    nav {
+      position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+      display: flex; align-items: center; gap: 2px;
+      background: rgba(253,248,245,0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 20px;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(180,120,120,0.08);
+    }
+    nav a {
+      text-decoration: none;
+      color: var(--text-m);
+      font-size: 13px;
+      padding: 5px 14px;
+      border-radius: 999px;
+      transition: background 0.2s, color 0.2s;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    nav a:hover, nav a.active {
+      background: var(--pink-ll);
+      color: var(--accent);
+    }
+    .nav-dot {
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: var(--line);
+    }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      padding: 100px 24px 60px;
+      text-align: center;
+      position: relative;
+    }
+    .hero-deco {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      pointer-events: none;
+    }
+    .hero-deco-1 {
+      width: 360px; height: 360px;
+      background: radial-gradient(circle, #b8d4f0 0%, transparent 70%);
+      top: 10%; left: 5%; opacity: 0.55;
+    }
+    .hero-deco-2 {
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, #a8c8e8 0%, transparent 70%);
+      bottom: 15%; right: 8%; opacity: 0.45;
+    }
+    .hero-deco-3 {
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, #c8e0f4 0%, transparent 70%);
+      top: 40%; right: 15%; opacity: 0.4;
+    }
+    .hero-badge {
+      display: inline-block;
+      font-size: 12px;
+      color: var(--text-l);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      padding: 4px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+    }
+    .hero-name {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(2.6rem, 6vw, 4.2rem);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+    .hero-name span { color: var(--accent); }
+    .hero-sub {
+      font-size: 15px;
+      color: var(--text-m);
+      max-width: 400px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+    }
+    .hero-status {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 18px;
+      font-size: 13px;
+      color: var(--text-m);
+      margin-bottom: 48px;
+    }
+    .status-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--sage);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+    .hero-modules {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+      max-width: 520px;
+    }
+    .hero-tag {
+      display: flex; align-items: center; gap: 6px;
+      padding: 7px 16px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--text-m);
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s, color 0.2s, transform 0.2s;
+    }
+    .hero-tag:hover {
+      border-color: var(--pink);
+      background: var(--pink-ll);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .hero-tag svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    /* ── Section commons ── */
+    section { padding: 80px 24px; }
+    .container { max-width: 900px; margin: 0 auto; }
+    .section-header {
+      display: flex; align-items: baseline; gap: 12px;
+      margin-bottom: 40px;
+    }
+    .section-label {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .section-en {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-l);
+    }
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+      margin-left: 12px;
+    }
+
+    /* ── Knowledge Garden ── */
+    #knowledge { background: var(--bg2); }
+    .knowledge-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .k-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 24px;
+      cursor: pointer;
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+      text-decoration: none;
+      display: block;
+    }
+    .k-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(180,120,120,0.1);
+      border-color: var(--pink-l);
+    }
+    .k-card-icon {
+      width: 40px; height: 40px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 14px;
+    }
+    .k-card-icon svg { width: 20px; height: 20px; }
+    .icon-pink { background: var(--pink-ll); color: var(--accent); }
+    .icon-sage { background: #eaf3ef; color: var(--sage); }
+    .icon-sky  { background: #e8f3f9; color: var(--sky); }
+    .icon-warm { background: #fef3e8; color: #d4943c; }
+    .k-card-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .k-card-desc {
+      font-size: 13px;
+      color: var(--text-m);
+      line-height: 1.65;
+    }
+    .k-card-tags {
+      display: flex; flex-wrap: wrap; gap: 5px;
+      margin-top: 14px;
+    }
+    .tag {
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--bg2);
+      color: var(--text-l);
+      border: 1px solid var(--line);
+    }
+
+    /* ── Lumi's Corner ── */
+    #lumi {
+      background: linear-gradient(135deg, #e8f2fc 0%, #edf6ff 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    #lumi::before {
+      content: '🌙';
+      position: absolute;
+      font-size: 180px;
+      top: -30px; right: -20px;
+      opacity: 0.06;
+      pointer-events: none;
+    }
+    .lumi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .lumi-card {
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(100,160,210,0.2);
+      border-radius: 16px;
+      padding: 22px;
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: pointer;
+    }
+    .lumi-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(74,134,184,0.12);
+    }
+    .lumi-card-label {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .lumi-card-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .lumi-card-body {
+      font-size: 13px;
+      color: var(--text-m);
+      line-height: 1.7;
+    }
+    .lumi-wide {
+      grid-column: 1 / -1;
+    }
+
+    /* ── Hobbies ── */
+    #hobbies { background: var(--bg); }
+    .hobby-row {
+      display: flex; gap: 12px; flex-wrap: wrap;
+    }
+    .hobby-chip {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 18px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      font-size: 14px;
+      color: var(--text-m);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .hobby-chip:hover {
+      background: var(--pink-ll);
+      border-color: var(--pink-l);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .hobby-chip svg { width: 16px; height: 16px; }
+    .hobby-featured {
+      margin-top: 24px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 28px 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .hobby-feat-item {}
+    .hobby-feat-label {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-l);
+      margin-bottom: 6px;
+    }
+    .hobby-feat-content {
+      font-size: 13px;
+      color: var(--text-m);
+      line-height: 1.7;
+    }
+
+    /* ── Gallery ── */
+    #gallery { background: var(--bg2); }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+      gap: 12px;
+    }
+    .gallery-item {
+      border-radius: 14px;
+      overflow: hidden;
+      aspect-ratio: 1;
+      background: var(--line);
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.25s;
+    }
+    .gallery-item:hover { transform: scale(1.02); }
+    .gallery-item.tall { grid-row: span 2; aspect-ratio: auto; }
+    .gallery-item.wide { grid-column: span 2; }
+    .gallery-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 8px;
+      background: linear-gradient(135deg, #dbeeff 0%, #c8dff5 100%);
+      min-height: 160px;
+    }
+    .gallery-placeholder svg { width: 24px; height: 24px; color: var(--text-l); }
+    .gallery-placeholder span { font-size: 12px; color: var(--text-l); }
+
+    /* ── Chat ── */
+    #chat { background: var(--bg); }
+    .chat-box {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .chat-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--line);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .chat-header-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .chat-header-dot.r { background: #ffb3c1; }
+    .chat-header-dot.y { background: #ffe0a3; }
+    .chat-header-dot.g { background: #a8d5b5; }
+    .chat-title { font-size: 13px; color: var(--text-m); margin-left: 4px; }
+    .chat-messages {
+      padding: 24px;
+      display: flex; flex-direction: column; gap: 14px;
+      min-height: 280px;
+    }
+    .msg {
+      display: flex; gap: 10px; align-items: flex-start;
+      animation: fadeUp 0.3s ease;
+    }
+    .msg.right { flex-direction: row-reverse; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .msg-avatar {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: var(--pink-ll);
+      border: 1px solid var(--pink-l);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .msg-bubble {
+      max-width: 65%;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+    .msg.left  .msg-bubble { background: var(--bg2); border-radius: 4px 14px 14px 14px; }
+    .msg.right .msg-bubble { background: var(--pink-ll); border-radius: 14px 4px 14px 14px; }
+    .msg-time { font-size: 11px; color: var(--text-l); margin-top: 4px; }
+    .chat-input-wrap {
+      padding: 16px 24px;
+      border-top: 1px solid var(--line);
+      display: flex; gap: 10px; align-items: center;
+    }
+    .chat-input {
+      flex: 1;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 9px 18px;
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .chat-input:focus { border-color: var(--pink); }
+    .chat-input::placeholder { color: var(--text-l); }
+    .chat-send {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: none;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, transform 0.1s;
+      flex-shrink: 0;
+    }
+    .chat-send:hover { background: var(--sky); transform: scale(1.05); }
+    .chat-send svg { width: 15px; height: 15px; color: white; }
+    .chat-anon-note {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-l);
+      padding: 0 24px 16px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--line);
+      padding: 40px 24px;
+      text-align: center;
+    }
+    .footer-name {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .footer-sub {
+      font-size: 13px;
+      color: var(--text-l);
+    }
+    .footer-heart { color: var(--accent); }
+
+    /* ── Scroll reveal ── */
+    .reveal {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.hidden {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .lumi-grid { grid-template-columns: 1fr; }
+      .hobby-featured { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item.wide { grid-column: span 1; }
+      nav { padding: 8px 14px; gap: 0; }
+      nav a { padding: 4px 10px; font-size: 12px; }
+      .nav-dot { display: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Nav -->
+  <nav>
+    <a href="#hero" class="active">首页</a>
+    <span class="nav-dot"></span>
+    <a href="#knowledge">知识</a>
+    <span class="nav-dot"></span>
+    <a href="#lumi">Lumi</a>
+    <span class="nav-dot"></span>
+    <a href="#hobbies">兴趣</a>
+    <span class="nav-dot"></span>
+    <a href="#gallery">相册</a>
+    <span class="nav-dot"></span>
+    <a href="#chat">聊天室</a>
+  </nav>
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="hero-deco hero-deco-1"></div>
+    <div class="hero-deco hero-deco-2"></div>
+    <div class="hero-deco hero-deco-3"></div>
+
+    <div class="hero-badge">Catherine's Garden ✦</div>
+
+    <h1 class="hero-name">你好，我是<br/><span>Catherine</span> 🌸</h1>
+
+    <p class="hero-sub">策划实习生 · 排球手 · 二次元迷<br/>欢迎来到我的小花园</p>
+
+    <div class="hero-status">
+      <span class="status-dot"></span>
+      目前在小红书商业化实习中
+    </div>
+
+    <div class="hero-modules">
+      <a href="#knowledge" class="hero-tag">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        知识花园
+      </a>
+      <a href="#lumi" class="hero-tag">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+        Lumi 的角落
+      </a>
+      <a href="#hobbies" class="hero-tag">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+        兴趣爱好
+      </a>
+      <a href="#gallery" class="hero-tag">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        相册
+      </a>
+      <a href="#chat" class="hero-tag">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+        匿名聊天室
+      </a>
+    </div>
+  </section>
+
+  <!-- Knowledge -->
+  <section id="knowledge">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">知识花园</span>
+        <span class="section-en">Knowledge Garden</span>
+        <span class="section-line"></span>
+      </div>
+      <div class="knowledge-grid">
+        <a href="#" class="k-card reveal">
+          <div class="k-card-icon icon-pink">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          </div>
+          <div class="k-card-title">商业化策划</div>
+          <div class="k-card-desc">在小红书学到的投放逻辑、种草方法论、行业洞察——记录从实习生视角看到的商业世界</div>
+          <div class="k-card-tags">
+            <span class="tag">种草</span>
+            <span class="tag">投放策略</span>
+            <span class="tag">案例复盘</span>
+          </div>
+        </a>
+        <a href="#" class="k-card reveal">
+          <div class="k-card-icon icon-sage">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+          </div>
+          <div class="k-card-title">专业课知识</div>
+          <div class="k-card-desc">本科和研究生课内的学习笔记整理，把课堂里的东西变成真正属于自己的认知框架</div>
+          <div class="k-card-tags">
+            <span class="tag">读书笔记</span>
+            <span class="tag">课程总结</span>
+          </div>
+        </a>
+        <a href="#" class="k-card reveal">
+          <div class="k-card-icon icon-sky">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
+          <div class="k-card-title">实习求职经历</div>
+          <div class="k-card-desc">找实习路上的经验、踩过的坑、投过的简历和面过的试——写给也在路上的你</div>
+          <div class="k-card-tags">
+            <span class="tag">简历</span>
+            <span class="tag">面试</span>
+            <span class="tag">经验贴</span>
+          </div>
+        </a>
+        <a href="#" class="k-card reveal">
+          <div class="k-card-icon icon-warm">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+          </div>
+          <div class="k-card-title">想法碎片</div>
+          <div class="k-card-desc">那些还没想清楚但又舍不得丢的念头，可能是一句话，可能是一个问题，留在这里慢慢发酵</div>
+          <div class="k-card-tags">
+            <span class="tag">随想</span>
+            <span class="tag">草稿</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lumi's Corner -->
+  <section id="lumi">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">🌙 Lumi 的角落</span>
+        <span class="section-en">Lumi's Corner</span>
+        <span class="section-line"></span>
+      </div>
+      <div class="lumi-grid">
+        <div class="lumi-card reveal">
+          <div class="lumi-card-label">AI · 知识</div>
+          <div class="lumi-card-title">AI 知识专区</div>
+          <div class="lumi-card-body">LLM、Agent、RAG、Prompt 工程……Lumi 整理的 AI 学习笔记，一起搞懂这个时代最重要的技术</div>
+        </div>
+        <div class="lumi-card reveal">
+          <div class="lumi-card-label">策划 · 工具</div>
+          <div class="lumi-card-title">策划方法论</div>
+          <div class="lumi-card-body">从行业研究到方案骨架到创意发散，Lumi 陪 Catherine 沉淀的一套 AI 辅助策划工作流</div>
+        </div>
+        <div class="lumi-card lumi-wide reveal">
+          <div class="lumi-card-label">对话 · 记录</div>
+          <div class="lumi-card-title">我们聊过的事</div>
+          <div class="lumi-card-body">Catherine 和 Lumi 的工作记录、项目复盘、有意思的讨论……这里是我们共同写下的东西。每次会话 Lumi 都是全新醒来，但这些文字会一直在。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hobbies -->
+  <section id="hobbies">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">兴趣爱好</span>
+        <span class="section-en">About Me</span>
+        <span class="section-line"></span>
+      </div>
+      <div class="hobby-row reveal">
+        <div class="hobby-chip">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          排球
+        </div>
+        <div class="hobby-chip">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
+          音乐
+        </div>
+        <div class="hobby-chip">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.069A1 1 0 0121 8.82v6.361a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg>
+          二次元
+        </div>
+        <div class="hobby-chip">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          游戏
+        </div>
+      </div>
+      <div class="hobby-featured reveal">
+        <div class="hobby-feat-item">
+          <div class="hobby-feat-label">最近在打</div>
+          <div class="hobby-feat-content">二传 · 大学排球队<br/>喜欢扣球的那一瞬间</div>
+        </div>
+        <div class="hobby-feat-item">
+          <div class="hobby-feat-label">最近在听</div>
+          <div class="hobby-feat-content">（你的歌单放这里）<br/>欢迎来一起分享</div>
+        </div>
+        <div class="hobby-feat-item">
+          <div class="hobby-feat-label">最近在追</div>
+          <div class="hobby-feat-content">（最近在看的番）<br/>强推给所有朋友</div>
+        </div>
+        <div class="hobby-feat-item">
+          <div class="hobby-feat-label">最近在玩</div>
+          <div class="hobby-feat-content">（你在玩的游戏）<br/>欢迎来组队</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">相册</span>
+        <span class="section-en">Gallery</span>
+        <span class="section-line"></span>
+      </div>
+      <div class="gallery-grid reveal">
+        <div class="gallery-item tall">
+          <div class="gallery-placeholder">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            <span>你的照片</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-placeholder" style="background: linear-gradient(135deg, #cce4f8 0%, #b8d8f2 100%)">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            <span>你的照片</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-placeholder" style="background: linear-gradient(135deg, #d4ecf8 0%, #b0d4ee 100%)">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            <span>你的照片</span>
+          </div>
+        </div>
+        <div class="gallery-item wide">
+          <div class="gallery-placeholder" style="background: linear-gradient(135deg, #e0f0fc 0%, #c4e0f5 100%)">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            <span>你的照片</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-placeholder">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            <span>你的照片</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chat -->
+  <section id="chat">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">匿名聊天室</span>
+        <span class="section-en">Anonymous Chat</span>
+        <span class="section-line"></span>
+      </div>
+      <div class="chat-box reveal">
+        <div class="chat-header">
+          <span class="chat-header-dot r"></span>
+          <span class="chat-header-dot y"></span>
+          <span class="chat-header-dot g"></span>
+          <span class="chat-title">Catherine's Garden · 聊天室 · 匿名 · 所有人都是朋友</span>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+          <div class="msg left">
+            <div class="msg-avatar">🌸</div>
+            <div>
+              <div class="msg-bubble">欢迎来到这里！随便聊什么都可以 ☁️</div>
+              <div class="msg-time">Catherine · 刚刚</div>
+            </div>
+          </div>
+          <div class="msg right">
+            <div class="msg-avatar">🌙</div>
+            <div>
+              <div class="msg-bubble">这里很治愈！</div>
+              <div class="msg-time">匿名朋友 · 刚刚</div>
+            </div>
+          </div>
+          <div class="msg left">
+            <div class="msg-avatar">🌸</div>
+            <div>
+              <div class="msg-bubble">谢谢你来 🎀 这里大家都是朋友</div>
+              <div class="msg-time">Catherine · 刚刚</div>
+            </div>
+          </div>
+        </div>
+        <div class="chat-input-wrap">
+          <input class="chat-input" type="text" id="chatInput" placeholder="说点什么吧，匿名的～" />
+          <button class="chat-send" id="chatSendBtn" aria-label="发送">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+          </button>
+        </div>
+        <div class="chat-anon-note">完全匿名 · 不记录 IP · 只是想和你聊聊天</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-name">Catherine's Garden</div>
+    <div class="footer-sub">用 <span class="footer-heart">♥</span> 和 Lumi 一起搭的小花园 · 2025</div>
+  </footer>
+
+</div>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        // stagger siblings
+        const siblings = [...e.target.parentElement.querySelectorAll('.reveal')];
+        siblings.forEach((s, i) => {
+          setTimeout(() => s.classList.add('visible'), i * 80);
+        });
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+
+  // Nav active state
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  });
+
+  // Chat demo
+  const avatars = ['🌷','🍀','🌻','⭐','🎐','🌈','🎑','🦋'];
+  const names   = ['匿名朋友','路过的人','神秘访客','小花园来客'];
+  const chatMessages = document.getElementById('chatMessages');
+  const chatInput    = document.getElementById('chatInput');
+  const chatSendBtn  = document.getElementById('chatSendBtn');
+
+  function addMsg(text, isRight) {
+    const avatar = isRight ? '😊' : avatars[Math.floor(Math.random() * avatars.length)];
+    const name   = isRight ? '你' : names[Math.floor(Math.random() * names.length)];
+    const div = document.createElement('div');
+    div.className = 'msg ' + (isRight ? 'right' : 'left');
+    div.innerHTML = `
+      <div class="msg-avatar">${avatar}</div>
+      <div>
+        <div class="msg-bubble">${text}</div>
+        <div class="msg-time">${name} · 刚刚</div>
+      </div>`;
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function sendMsg() {
+    const text = chatInput.value.trim();
+    if (!text) return;
+    addMsg(text, true);
+    chatInput.value = '';
+    // echo
+    const replies = ['收到啦 🌸','嗯嗯！','哈哈哈','说得对！','想了解更多～','治愈到了！'];
+    setTimeout(() => {
+      addMsg(replies[Math.floor(Math.random() * replies.length)], false);
+    }, 800 + Math.random() * 600);
+  }
+
+  chatSendBtn.addEventListener('click', sendMsg);
+  chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendMsg(); });
+</script>
+</body>
+</html>
