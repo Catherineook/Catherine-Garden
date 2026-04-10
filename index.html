@@ -856,17 +856,8 @@
     .album-cover:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 20px rgba(0,0,0,0.22); }
     .album-name { font-size: 10px; color: var(--text-l); text-align: center; max-width: 76px; line-height: 1.3; }
     /* 文字歌单 */
-    .music-list { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 20px; }
-    @media (max-width: 600px) { .music-list { grid-template-columns: 1fr; } }
-    .music-entry { display: grid; grid-template-columns: 22px 1fr; align-items: center; gap: 6px; padding: 5px 8px; border-radius: 7px; transition: background 0.15s; min-width: 0; }
-    .music-entry:hover { background: var(--mc-ll, var(--pink-ll)); }
-    .music-entry.hidden { display: none; }
-    .entry-num { font-size: 10px; color: var(--mc, var(--text-l)); text-align: right; font-variant-numeric: tabular-nums; }
-    .entry-body { min-width: 0; }
-    .entry-title { font-size: 13px; color: var(--text); line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
-    .entry-artist { font-size: 11px; color: var(--text-l); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
-    .music-empty { text-align: center; color: var(--text-l); font-size: 13px; padding: 28px; display: none; }
-
+    @media (max-width: 600px) {
+    }
     /* ── Scroll reveal ── */
     .reveal {
       opacity: 1;
@@ -1258,283 +1249,35 @@
       <div class="music-panel active" id="music-qingzhen" data-theme="qingzhen">
         <div class="music-panel-desc">最喜欢的华语创作人，每首都像一个独立的小宇宙 🎸</div>
         <div class="album-shelf"><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music/v4/c5/c5/b9/c5c5b9a5-7b08-1579-950e-6ad69d8f105a/2005_9-_1400.jpg/400x400bb.jpg" alt="华丽的冒险" loading="lazy"><div class="album-name">华丽的冒险</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/f6/9a/b6/f69ab634-a5cc-8e1f-9548-3185f42549aa/dj.mgpysrjj.jpg/400x400bb.jpg" alt="让我想一想" loading="lazy"><div class="album-name">让我想一想</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/13/cf/a0/13cfa073-8063-ec0f-0edf-2bb43730d92c/4710255630605.jpg/400x400bb.jpg" alt="沙发海" loading="lazy"><div class="album-name">沙发海</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/3c/a2/21/3ca22123-14d6-57f4-9e52-aa4573a05b07/mzm.clkcarof.jpg/400x400bb.jpg" alt="吉他手" loading="lazy"><div class="album-name">吉他手</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/07/70/06/077006a5-18c5-0e56-0e0c-ba052672b07a/4719760090010_new.jpg/400x400bb.jpg" alt="太阳" loading="lazy"><div class="album-name">太阳</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/9e/78/07/9e7807ae-f751-e110-3c3e-64c02183bc4e/1105_4000x4000.jpg/400x400bb.jpg" alt="时间的歌" loading="lazy"><div class="album-name">时间的歌</div></div></div>
-
-        <div class="music-list">
-          <div class="music-entry" data-title="躺在你的衣柜 (guitar)" data-artist="陈绮贞"><span class="entry-num">1</span><div class="entry-body"><div class="entry-title">躺在你的衣柜 (guitar)</div><div class="entry-artist">陈绮贞</div></div></div>
-          <div class="music-entry" data-title="还是会寂寞" data-artist="陈绮贞"><span class="entry-num">2</span><div class="entry-body"><div class="entry-title">还是会寂寞</div><div class="entry-artist">陈绮贞</div></div></div>
-          <div class="music-entry" data-title="柏拉图式的爱情" data-artist="陈绮贞"><span class="entry-num">3</span><div class="entry-body"><div class="entry-title">柏拉图式的爱情</div><div class="entry-artist">陈绮贞</div></div></div>
-          <div class="music-entry" data-title="等待" data-artist="陈绮贞"><span class="entry-num">4</span><div class="entry-body"><div class="entry-title">等待</div><div class="entry-artist">陈绮贞</div></div></div>
-          <div class="music-entry" data-title="花的姿态" data-artist="陈绮贞"><span class="entry-num">5</span><div class="entry-body"><div class="entry-title">花的姿态</div><div class="entry-artist">陈绮贞</div></div></div>
-          <div class="music-entry" data-title="腐朽" data-artist="陈绮贞"><span class="entry-num">6</span><div class="entry-body"><div class="entry-title">腐朽</div><div class="entry-artist">陈绮贞</div></div></div>
-          <div class="music-entry" data-title="随便说说" data-artist="陈绮贞"><span class="entry-num">7</span><div class="entry-body"><div class="entry-title">随便说说</div><div class="entry-artist">陈绮贞</div></div></div>
-          <div class="music-entry" data-title="雨水一盒" data-artist="陈绮贞"><span class="entry-num">8</span><div class="entry-body"><div class="entry-title">雨水一盒</div><div class="entry-artist">陈绮贞</div></div></div>
-          <div class="music-entry" data-title="狂恋" data-artist="陈绮贞"><span class="entry-num">9</span><div class="entry-body"><div class="entry-title">狂恋</div><div class="entry-artist">陈绮贞</div></div></div>
-          <div class="music-entry" data-title="1234567" data-artist="陈绮贞"><span class="entry-num">10</span><div class="entry-body"><div class="entry-title">1234567</div><div class="entry-artist">陈绮贞</div></div></div>
-          <div class="music-entry" data-title="小步舞曲" data-artist="陈绮贞"><span class="entry-num">11</span><div class="entry-body"><div class="entry-title">小步舞曲</div><div class="entry-artist">陈绮贞</div></div></div>
-          <div class="music-entry" data-title="我亲爱的偏执狂" data-artist="陈绮贞"><span class="entry-num">12</span><div class="entry-body"><div class="entry-title">我亲爱的偏执狂</div><div class="entry-artist">陈绮贞</div></div></div>
-          <div class="music-entry" data-title="self" data-artist="陈绮贞"><span class="entry-num">13</span><div class="entry-body"><div class="entry-title">self</div><div class="entry-artist">陈绮贞</div></div></div>
-          <div class="music-entry" data-title="慢歌1" data-artist="陈绮贞"><span class="entry-num">14</span><div class="entry-body"><div class="entry-title">慢歌1</div><div class="entry-artist">陈绮贞</div></div></div>
-          <div class="music-entry" data-title="吉他手" data-artist="陈绮贞"><span class="entry-num">15</span><div class="entry-body"><div class="entry-title">吉他手</div><div class="entry-artist">陈绮贞</div></div></div>
-          <div class="music-entry" data-title="表面的和平" data-artist="陈绮贞"><span class="entry-num">16</span><div class="entry-body"><div class="entry-title">表面的和平</div><div class="entry-artist">陈绮贞</div></div></div>
-          <div class="music-entry" data-title="太聪明" data-artist="陈绮贞"><span class="entry-num">17</span><div class="entry-body"><div class="entry-title">太聪明</div><div class="entry-artist">陈绮贞</div></div></div>
-          <div class="music-entry" data-title="就算全世界与我为敌" data-artist="陈绮贞"><span class="entry-num">18</span><div class="entry-body"><div class="entry-title">就算全世界与我为敌</div><div class="entry-artist">陈绮贞</div></div></div>
-        </div>
-        <div class="music-empty">没找到匹配的歌曲 🎵</div>
       </div>
       <div class="music-panel" id="music-fangdatong" data-theme="fangdatong">
         <div class="music-panel-desc">R&B 里的广东话，每首都是故事 🎹</div>
         <div class="album-shelf"><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/d7/62/0d/d7620d36-697c-7e58-66d668b9f4b7/825646879779.jpg/400x400bb.jpg" alt="可啦思刻" loading="lazy"><div class="album-name">可啦思刻</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music/v4/c3/d0/e5/mzi.kdgffvqb.jpg/400x400bb.jpg" alt="爱爱爱" loading="lazy"><div class="album-name">爱爱爱</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music/v4/39/70/0f/39700f94-dc17-da05-f99334921567/mzi.cupkqfev.jpg/400x400bb.jpg" alt="橙月" loading="lazy"><div class="album-name">橙月</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/6a/1b/dc/6a1bdcc8-ff18-3ddc-5e31-2d65267fbaeb/5034644139906.jpg/400x400bb.jpg" alt="The Dreamer" loading="lazy"><div class="album-name">The Dreamer</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/7a/aa/ea/7aaaeaf3-a7a7-cf54-858af87966e3/dj.munrszcb.jpg/400x400bb.jpg" alt="回到未来" loading="lazy"><div class="album-name">回到未来</div></div></div>
-
-        <div class="music-list">
-          <div class="music-entry" data-title="四人游" data-artist="方大同 / 薛凯琪"><span class="entry-num">1</span><div class="entry-body"><div class="entry-title">四人游</div><div class="entry-artist">方大同 / 薛凯琪</div></div></div>
-          <div class="music-entry" data-title="爱在" data-artist="方大同"><span class="entry-num">2</span><div class="entry-body"><div class="entry-title">爱在</div><div class="entry-artist">方大同</div></div></div>
-          <div class="music-entry" data-title="春风吹之吹吹风mix" data-artist="方大同"><span class="entry-num">3</span><div class="entry-body"><div class="entry-title">春风吹之吹吹风mix</div><div class="entry-artist">方大同</div></div></div>
-          <div class="music-entry" data-title="为你写的歌" data-artist="方大同"><span class="entry-num">4</span><div class="entry-body"><div class="entry-title">为你写的歌</div><div class="entry-artist">方大同</div></div></div>
-          <div class="music-entry" data-title="桃花运" data-artist="方大同"><span class="entry-num">5</span><div class="entry-body"><div class="entry-title">桃花运</div><div class="entry-artist">方大同</div></div></div>
-          <div class="music-entry" data-title="那沙漠里的水" data-artist="方大同"><span class="entry-num">6</span><div class="entry-body"><div class="entry-title">那沙漠里的水</div><div class="entry-artist">方大同</div></div></div>
-          <div class="music-entry" data-title="rosy(live)" data-artist="方大同"><span class="entry-num">7</span><div class="entry-body"><div class="entry-title">rosy(live)</div><div class="entry-artist">方大同</div></div></div>
-          <div class="music-entry" data-title="ring finger" data-artist="方大同"><span class="entry-num">8</span><div class="entry-body"><div class="entry-title">ring finger</div><div class="entry-artist">方大同</div></div></div>
-          <div class="music-entry" data-title="1234567" data-artist="方大同"><span class="entry-num">9</span><div class="entry-body"><div class="entry-title">1234567</div><div class="entry-artist">方大同</div></div></div>
-          <div class="music-entry" data-title="总结" data-artist="方大同"><span class="entry-num">10</span><div class="entry-body"><div class="entry-title">总结</div><div class="entry-artist">方大同</div></div></div>
-          <div class="music-entry" data-title="黑洞里" data-artist="方大同"><span class="entry-num">11</span><div class="entry-body"><div class="entry-title">黑洞里</div><div class="entry-artist">方大同</div></div></div>
-          <div class="music-entry" data-title="goodbye melody rose" data-artist="方大同"><span class="entry-num">12</span><div class="entry-body"><div class="entry-title">goodbye melody rose</div><div class="entry-artist">方大同</div></div></div>
-          <div class="music-entry" data-title="if you leave me now" data-artist="方大同"><span class="entry-num">13</span><div class="entry-body"><div class="entry-title">if you leave me now</div><div class="entry-artist">方大同</div></div></div>
-          <div class="music-entry" data-title="春风吹" data-artist="方大同"><span class="entry-num">14</span><div class="entry-body"><div class="entry-title">春风吹</div><div class="entry-artist">方大同</div></div></div>
-          <div class="music-entry" data-title="没啥好说" data-artist="方大同"><span class="entry-num">15</span><div class="entry-body"><div class="entry-title">没啥好说</div><div class="entry-artist">方大同</div></div></div>
-          <div class="music-entry" data-title="回留" data-artist="方大同"><span class="entry-num">16</span><div class="entry-body"><div class="entry-title">回留</div><div class="entry-artist">方大同</div></div></div>
-          <div class="music-entry" data-title="叫我怎么说" data-artist="方大同"><span class="entry-num">17</span><div class="entry-body"><div class="entry-title">叫我怎么说</div><div class="entry-artist">方大同</div></div></div>
-          <div class="music-entry" data-title="谁知爱是什么" data-artist="方大同"><span class="entry-num">18</span><div class="entry-body"><div class="entry-title">谁知爱是什么</div><div class="entry-artist">方大同</div></div></div>
-          <div class="music-entry" data-title="歌手与模特儿" data-artist="方大同"><span class="entry-num">19</span><div class="entry-body"><div class="entry-title">歌手与模特儿</div><div class="entry-artist">方大同</div></div></div>
-          <div class="music-entry" data-title="爱爱爱" data-artist="方大同"><span class="entry-num">20</span><div class="entry-body"><div class="entry-title">爱爱爱</div><div class="entry-artist">方大同</div></div></div>
-          <div class="music-entry" data-title="每天每天" data-artist="方大同"><span class="entry-num">21</span><div class="entry-body"><div class="entry-title">每天每天</div><div class="entry-artist">方大同</div></div></div>
-          <div class="music-entry" data-title="复刻回忆" data-artist="薛凯琪 / 方大同"><span class="entry-num">22</span><div class="entry-body"><div class="entry-title">复刻回忆</div><div class="entry-artist">薛凯琪 / 方大同</div></div></div>
-          <div class="music-entry" data-title="梦蝴蝶" data-artist="方大同"><span class="entry-num">23</span><div class="entry-body"><div class="entry-title">梦蝴蝶</div><div class="entry-artist">方大同</div></div></div>
-          <div class="music-entry" data-title="才二十三" data-artist="方大同"><span class="entry-num">24</span><div class="entry-body"><div class="entry-title">才二十三</div><div class="entry-artist">方大同</div></div></div>
-        </div>
-        <div class="music-empty">没找到匹配的歌曲 🎵</div>
       </div>
       <div class="music-panel" id="music-jpop" data-theme="jpop">
         <div class="music-panel-desc">日系滤镜，冬天的耳机里专属 🌸</div>
         <div class="album-shelf"><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/77/67/00/77670013-e2ed-437a-dc30-e9cb74056cbe/00600406427052.rgb.jpg/400x400bb.jpg" alt="First Love" loading="lazy"><div class="album-name">First Love<br>宇多田ヒカル</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music128/v4/d1/a6/81/d1a681b9-aa68-6148-5a50-69fd4c95cc37/00602567241966.rgb.jpg/400x400bb.jpg" alt="Fantôme" loading="lazy"><div class="album-name">Fantôme<br>宇多田ヒカル</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/96/4e/5b/964e5b6e-4766-63ba-7e50-9f8a5bd0569e/20UMGIM17280.rgb.jpg/400x400bb.jpg" alt="HELP EVER" loading="lazy"><div class="album-name">HELP EVER<br>HURT NEVER<br>藤井風</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/5f/4b/8a/5f4b8a5b-d28f-ba88-d508-b1665fa348a0/24UM1IM21653.rgb.jpg/400x400bb.jpg" alt="LOVE ALL" loading="lazy"><div class="album-name">LOVE ALL<br>SERVE ALL<br>藤井風</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/fa/dc/81/fadc81d8-c4d4-0631-c52c-c9e7e7a74d1f/16UMGIM58500.rgb.jpg/400x400bb.jpg" alt="君の名は。" loading="lazy"><div class="album-name">君の名は。<br>RADWIMPS</div></div></div>
-
-        <div class="music-list">
-          <div class="music-entry" data-title="first love" data-artist="宇多田ヒカル"><span class="entry-num">1</span><div class="entry-body"><div class="entry-title">first love</div><div class="entry-artist">宇多田ヒカル</div></div></div>
-          <div class="music-entry" data-title="close to you" data-artist="宇多田ヒカル"><span class="entry-num">2</span><div class="entry-body"><div class="entry-title">close to you</div><div class="entry-artist">宇多田ヒカル</div></div></div>
-          <div class="music-entry" data-title="stay gold" data-artist="宇多田ヒカル"><span class="entry-num">3</span><div class="entry-body"><div class="entry-title">stay gold</div><div class="entry-artist">宇多田ヒカル</div></div></div>
-          <div class="music-entry" data-title="wait &amp; see ～リスク～" data-artist="宇多田ヒカル"><span class="entry-num">4</span><div class="entry-body"><div class="entry-title">wait & see ～リスク～</div><div class="entry-artist">宇多田ヒカル</div></div></div>
-          <div class="music-entry" data-title="eternally" data-artist="宇多田ヒカル"><span class="entry-num">5</span><div class="entry-body"><div class="entry-title">eternally</div><div class="entry-artist">宇多田ヒカル</div></div></div>
-          <div class="music-entry" data-title="apple and cinnamon" data-artist="宇多田ヒカル"><span class="entry-num">6</span><div class="entry-body"><div class="entry-title">apple and cinnamon</div><div class="entry-artist">宇多田ヒカル</div></div></div>
-          <div class="music-entry" data-title="甘いワナ 〜paint it, black" data-artist="宇多田ヒカル"><span class="entry-num">7</span><div class="entry-body"><div class="entry-title">甘いワナ 〜paint it, black</div><div class="entry-artist">宇多田ヒカル</div></div></div>
-          <div class="music-entry" data-title="prisoner of love" data-artist="宇多田ヒカル"><span class="entry-num">8</span><div class="entry-body"><div class="entry-title">prisoner of love</div><div class="entry-artist">宇多田ヒカル</div></div></div>
-          <div class="music-entry" data-title="distance" data-artist="宇多田ヒカル"><span class="entry-num">9</span><div class="entry-body"><div class="entry-title">distance</div><div class="entry-artist">宇多田ヒカル</div></div></div>
-          <div class="music-entry" data-title="for you" data-artist="宇多田ヒカル"><span class="entry-num">10</span><div class="entry-body"><div class="entry-title">for you</div><div class="entry-artist">宇多田ヒカル</div></div></div>
-          <div class="music-entry" data-title="君に夢中" data-artist="宇多田ヒカル"><span class="entry-num">11</span><div class="entry-body"><div class="entry-title">君に夢中</div><div class="entry-artist">宇多田ヒカル</div></div></div>
-          <div class="music-entry" data-title="merry christmas mr. lawrence - fyi" data-artist="宇多田ヒカル"><span class="entry-num">12</span><div class="entry-body"><div class="entry-title">merry christmas mr. lawrence - fyi</div><div class="entry-artist">宇多田ヒカル</div></div></div>
-          <div class="music-entry" data-title="t" data-artist="88rising / 宇多田ヒカル / warren hue"><span class="entry-num">13</span><div class="entry-body"><div class="entry-title">t</div><div class="entry-artist">88rising / 宇多田ヒカル / warren hue</div></div></div>
-          <div class="music-entry" data-title="home (feat. hikaru utada)" data-artist="charlie puth / 宇多田ヒカル"><span class="entry-num">14</span><div class="entry-body"><div class="entry-title">home (feat. hikaru utada)</div><div class="entry-artist">charlie puth / 宇多田ヒカル</div></div></div>
-          <div class="music-entry" data-title="きらり" data-artist="藤井風"><span class="entry-num">15</span><div class="entry-body"><div class="entry-title">きらり</div><div class="entry-artist">藤井風</div></div></div>
-          <div class="music-entry" data-title="love like this" data-artist="藤井風"><span class="entry-num">16</span><div class="entry-body"><div class="entry-title">love like this</div><div class="entry-artist">藤井風</div></div></div>
-          <div class="music-entry" data-title="close to you" data-artist="藤井風"><span class="entry-num">17</span><div class="entry-body"><div class="entry-title">close to you</div><div class="entry-artist">藤井風</div></div></div>
-          <div class="music-entry" data-title="死ぬのがいいわ" data-artist="藤井風"><span class="entry-num">18</span><div class="entry-body"><div class="entry-title">死ぬのがいいわ</div><div class="entry-artist">藤井風</div></div></div>
-          <div class="music-entry" data-title="歌舞伎町の女王" data-artist="椎名林檎"><span class="entry-num">19</span><div class="entry-body"><div class="entry-title">歌舞伎町の女王</div><div class="entry-artist">椎名林檎</div></div></div>
-          <div class="music-entry" data-title="なんでもないや (movie ver.)" data-artist="radwimps"><span class="entry-num">20</span><div class="entry-body"><div class="entry-title">なんでもないや (movie ver.)</div><div class="entry-artist">radwimps</div></div></div>
-          <div class="music-entry" data-title="真夜中のドア〜stay with me (シングルver.)" data-artist="松原みき"><span class="entry-num">21</span><div class="entry-body"><div class="entry-title">真夜中のドア〜stay with me (シングルver.)</div><div class="entry-artist">松原みき</div></div></div>
-          <div class="music-entry" data-title="モノクローム" data-artist="具島直子"><span class="entry-num">22</span><div class="entry-body"><div class="entry-title">モノクローム</div><div class="entry-artist">具島直子</div></div></div>
-          <div class="music-entry" data-title="まどろみ" data-artist="具島直子"><span class="entry-num">23</span><div class="entry-body"><div class="entry-title">まどろみ</div><div class="entry-artist">具島直子</div></div></div>
-          <div class="music-entry" data-title="そばにいるね" data-artist="青山テルマ / soulja"><span class="entry-num">24</span><div class="entry-body"><div class="entry-title">そばにいるね</div><div class="entry-artist">青山テルマ / soulja</div></div></div>
-          <div class="music-entry" data-title="キャシィ" data-artist="当山ひとみ"><span class="entry-num">25</span><div class="entry-body"><div class="entry-title">キャシィ</div><div class="entry-artist">当山ひとみ</div></div></div>
-          <div class="music-entry" data-title="渡月橋 ～君 想ふ～" data-artist="倉木麻衣"><span class="entry-num">26</span><div class="entry-body"><div class="entry-title">渡月橋 ～君 想ふ～</div><div class="entry-artist">倉木麻衣</div></div></div>
-          <div class="music-entry" data-title="ハルノユキ from polaris" data-artist="リリィ、さよなら。 / 増田俊樹"><span class="entry-num">27</span><div class="entry-body"><div class="entry-title">ハルノユキ from polaris</div><div class="entry-artist">リリィ、さよなら。 / 増田俊樹</div></div></div>
-          <div class="music-entry" data-title="l.o.l." data-artist="松下優也"><span class="entry-num">28</span><div class="entry-body"><div class="entry-title">l.o.l.</div><div class="entry-artist">松下優也</div></div></div>
-          <div class="music-entry" data-title="last snow" data-artist="松下優也"><span class="entry-num">29</span><div class="entry-body"><div class="entry-title">last snow</div><div class="entry-artist">松下優也</div></div></div>
-          <div class="music-entry" data-title="雪の光" data-artist="福原美穂"><span class="entry-num">30</span><div class="entry-body"><div class="entry-title">雪の光</div><div class="entry-artist">福原美穂</div></div></div>
-          <div class="music-entry" data-title="絶え間なく (taemanaku)" data-artist="福原美穂"><span class="entry-num">31</span><div class="entry-body"><div class="entry-title">絶え間なく (taemanaku)</div><div class="entry-artist">福原美穂</div></div></div>
-          <div class="music-entry" data-title="missin&#39; u" data-artist="石田裕子"><span class="entry-num">32</span><div class="entry-body"><div class="entry-title">missin' u</div><div class="entry-artist">石田裕子</div></div></div>
-          <div class="music-entry" data-title="クリスマスソング" data-artist="back number"><span class="entry-num">33</span><div class="entry-body"><div class="entry-title">クリスマスソング</div><div class="entry-artist">back number</div></div></div>
-          <div class="music-entry" data-title="small happiness" data-artist="麗美"><span class="entry-num">34</span><div class="entry-body"><div class="entry-title">small happiness</div><div class="entry-artist">麗美</div></div></div>
-          <div class="music-entry" data-title="a winter story" data-artist="麗美"><span class="entry-num">35</span><div class="entry-body"><div class="entry-title">a winter story</div><div class="entry-artist">麗美</div></div></div>
-          <div class="music-entry" data-title="winter without you" data-artist="xg"><span class="entry-num">36</span><div class="entry-body"><div class="entry-title">winter without you</div><div class="entry-artist">xg</div></div></div>
-        </div>
-        <div class="music-empty">没找到匹配的歌曲 🎵</div>
       </div>
       <div class="music-panel" id="music-queens" data-theme="queens">
         <div class="music-panel-desc">天后们的声音，永远震撼 👑</div>
         <div class="album-shelf"><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/8c/8b/1c/8c8b1c2e-bb21-b849-68cb44511209/dj.soxgewfo.jpg/400x400bb.jpg" alt="Emotions" loading="lazy"><div class="album-name">Emotions<br>Mariah Carey</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music/v4/b9/ce/c5/b9cec554-4d4e-58b1-715143b2f199/mzi.vippwwob.jpg/400x400bb.jpg" alt="Daydream" loading="lazy"><div class="album-name">Daydream<br>Mariah Carey</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/1d/4e/dd/1d4edd7d-7b76-daeb-aeb3-7a56fb2627a0/886447294161.jpg/400x400bb.jpg" alt="Caution" loading="lazy"><div class="album-name">Caution<br>Mariah Carey</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music/v4/82/f3/e9/82f3e968-8174-c5eb-7fc5-36384d050129/dj.mdauihuy.jpg/400x400bb.jpg" alt="The Bodyguard" loading="lazy"><div class="album-name">The Bodyguard<br>Whitney Houston</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/b6/3a/15/b63a15ba-dd50-62b0-4054-03a81241774a/00602567743217.rgb.jpg/400x400bb.jpg" alt="janet." loading="lazy"><div class="album-name">janet.<br>Janet Jackson</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/fe/ba/43/feba43be-99e8-ad8c-9fad-1bfdea7a4e98/196589344267.jpg/400x400bb.jpg" alt="RENAISSANCE" loading="lazy"><div class="album-name">RENAISSANCE<br>Beyoncé</div></div></div>
-
-        <div class="music-list">
-          <div class="music-entry" data-title="emotions" data-artist="mariah carey"><span class="entry-num">1</span><div class="entry-body"><div class="entry-title">emotions</div><div class="entry-artist">mariah carey</div></div></div>
-          <div class="music-entry" data-title="always be my baby" data-artist="mariah carey"><span class="entry-num">2</span><div class="entry-body"><div class="entry-title">always be my baby</div><div class="entry-artist">mariah carey</div></div></div>
-          <div class="music-entry" data-title="we belong together" data-artist="mariah carey"><span class="entry-num">3</span><div class="entry-body"><div class="entry-title">we belong together</div><div class="entry-artist">mariah carey</div></div></div>
-          <div class="music-entry" data-title="my all" data-artist="mariah carey"><span class="entry-num">4</span><div class="entry-body"><div class="entry-title">my all</div><div class="entry-artist">mariah carey</div></div></div>
-          <div class="music-entry" data-title="without you" data-artist="mariah carey"><span class="entry-num">5</span><div class="entry-body"><div class="entry-title">without you</div><div class="entry-artist">mariah carey</div></div></div>
-          <div class="music-entry" data-title="through the rain" data-artist="mariah carey"><span class="entry-num">6</span><div class="entry-body"><div class="entry-title">through the rain</div><div class="entry-artist">mariah carey</div></div></div>
-          <div class="music-entry" data-title="anytime you need a friend" data-artist="mariah carey"><span class="entry-num">7</span><div class="entry-body"><div class="entry-title">anytime you need a friend</div><div class="entry-artist">mariah carey</div></div></div>
-          <div class="music-entry" data-title="melt away" data-artist="mariah carey"><span class="entry-num">8</span><div class="entry-body"><div class="entry-title">melt away</div><div class="entry-artist">mariah carey</div></div></div>
-          <div class="music-entry" data-title="bye bye" data-artist="mariah carey"><span class="entry-num">9</span><div class="entry-body"><div class="entry-title">bye bye</div><div class="entry-artist">mariah carey</div></div></div>
-          <div class="music-entry" data-title="i stay in love" data-artist="mariah carey"><span class="entry-num">10</span><div class="entry-body"><div class="entry-title">i stay in love</div><div class="entry-artist">mariah carey</div></div></div>
-          <div class="music-entry" data-title="circles" data-artist="mariah carey"><span class="entry-num">11</span><div class="entry-body"><div class="entry-title">circles</div><div class="entry-artist">mariah carey</div></div></div>
-          <div class="music-entry" data-title="here for it all" data-artist="mariah carey"><span class="entry-num">12</span><div class="entry-body"><div class="entry-title">here for it all</div><div class="entry-artist">mariah carey</div></div></div>
-          <div class="music-entry" data-title="sugar sweet (feat. shenseea &amp; kehlani)" data-artist="mariah carey / shenseea / kehlani"><span class="entry-num">13</span><div class="entry-body"><div class="entry-title">sugar sweet (feat. shenseea & kehlani)</div><div class="entry-artist">mariah carey / shenseea / kehlani</div></div></div>
-          <div class="music-entry" data-title="cruise control" data-artist="mariah carey / damian marley"><span class="entry-num">14</span><div class="entry-body"><div class="entry-title">cruise control</div><div class="entry-artist">mariah carey / damian marley</div></div></div>
-          <div class="music-entry" data-title="oh santa!" data-artist="mariah carey / ariana grande / jennifer hudson"><span class="entry-num">15</span><div class="entry-body"><div class="entry-title">oh santa!</div><div class="entry-artist">mariah carey / ariana grande / jennifer hudson</div></div></div>
-          <div class="music-entry" data-title="i will always love you" data-artist="whitney houston"><span class="entry-num">16</span><div class="entry-body"><div class="entry-title">i will always love you</div><div class="entry-artist">whitney houston</div></div></div>
-          <div class="music-entry" data-title="i have nothing" data-artist="whitney houston"><span class="entry-num">17</span><div class="entry-body"><div class="entry-title">i have nothing</div><div class="entry-artist">whitney houston</div></div></div>
-          <div class="music-entry" data-title="when you believe" data-artist="whitney houston / mariah carey"><span class="entry-num">18</span><div class="entry-body"><div class="entry-title">when you believe</div><div class="entry-artist">whitney houston / mariah carey</div></div></div>
-          <div class="music-entry" data-title="worth it" data-artist="whitney houston"><span class="entry-num">19</span><div class="entry-body"><div class="entry-title">worth it</div><div class="entry-artist">whitney houston</div></div></div>
-          <div class="music-entry" data-title="that&#39;s the way love goes" data-artist="janet jackson"><span class="entry-num">20</span><div class="entry-body"><div class="entry-title">that's the way love goes</div><div class="entry-artist">janet jackson</div></div></div>
-          <div class="music-entry" data-title="i get lonely" data-artist="janet jackson"><span class="entry-num">21</span><div class="entry-body"><div class="entry-title">i get lonely</div><div class="entry-artist">janet jackson</div></div></div>
-          <div class="music-entry" data-title="enjoy" data-artist="janet jackson"><span class="entry-num">22</span><div class="entry-body"><div class="entry-title">enjoy</div><div class="entry-artist">janet jackson</div></div></div>
-          <div class="music-entry" data-title="i want you" data-artist="janet jackson"><span class="entry-num">23</span><div class="entry-body"><div class="entry-title">i want you</div><div class="entry-artist">janet jackson</div></div></div>
-          <div class="music-entry" data-title="every time" data-artist="janet jackson"><span class="entry-num">24</span><div class="entry-body"><div class="entry-title">every time</div><div class="entry-artist">janet jackson</div></div></div>
-          <div class="music-entry" data-title="cuff it" data-artist="beyoncé"><span class="entry-num">25</span><div class="entry-body"><div class="entry-title">cuff it</div><div class="entry-artist">beyoncé</div></div></div>
-          <div class="music-entry" data-title="donk" data-artist="beyoncé"><span class="entry-num">26</span><div class="entry-body"><div class="entry-title">donk</div><div class="entry-artist">beyoncé</div></div></div>
-          <div class="music-entry" data-title="me, myself and i" data-artist="beyoncé"><span class="entry-num">27</span><div class="entry-body"><div class="entry-title">me, myself and i</div><div class="entry-artist">beyoncé</div></div></div>
-          <div class="music-entry" data-title="summertime" data-artist="beyoncé / puff daddy"><span class="entry-num">28</span><div class="entry-body"><div class="entry-title">summertime</div><div class="entry-artist">beyoncé / puff daddy</div></div></div>
-          <div class="music-entry" data-title="浮躁" data-artist="王菲"><span class="entry-num">29</span><div class="entry-body"><div class="entry-title">浮躁</div><div class="entry-artist">王菲</div></div></div>
-          <div class="music-entry" data-title="分裂" data-artist="王菲"><span class="entry-num">30</span><div class="entry-body"><div class="entry-title">分裂</div><div class="entry-artist">王菲</div></div></div>
-          <div class="music-entry" data-title="无常" data-artist="王菲"><span class="entry-num">31</span><div class="entry-body"><div class="entry-title">无常</div><div class="entry-artist">王菲</div></div></div>
-          <div class="music-entry" data-title="红粉菲菲" data-artist="王菲"><span class="entry-num">32</span><div class="entry-body"><div class="entry-title">红粉菲菲</div><div class="entry-artist">王菲</div></div></div>
-          <div class="music-entry" data-title="可爱眼睛" data-artist="王菲"><span class="entry-num">33</span><div class="entry-body"><div class="entry-title">可爱眼睛</div><div class="entry-artist">王菲</div></div></div>
-          <div class="music-entry" data-title="再见萤火虫" data-artist="王菲"><span class="entry-num">34</span><div class="entry-body"><div class="entry-title">再见萤火虫</div><div class="entry-artist">王菲</div></div></div>
-          <div class="music-entry" data-title="当时的月亮" data-artist="王菲"><span class="entry-num">35</span><div class="entry-body"><div class="entry-title">当时的月亮</div><div class="entry-artist">王菲</div></div></div>
-          <div class="music-entry" data-title="执迷不悔" data-artist="王菲"><span class="entry-num">36</span><div class="entry-body"><div class="entry-title">执迷不悔</div><div class="entry-artist">王菲</div></div></div>
-          <div class="music-entry" data-title="蝴蝶" data-artist="王菲"><span class="entry-num">37</span><div class="entry-body"><div class="entry-title">蝴蝶</div><div class="entry-artist">王菲</div></div></div>
-          <div class="music-entry" data-title="你快乐所以我快乐" data-artist="王菲"><span class="entry-num">38</span><div class="entry-body"><div class="entry-title">你快乐所以我快乐</div><div class="entry-artist">王菲</div></div></div>
-          <div class="music-entry" data-title="天使" data-artist="王菲"><span class="entry-num">39</span><div class="entry-body"><div class="entry-title">天使</div><div class="entry-artist">王菲</div></div></div>
-          <div class="music-entry" data-title="don&#39;t break my heart (live)" data-artist="王菲"><span class="entry-num">40</span><div class="entry-body"><div class="entry-title">don't break my heart (live)</div><div class="entry-artist">王菲</div></div></div>
-          <div class="music-entry" data-title="你喜欢不如我喜欢" data-artist="王菲"><span class="entry-num">41</span><div class="entry-body"><div class="entry-title">你喜欢不如我喜欢</div><div class="entry-artist">王菲</div></div></div>
-          <div class="music-entry" data-title="my all" data-artist="浜崎あゆみ"><span class="entry-num">42</span><div class="entry-body"><div class="entry-title">my all</div><div class="entry-artist">浜崎あゆみ</div></div></div>
-          <div class="music-entry" data-title="i will survive (the aretha version)" data-artist="aretha franklin"><span class="entry-num">43</span><div class="entry-body"><div class="entry-title">i will survive (the aretha version)</div><div class="entry-artist">aretha franklin</div></div></div>
-        </div>
-        <div class="music-empty">没找到匹配的歌曲 🎵</div>
       </div>
       <div class="music-panel" id="music-chinese" data-theme="chinese">
         <div class="music-panel-desc">华语宝藏们，每首都是回忆 💫</div>
         <div class="album-shelf"><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/9e/78/07/9e7807ae-f751-e110-3c3e-64c02183bc4e/1105_4000x4000.jpg/400x400bb.jpg" alt="奇异恩典" loading="lazy"><div class="album-name">奇异恩典<br>陈粒</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/35/d7/2a/35d72a0a-7e0c-fc2d-b2da-4bd030219997/190296501159.jpg/400x400bb.jpg" alt="David Tao" loading="lazy"><div class="album-name">David Tao<br>陶喆</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/d5/1f/46/d51f46df-c761-154d-0820-712b481948dc/cover.jpg/400x400bb.jpg" alt="浮躁" loading="lazy"><div class="album-name">浮躁<br>王菲</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/5e/f9/24/5ef924cb-3a1d-84fb-7099-6a2628dae0d7/cover.jpg/400x400bb.jpg" alt="孙燕姿" loading="lazy"><div class="album-name">孙燕姿<br>同名专辑</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/0e/0a/ec/0e0aec1c-4e46-a50f-2990-8ba6ae914228/4547366756623.jpg/400x400bb.jpg" alt="姐流行" loading="lazy"><div class="album-name">姐流行<br>张惠妹</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/1c/4b/10/1c4b10de-09e6-cbc3-df98-9103a8b1b8be/RD-1712.jpg/400x400bb.jpg" alt="陳綺貞精選" loading="lazy"><div class="album-name">陳綺貞精選<br>(华语综合)</div></div></div>
-
-        <div class="music-list">
-          <div class="music-entry" data-title="妙龄童" data-artist="陈粒"><span class="entry-num">1</span><div class="entry-body"><div class="entry-title">妙龄童</div><div class="entry-artist">陈粒</div></div></div>
-          <div class="music-entry" data-title="绝对占有 相对自由" data-artist="陈粒"><span class="entry-num">2</span><div class="entry-body"><div class="entry-title">绝对占有 相对自由</div><div class="entry-artist">陈粒</div></div></div>
-          <div class="music-entry" data-title="不妙" data-artist="陈粒"><span class="entry-num">3</span><div class="entry-body"><div class="entry-title">不妙</div><div class="entry-artist">陈粒</div></div></div>
-          <div class="music-entry" data-title="怪不得" data-artist="陈粒"><span class="entry-num">4</span><div class="entry-body"><div class="entry-title">怪不得</div><div class="entry-artist">陈粒</div></div></div>
-          <div class="music-entry" data-title="芳草地" data-artist="陈粒"><span class="entry-num">5</span><div class="entry-body"><div class="entry-title">芳草地</div><div class="entry-artist">陈粒</div></div></div>
-          <div class="music-entry" data-title="⭐️" data-artist="陈粒"><span class="entry-num">6</span><div class="entry-body"><div class="entry-title">⭐️</div><div class="entry-artist">陈粒</div></div></div>
-          <div class="music-entry" data-title="果实" data-artist="陈粒"><span class="entry-num">7</span><div class="entry-body"><div class="entry-title">果实</div><div class="entry-artist">陈粒</div></div></div>
-          <div class="music-entry" data-title="普通朋友" data-artist="陶喆"><span class="entry-num">8</span><div class="entry-body"><div class="entry-title">普通朋友</div><div class="entry-artist">陶喆</div></div></div>
-          <div class="music-entry" data-title="普通朋友 (live)" data-artist="陶喆"><span class="entry-num">9</span><div class="entry-body"><div class="entry-title">普通朋友 (live)</div><div class="entry-artist">陶喆</div></div></div>
-          <div class="music-entry" data-title="似曾相识" data-artist="陶喆"><span class="entry-num">10</span><div class="entry-body"><div class="entry-title">似曾相识</div><div class="entry-artist">陶喆</div></div></div>
-          <div class="music-entry" data-title="说走就走" data-artist="陶喆"><span class="entry-num">11</span><div class="entry-body"><div class="entry-title">说走就走</div><div class="entry-artist">陶喆</div></div></div>
-          <div class="music-entry" data-title="katrina" data-artist="陶喆"><span class="entry-num">12</span><div class="entry-body"><div class="entry-title">katrina</div><div class="entry-artist">陶喆</div></div></div>
-          <div class="music-entry" data-title="沙滩+somewhere over the rainbow (live)" data-artist="陶喆"><span class="entry-num">13</span><div class="entry-body"><div class="entry-title">沙滩+somewhere over the rainbow (live)</div><div class="entry-artist">陶喆</div></div></div>
-          <div class="music-entry" data-title="无地自容(live版)" data-artist="韩红 / 孙楠 / 萧敬腾 / 黄绮珊 / 陶喆"><span class="entry-num">14</span><div class="entry-body"><div class="entry-title">无地自容(live版)</div><div class="entry-artist">韩红 / 孙楠 / 萧敬腾 / 黄绮珊 / 陶喆</div></div></div>
-          <div class="music-entry" data-title="双栖动物" data-artist="蔡健雅"><span class="entry-num">15</span><div class="entry-body"><div class="entry-title">双栖动物</div><div class="entry-artist">蔡健雅</div></div></div>
-          <div class="music-entry" data-title="抛物线" data-artist="蔡健雅"><span class="entry-num">16</span><div class="entry-body"><div class="entry-title">抛物线</div><div class="entry-artist">蔡健雅</div></div></div>
-          <div class="music-entry" data-title="假想敌" data-artist="蔡健雅"><span class="entry-num">17</span><div class="entry-body"><div class="entry-title">假想敌</div><div class="entry-artist">蔡健雅</div></div></div>
-          <div class="music-entry" data-title="无底洞" data-artist="蔡健雅"><span class="entry-num">18</span><div class="entry-body"><div class="entry-title">无底洞</div><div class="entry-artist">蔡健雅</div></div></div>
-          <div class="music-entry" data-title="儿歌" data-artist="张悬"><span class="entry-num">19</span><div class="entry-body"><div class="entry-title">儿歌</div><div class="entry-artist">张悬</div></div></div>
-          <div class="music-entry" data-title="空虚" data-artist="张悬"><span class="entry-num">20</span><div class="entry-body"><div class="entry-title">空虚</div><div class="entry-artist">张悬</div></div></div>
-          <div class="music-entry" data-title="喜欢" data-artist="张悬"><span class="entry-num">21</span><div class="entry-body"><div class="entry-title">喜欢</div><div class="entry-artist">张悬</div></div></div>
-          <div class="music-entry" data-title="平常心" data-artist="张惠妹"><span class="entry-num">22</span><div class="entry-body"><div class="entry-title">平常心</div><div class="entry-artist">张惠妹</div></div></div>
-          <div class="music-entry" data-title="忘记" data-artist="张惠妹"><span class="entry-num">23</span><div class="entry-body"><div class="entry-title">忘记</div><div class="entry-artist">张惠妹</div></div></div>
-          <div class="music-entry" data-title="听海" data-artist="张惠妹"><span class="entry-num">24</span><div class="entry-body"><div class="entry-title">听海</div><div class="entry-artist">张惠妹</div></div></div>
-          <div class="music-entry" data-title="真实" data-artist="张惠妹"><span class="entry-num">25</span><div class="entry-body"><div class="entry-title">真实</div><div class="entry-artist">张惠妹</div></div></div>
-          <div class="music-entry" data-title="漩涡" data-artist="孙燕姿"><span class="entry-num">26</span><div class="entry-body"><div class="entry-title">漩涡</div><div class="entry-artist">孙燕姿</div></div></div>
-          <div class="music-entry" data-title="爱情字典" data-artist="孙燕姿"><span class="entry-num">27</span><div class="entry-body"><div class="entry-title">爱情字典</div><div class="entry-artist">孙燕姿</div></div></div>
-          <div class="music-entry" data-title="同类" data-artist="孙燕姿"><span class="entry-num">28</span><div class="entry-body"><div class="entry-title">同类</div><div class="entry-artist">孙燕姿</div></div></div>
-          <div class="music-entry" data-title="心之科学" data-artist="容祖儿"><span class="entry-num">29</span><div class="entry-body"><div class="entry-title">心之科学</div><div class="entry-artist">容祖儿</div></div></div>
-          <div class="music-entry" data-title="东京人寿" data-artist="容祖儿"><span class="entry-num">30</span><div class="entry-body"><div class="entry-title">东京人寿</div><div class="entry-artist">容祖儿</div></div></div>
-          <div class="music-entry" data-title="烟霞" data-artist="容祖儿"><span class="entry-num">31</span><div class="entry-body"><div class="entry-title">烟霞</div><div class="entry-artist">容祖儿</div></div></div>
-          <div class="music-entry" data-title="没有寄的信" data-artist="安溥"><span class="entry-num">32</span><div class="entry-body"><div class="entry-title">没有寄的信</div><div class="entry-artist">安溥</div></div></div>
-          <div class="music-entry" data-title="困在" data-artist="魏如萱"><span class="entry-num">33</span><div class="entry-body"><div class="entry-title">困在</div><div class="entry-artist">魏如萱</div></div></div>
-          <div class="music-entry" data-title="失忆蝴蝶" data-artist="陈奕迅"><span class="entry-num">34</span><div class="entry-body"><div class="entry-title">失忆蝴蝶</div><div class="entry-artist">陈奕迅</div></div></div>
-          <div class="music-entry" data-title="情歌" data-artist="梁静茹"><span class="entry-num">35</span><div class="entry-body"><div class="entry-title">情歌</div><div class="entry-artist">梁静茹</div></div></div>
-          <div class="music-entry" data-title="枯荣" data-artist="林忆莲"><span class="entry-num">36</span><div class="entry-body"><div class="entry-title">枯荣</div><div class="entry-artist">林忆莲</div></div></div>
-          <div class="music-entry" data-title="i&#39;m not strong enough" data-artist="林忆莲"><span class="entry-num">37</span><div class="entry-body"><div class="entry-title">i'm not strong enough</div><div class="entry-artist">林忆莲</div></div></div>
-          <div class="music-entry" data-title="好想你" data-artist="蔡依林"><span class="entry-num">38</span><div class="entry-body"><div class="entry-title">好想你</div><div class="entry-artist">蔡依林</div></div></div>
-          <div class="music-entry" data-title="飞女正传" data-artist="杨千嬅"><span class="entry-num">39</span><div class="entry-body"><div class="entry-title">飞女正传</div><div class="entry-artist">杨千嬅</div></div></div>
-          <div class="music-entry" data-title="仰望" data-artist="杨丞琳"><span class="entry-num">40</span><div class="entry-body"><div class="entry-title">仰望</div><div class="entry-artist">杨丞琳</div></div></div>
-          <div class="music-entry" data-title="习惯这样" data-artist="戴佩妮"><span class="entry-num">41</span><div class="entry-body"><div class="entry-title">习惯这样</div><div class="entry-artist">戴佩妮</div></div></div>
-          <div class="music-entry" data-title="是非题" data-artist="莫文蔚"><span class="entry-num">42</span><div class="entry-body"><div class="entry-title">是非题</div><div class="entry-artist">莫文蔚</div></div></div>
-          <div class="music-entry" data-title="十二楼" data-artist="莫文蔚"><span class="entry-num">43</span><div class="entry-body"><div class="entry-title">十二楼</div><div class="entry-artist">莫文蔚</div></div></div>
-          <div class="music-entry" data-title="夏日倾情" data-artist="卫兰"><span class="entry-num">44</span><div class="entry-body"><div class="entry-title">夏日倾情</div><div class="entry-artist">卫兰</div></div></div>
-          <div class="music-entry" data-title="挚友" data-artist="黄丽玲"><span class="entry-num">45</span><div class="entry-body"><div class="entry-title">挚友</div><div class="entry-artist">黄丽玲</div></div></div>
-          <div class="music-entry" data-title="last dance (live)" data-artist="徐佳莹"><span class="entry-num">46</span><div class="entry-body"><div class="entry-title">last dance (live)</div><div class="entry-artist">徐佳莹</div></div></div>
-          <div class="music-entry" data-title="all tied up in you" data-artist="李玟"><span class="entry-num">47</span><div class="entry-body"><div class="entry-title">all tied up in you</div><div class="entry-artist">李玟</div></div></div>
-          <div class="music-entry" data-title="can we talk about it" data-artist="李玟"><span class="entry-num">48</span><div class="entry-body"><div class="entry-title">can we talk about it</div><div class="entry-artist">李玟</div></div></div>
-          <div class="music-entry" data-title="感觉" data-artist="梦飞船"><span class="entry-num">49</span><div class="entry-body"><div class="entry-title">感觉</div><div class="entry-artist">梦飞船</div></div></div>
-          <div class="music-entry" data-title="7-11 的爱恋" data-artist="梦飞船"><span class="entry-num">50</span><div class="entry-body"><div class="entry-title">7-11 的爱恋</div><div class="entry-artist">梦飞船</div></div></div>
-          <div class="music-entry" data-title="白色羽毛" data-artist="芮恩"><span class="entry-num">51</span><div class="entry-body"><div class="entry-title">白色羽毛</div><div class="entry-artist">芮恩</div></div></div>
-          <div class="music-entry" data-title="讨厌" data-artist="芮恩"><span class="entry-num">52</span><div class="entry-body"><div class="entry-title">讨厌</div><div class="entry-artist">芮恩</div></div></div>
-          <div class="music-entry" data-title="泪桥" data-artist="蛋炒饭"><span class="entry-num">53</span><div class="entry-body"><div class="entry-title">泪桥</div><div class="entry-artist">蛋炒饭</div></div></div>
-          <div class="music-entry" data-title="和尚" data-artist="胡彦斌"><span class="entry-num">54</span><div class="entry-body"><div class="entry-title">和尚</div><div class="entry-artist">胡彦斌</div></div></div>
-          <div class="music-entry" data-title="让她降落" data-artist="何璐"><span class="entry-num">55</span><div class="entry-body"><div class="entry-title">让她降落</div><div class="entry-artist">何璐</div></div></div>
-          <div class="music-entry" data-title="欲影" data-artist="代号鸢"><span class="entry-num">56</span><div class="entry-body"><div class="entry-title">欲影</div><div class="entry-artist">代号鸢</div></div></div>
-          <div class="music-entry" data-title="mulan" data-artist="刘柏辛lexie"><span class="entry-num">57</span><div class="entry-body"><div class="entry-title">mulan</div><div class="entry-artist">刘柏辛lexie</div></div></div>
-          <div class="music-entry" data-title="别无他求 (黄)" data-artist="xiunism 杨陈秀一 / 赵超凡"><span class="entry-num">58</span><div class="entry-body"><div class="entry-title">别无他求 (黄)</div><div class="entry-artist">xiunism 杨陈秀一 / 赵超凡</div></div></div>
-          <div class="music-entry" data-title="[方大同]新鸳鸯蝴蝶梦" data-artist="o v o"><span class="entry-num">59</span><div class="entry-body"><div class="entry-title">[方大同]新鸳鸯蝴蝶梦</div><div class="entry-artist">o v o</div></div></div>
-        </div>
-        <div class="music-entry" data-title="冬天一个游" data-artist="gordon flanders"><span class="entry-num">60</span><div class="entry-body"><div class="entry-title">冬天一个游</div>
-          <div class="music-empty">没找到匹配的歌曲 🎵</div>
-      </div>
+</div>
       <div class="music-panel" id="music-western" data-theme="western">
         <div class="music-panel-desc">欧美宇宙，从流行到音乐剧 🌍</div>
         <div class="album-shelf"><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/40/df/51/40df51a8-60cb-9ec7-4192-5e23ed6c76c6/24UM1IM04185.rgb.jpg/400x400bb.jpg" alt="eternal sunshine" loading="lazy"><div class="album-name">eternal sunshine<br>Ariana Grande</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/29/a7/c4/29a7c478-351d-25eb-a116-3e68118cdab8/24UMGIM31246.rgb.jpg/400x400bb.jpg" alt="Good Luck, Babe!" loading="lazy"><div class="album-name">Good Luck, Babe!<br>Chappell Roan</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/cb/6e/a7/cb6ea70a-6cb8-89a0-4da7-91e2d04a7bba/08PNDIM05386.rgb.jpg/400x400bb.jpg" alt="Fearless" loading="lazy"><div class="album-name">Fearless<br>Taylor Swift</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/fb/bd/71/fbbd71b7-7e53-b3d7-7c98-15e8a4e12c11/24UMGIM26116.rgb.jpg/400x400bb.jpg" alt="HIT ME HARD" loading="lazy"><div class="album-name">HIT ME HARD<br>AND SOFT<br>Billie Eilish</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/5f/d9/63/5fd96387-45fa-6b94-afd8-7b2c4a24a93b/11UMGIM38959.rgb.jpg/400x400bb.jpg" alt="Born to Die" loading="lazy"><div class="album-name">Born to Die<br>Lana Del Rey</div></div><div class="album-card"><img class="album-cover" src="https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/c7/88/df/c788dffe-d06f-8923-ad61-a6194daf6616/888880809919.jpg/400x400bb.jpg" alt="As I Am" loading="lazy"><div class="album-name">As I Am<br>Alicia Keys</div></div></div>
 
-        <div class="music-list">
-          <div class="music-entry" data-title="god is a woman" data-artist="ariana grande"><span class="entry-num">1</span><div class="entry-body"><div class="entry-title">god is a woman</div><div class="entry-artist">ariana grande</div></div></div>
-          <div class="music-entry" data-title="yes, and?" data-artist="ariana grande"><span class="entry-num">2</span><div class="entry-body"><div class="entry-title">yes, and?</div><div class="entry-artist">ariana grande</div></div></div>
-          <div class="music-entry" data-title="we can&#39;t be friends (wait for your love)" data-artist="ariana grande"><span class="entry-num">3</span><div class="entry-body"><div class="entry-title">we can't be friends (wait for your love)</div><div class="entry-artist">ariana grande</div></div></div>
-          <div class="music-entry" data-title="nasty" data-artist="ariana grande"><span class="entry-num">4</span><div class="entry-body"><div class="entry-title">nasty</div><div class="entry-artist">ariana grande</div></div></div>
-          <div class="music-entry" data-title="needy" data-artist="ariana grande"><span class="entry-num">5</span><div class="entry-body"><div class="entry-title">needy</div><div class="entry-artist">ariana grande</div></div></div>
-          <div class="music-entry" data-title="santa tell me" data-artist="ariana grande"><span class="entry-num">6</span><div class="entry-body"><div class="entry-title">santa tell me</div><div class="entry-artist">ariana grande</div></div></div>
-          <div class="music-entry" data-title="good luck, babe!" data-artist="chappell roan"><span class="entry-num">7</span><div class="entry-body"><div class="entry-title">good luck, babe!</div><div class="entry-artist">chappell roan</div></div></div>
-          <div class="music-entry" data-title="love story" data-artist="taylor swift"><span class="entry-num">8</span><div class="entry-body"><div class="entry-title">love story</div><div class="entry-artist">taylor swift</div></div></div>
-          <div class="music-entry" data-title="august" data-artist="taylor swift"><span class="entry-num">9</span><div class="entry-body"><div class="entry-title">august</div><div class="entry-artist">taylor swift</div></div></div>
-          <div class="music-entry" data-title="new year&#39;s day" data-artist="taylor swift"><span class="entry-num">10</span><div class="entry-body"><div class="entry-title">new year's day</div><div class="entry-artist">taylor swift</div></div></div>
-          <div class="music-entry" data-title="the fate of ophelia" data-artist="taylor swift"><span class="entry-num">11</span><div class="entry-body"><div class="entry-title">the fate of ophelia</div><div class="entry-artist">taylor swift</div></div></div>
-          <div class="music-entry" data-title="lunch" data-artist="billie eilish"><span class="entry-num">12</span><div class="entry-body"><div class="entry-title">lunch</div><div class="entry-artist">billie eilish</div></div></div>
-          <div class="music-entry" data-title="skinny" data-artist="billie eilish"><span class="entry-num">13</span><div class="entry-body"><div class="entry-title">skinny</div><div class="entry-artist">billie eilish</div></div></div>
-          <div class="music-entry" data-title="l&#39;amour de ma vie" data-artist="billie eilish"><span class="entry-num">14</span><div class="entry-body"><div class="entry-title">l'amour de ma vie</div><div class="entry-artist">billie eilish</div></div></div>
-          <div class="music-entry" data-title="bad guy" data-artist="billie eilish"><span class="entry-num">15</span><div class="entry-body"><div class="entry-title">bad guy</div><div class="entry-artist">billie eilish</div></div></div>
-          <div class="music-entry" data-title="summertime sadness" data-artist="lana del rey"><span class="entry-num">16</span><div class="entry-body"><div class="entry-title">summertime sadness</div><div class="entry-artist">lana del rey</div></div></div>
-          <div class="music-entry" data-title="young and beautiful" data-artist="lana del rey"><span class="entry-num">17</span><div class="entry-body"><div class="entry-title">young and beautiful</div><div class="entry-artist">lana del rey</div></div></div>
-          <div class="music-entry" data-title="cherry" data-artist="lana del rey"><span class="entry-num">18</span><div class="entry-body"><div class="entry-title">cherry</div><div class="entry-artist">lana del rey</div></div></div>
-          <div class="music-entry" data-title="no one" data-artist="alicia keys"><span class="entry-num">19</span><div class="entry-body"><div class="entry-title">no one</div><div class="entry-artist">alicia keys</div></div></div>
-          <div class="music-entry" data-title="fallin&#39;" data-artist="alicia keys"><span class="entry-num">20</span><div class="entry-body"><div class="entry-title">fallin'</div><div class="entry-artist">alicia keys</div></div></div>
-          <div class="music-entry" data-title="girl on fire" data-artist="alicia keys"><span class="entry-num">21</span><div class="entry-body"><div class="entry-title">girl on fire</div><div class="entry-artist">alicia keys</div></div></div>
-          <div class="music-entry" data-title="a woman&#39;s worth" data-artist="alicia keys"><span class="entry-num">22</span><div class="entry-body"><div class="entry-title">a woman's worth</div><div class="entry-artist">alicia keys</div></div></div>
-          <div class="music-entry" data-title="other side of love (remix)" data-artist="coco jones / alicia keys"><span class="entry-num">23</span><div class="entry-body"><div class="entry-title">other side of love (remix)</div><div class="entry-artist">coco jones / alicia keys</div></div></div>
-          <div class="music-entry" data-title="bleeding love" data-artist="leona lewis"><span class="entry-num">24</span><div class="entry-body"><div class="entry-title">bleeding love</div><div class="entry-artist">leona lewis</div></div></div>
-          <div class="music-entry" data-title="yesterday" data-artist="leona lewis"><span class="entry-num">25</span><div class="entry-body"><div class="entry-title">yesterday</div><div class="entry-artist">leona lewis</div></div></div>
-          <div class="music-entry" data-title="pain" data-artist="muni long"><span class="entry-num">26</span><div class="entry-body"><div class="entry-title">pain</div><div class="entry-artist">muni long</div></div></div>
-          <div class="music-entry" data-title="made for me" data-artist="muni long"><span class="entry-num">27</span><div class="entry-body"><div class="entry-title">made for me</div><div class="entry-artist">muni long</div></div></div>
-          <div class="music-entry" data-title="say my name" data-artist="destiny&#39;s child"><span class="entry-num">28</span><div class="entry-body"><div class="entry-title">say my name</div><div class="entry-artist">destiny's child</div></div></div>
-          <div class="music-entry" data-title="s&amp;m" data-artist="rihanna"><span class="entry-num">29</span><div class="entry-body"><div class="entry-title">s&m</div><div class="entry-artist">rihanna</div></div></div>
-          <div class="music-entry" data-title="taste" data-artist="coco jones"><span class="entry-num">30</span><div class="entry-body"><div class="entry-title">taste</div><div class="entry-artist">coco jones</div></div></div>
-          <div class="music-entry" data-title="love" data-artist="keyshia cole"><span class="entry-num">31</span><div class="entry-body"><div class="entry-title">love</div><div class="entry-artist">keyshia cole</div></div></div>
-          <div class="music-entry" data-title="losing you" data-artist="flo"><span class="entry-num">32</span><div class="entry-body"><div class="entry-title">losing you</div><div class="entry-artist">flo</div></div></div>
-          <div class="music-entry" data-title="where i stand" data-artist="ashanti"><span class="entry-num">33</span><div class="entry-body"><div class="entry-title">where i stand</div><div class="entry-artist">ashanti</div></div></div>
-          <div class="music-entry" data-title="sugar talking" data-artist="sabrina carpenter"><span class="entry-num">34</span><div class="entry-body"><div class="entry-title">sugar talking</div><div class="entry-artist">sabrina carpenter</div></div></div>
-          <div class="music-entry" data-title="manchild" data-artist="sabrina carpenter"><span class="entry-num">35</span><div class="entry-body"><div class="entry-title">manchild</div><div class="entry-artist">sabrina carpenter</div></div></div>
-          <div class="music-entry" data-title="gimme more" data-artist="britney spears"><span class="entry-num">36</span><div class="entry-body"><div class="entry-title">gimme more</div><div class="entry-artist">britney spears</div></div></div>
-          <div class="music-entry" data-title="million years ago" data-artist="adele"><span class="entry-num">37</span><div class="entry-body"><div class="entry-title">million years ago</div><div class="entry-artist">adele</div></div></div>
-          <div class="music-entry" data-title="dreaming of you" data-artist="selena quintanilla-perez"><span class="entry-num">38</span><div class="entry-body"><div class="entry-title">dreaming of you</div><div class="entry-artist">selena quintanilla-perez</div></div></div>
-          <div class="music-entry" data-title="can&#39;t take my eyes off you" data-artist="lauryn hill"><span class="entry-num">39</span><div class="entry-body"><div class="entry-title">can't take my eyes off you</div><div class="entry-artist">lauryn hill</div></div></div>
-          <div class="music-entry" data-title="just one last dance" data-artist="sarah connor / natural"><span class="entry-num">40</span><div class="entry-body"><div class="entry-title">just one last dance</div><div class="entry-artist">sarah connor / natural</div></div></div>
-          <div class="music-entry" data-title="what you won&#39;t do for love" data-artist="bobby caldwell"><span class="entry-num">41</span><div class="entry-body"><div class="entry-title">what you won't do for love</div><div class="entry-artist">bobby caldwell</div></div></div>
-          <div class="music-entry" data-title="mystery of love" data-artist="sufjan stevens"><span class="entry-num">42</span><div class="entry-body"><div class="entry-title">mystery of love</div><div class="entry-artist">sufjan stevens</div></div></div>
-          <div class="music-entry" data-title="my heart will go on (love theme from &quot;titanic&quot;)" data-artist="céline dion / james horner"><span class="entry-num">43</span><div class="entry-body"><div class="entry-title">my heart will go on (love theme from "titanic")</div><div class="entry-artist">céline dion / james horner</div></div></div>
-          <div class="music-entry" data-title="everybody come out in the sunshine (feat. jamie pineda)" data-artist="sweetbox"><span class="entry-num">44</span><div class="entry-body"><div class="entry-title">everybody come out in the sunshine (feat. jamie pineda)</div><div class="entry-artist">sweetbox</div></div></div>
-          <div class="music-entry" data-title="say you love me" data-artist="patti austin"><span class="entry-num">45</span><div class="entry-body"><div class="entry-title">say you love me</div><div class="entry-artist">patti austin</div></div></div>
-          <div class="entry-artist">gordon flanders</div></div></div>
-          <div class="music-entry" data-title="wishing you were somehow here again (live)" data-artist="andrew lloyd webber / sierra boggess"><span class="entry-num">47</span><div class="entry-body"><div class="entry-title">wishing you were somehow here again (live)</div><div class="entry-artist">andrew lloyd webber / sierra boggess</div></div></div>
-          <div class="music-entry" data-title="the point of no return (live)" data-artist="andrew lloyd webber"><span class="entry-num">48</span><div class="entry-body"><div class="entry-title">the point of no return (live)</div><div class="entry-artist">andrew lloyd webber</div></div></div>
-          <div class="music-entry" data-title="don&#39;t lose ur head (feat. christina modestou)" data-artist="six / christina modestou"><span class="entry-num">49</span><div class="entry-body"><div class="entry-title">don't lose ur head (feat. christina modestou)</div><div class="entry-artist">six / christina modestou</div></div></div>
-          <div class="music-entry" data-title="who lives, who dies, who tells your story" data-artist="original broadway cast of hamilton"><span class="entry-num">50</span><div class="entry-body"><div class="entry-title">who lives, who dies, who tells your story</div><div class="entry-artist">original broadway cast of hamilton</div></div></div>
-          <div class="music-entry" data-title="eviter les roses" data-artist="vincent baguian / haylen / côme"><span class="entry-num">51</span><div class="entry-body"><div class="entry-title">eviter les roses</div><div class="entry-artist">vincent baguian / haylen / côme</div></div></div>
-          <div class="music-entry" data-title="ich gehör nur mir" data-artist="theater an der wien ensemble"><span class="entry-num">52</span><div class="entry-body"><div class="entry-title">ich gehör nur mir</div><div class="entry-artist">theater an der wien ensemble</div></div></div>
         </div>
-        <div class="music-empty">没找到匹配的歌曲 🎵</div>
+<div class="entry-artist">andrew lloyd webber / sierra boggess</div></div></div>
+<div class="entry-artist">andrew lloyd webber</div></div></div>
+<div class="entry-artist">six / christina modestou</div></div></div>
+<div class="entry-artist">original broadway cast of hamilton</div></div></div>
+<div class="entry-artist">vincent baguian / haylen / côme</div></div></div>
+<div class="entry-artist">theater an der wien ensemble</div></div></div>
+        </div>
       </div>
 
         <div class="music-grid">
@@ -1819,15 +1562,8 @@
     const kw = q.trim().toLowerCase();
     const panel = document.querySelector('.music-panel.active');
     if (!panel) return;
-    const items = panel.querySelectorAll('.music-entry');
-    let visible = 0;
-    items.forEach(item => {
-      const title = item.dataset.title || '';
-      const artist = item.dataset.artist || '';
-      const match = !kw || title.includes(kw) || artist.includes(kw);
-      item.classList.toggle('hidden', !match);
-      if (match) visible++;
-    });
+    const items = panel.querySelectorAll('
+    );
     const empty = panel.querySelector('.music-empty');
     if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
     updateMusicCount(panel, kw ? visible : null);
@@ -1836,9 +1572,8 @@
   function updateMusicCount(panel, filtered) {
     const countEl = document.getElementById('music-count');
     if (!countEl || !panel) return;
-    const total = panel.querySelectorAll('.music-entry').length;
-    countEl.textContent = filtered !== null && filtered !== undefined
-      ? `${filtered} / ${total} 首`
+    const total = panel.querySelectorAll('
+    / ${total} 首`
       : `${total} 首`;
   }
 
@@ -2210,7 +1945,6 @@
       a.classList.toggle('active', a.getAttribute('href') === '#' + current);
     });
   });
-
 
 </script>
 </body>
