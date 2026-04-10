@@ -1738,28 +1738,46 @@
 
 <script>
   // ── 音乐标签切换 ──
-  // ── 专辑封面缓存（避免重复请求）──
+  // ── 专辑封面缓存 ──
   const _artCache = {};
+  let _cbCounter = 0;
 
-  async function fetchArtwork(title, artist) {
-    const key = (title + '|' + artist).toLowerCase();
-    if (_artCache[key] !== undefined) return _artCache[key];
-    _artCache[key] = null; // 占位，防止并发重复请求
-    try {
-      // iTunes Search API，免费、无需 key、CORS 友好
+  // 用 JSONP 方式调用 iTunes API，绕过 CORS 限制
+  function fetchArtworkJsonp(title, artist) {
+    const key = (title + '||' + artist).toLowerCase();
+    if (_artCache[key] !== undefined) return Promise.resolve(_artCache[key]);
+    _artCache[key] = null; // 占位防重复
+
+    return new Promise(resolve => {
+      const cbName = '__itunesCb' + (_cbCounter++);
+      const timer = setTimeout(() => {
+        delete window[cbName];
+        resolve(null);
+      }, 5000);
+
+      window[cbName] = function(data) {
+        clearTimeout(timer);
+        delete window[cbName];
+        if (data && data.results && data.results.length > 0) {
+          const art = data.results[0].artworkUrl100
+            .replace('100x100bb', '400x400bb');
+          _artCache[key] = art;
+          resolve(art);
+        } else {
+          resolve(null);
+        }
+        // 移除 script 标签
+        const s = document.getElementById(cbName);
+        if (s) s.remove();
+      };
+
       const q = encodeURIComponent(title + ' ' + artist);
-      const url = `https://itunes.apple.com/search?term=${q}&media=music&entity=song&limit=3&country=cn`;
-      const res = await fetch(url);
-      if (!res.ok) return null;
-      const data = await res.json();
-      if (data.results && data.results.length > 0) {
-        // 取第一条，100x100 → 500x500
-        const art = data.results[0].artworkUrl100.replace('100x100bb', '500x500bb');
-        _artCache[key] = art;
-        return art;
-      }
-    } catch (e) {}
-    return null;
+      const script = document.createElement('script');
+      script.id = cbName;
+      script.src = `https://itunes.apple.com/search?term=${q}&media=music&entity=song&limit=3&callback=${cbName}`;
+      script.onerror = () => { clearTimeout(timer); resolve(null); };
+      document.head.appendChild(script);
+    });
   }
 
   function applyArtwork(disc, artUrl) {
@@ -1767,30 +1785,25 @@
     disc.style.backgroundImage = `url('${artUrl}')`;
     disc.style.backgroundSize = 'cover';
     disc.style.backgroundPosition = 'center';
-    // 隐藏中心孔（封面模式下不好看）
     disc.classList.add('has-art');
   }
 
   async function loadPanelArtwork(panel) {
     const items = panel.querySelectorAll('.music-item:not([data-art-loaded])');
-    // 分批加载，每批 6 个，避免打爆请求
-    const BATCH = 6;
-    for (let i = 0; i < items.length; i += BATCH) {
-      const batch = Array.from(items).slice(i, i + BATCH);
+    const BATCH = 5; // JSONP 并发不能太高
+    const arr = Array.from(items);
+    for (let i = 0; i < arr.length; i += BATCH) {
+      const batch = arr.slice(i, i + BATCH);
       await Promise.all(batch.map(async item => {
         item.dataset.artLoaded = '1';
-        const rawTitle = item.dataset.title || '';
-        const rawArtist = item.dataset.artist || '';
-        // 还原实际标题（data-title 是 lowercase 的，我们需要原始大小写）
         const titleEl = item.querySelector('.music-title');
         const artistEl = item.querySelector('.music-artist');
-        const realTitle = titleEl ? titleEl.textContent : rawTitle;
-        const realArtist = artistEl ? artistEl.textContent : rawArtist;
+        const realTitle = titleEl ? titleEl.textContent.trim() : '';
+        const realArtist = artistEl ? artistEl.textContent.trim() : '';
         const disc = item.querySelector('.music-disc');
-        if (!disc) return;
-        // 加载中：转圈动画
+        if (!disc || !realTitle) return;
         disc.classList.add('art-loading');
-        const art = await fetchArtwork(realTitle, realArtist);
+        const art = await fetchArtworkJsonp(realTitle, realArtist);
         disc.classList.remove('art-loading');
         if (art) applyArtwork(disc, art);
       }));
