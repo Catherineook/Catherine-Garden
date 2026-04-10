@@ -982,6 +982,14 @@
       transform: translate(-40%, -50%);
       z-index: 1;
     }
+    /* 有封面时隐藏中心孔伪元素，露出完整图片 */
+    .music-disc.has-art::before { display: none; }
+    .music-disc.has-art .disc-num { display: none; }
+    /* 加载中：快速转圈 */
+    .music-disc.art-loading {
+      animation: spin 0.8s linear infinite;
+      opacity: 0.6;
+    }
     @keyframes spin {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
@@ -1730,16 +1738,76 @@
 
 <script>
   // ── 音乐标签切换 ──
+  // ── 专辑封面缓存（避免重复请求）──
+  const _artCache = {};
+
+  async function fetchArtwork(title, artist) {
+    const key = (title + '|' + artist).toLowerCase();
+    if (_artCache[key] !== undefined) return _artCache[key];
+    _artCache[key] = null; // 占位，防止并发重复请求
+    try {
+      // iTunes Search API，免费、无需 key、CORS 友好
+      const q = encodeURIComponent(title + ' ' + artist);
+      const url = `https://itunes.apple.com/search?term=${q}&media=music&entity=song&limit=3&country=cn`;
+      const res = await fetch(url);
+      if (!res.ok) return null;
+      const data = await res.json();
+      if (data.results && data.results.length > 0) {
+        // 取第一条，100x100 → 500x500
+        const art = data.results[0].artworkUrl100.replace('100x100bb', '500x500bb');
+        _artCache[key] = art;
+        return art;
+      }
+    } catch (e) {}
+    return null;
+  }
+
+  function applyArtwork(disc, artUrl) {
+    if (!artUrl) return;
+    disc.style.backgroundImage = `url('${artUrl}')`;
+    disc.style.backgroundSize = 'cover';
+    disc.style.backgroundPosition = 'center';
+    // 隐藏中心孔（封面模式下不好看）
+    disc.classList.add('has-art');
+  }
+
+  async function loadPanelArtwork(panel) {
+    const items = panel.querySelectorAll('.music-item:not([data-art-loaded])');
+    // 分批加载，每批 6 个，避免打爆请求
+    const BATCH = 6;
+    for (let i = 0; i < items.length; i += BATCH) {
+      const batch = Array.from(items).slice(i, i + BATCH);
+      await Promise.all(batch.map(async item => {
+        item.dataset.artLoaded = '1';
+        const rawTitle = item.dataset.title || '';
+        const rawArtist = item.dataset.artist || '';
+        // 还原实际标题（data-title 是 lowercase 的，我们需要原始大小写）
+        const titleEl = item.querySelector('.music-title');
+        const artistEl = item.querySelector('.music-artist');
+        const realTitle = titleEl ? titleEl.textContent : rawTitle;
+        const realArtist = artistEl ? artistEl.textContent : rawArtist;
+        const disc = item.querySelector('.music-disc');
+        if (!disc) return;
+        // 加载中：转圈动画
+        disc.classList.add('art-loading');
+        const art = await fetchArtwork(realTitle, realArtist);
+        disc.classList.remove('art-loading');
+        if (art) applyArtwork(disc, art);
+      }));
+    }
+  }
+
   function switchMusic(id) {
     document.querySelectorAll('.music-tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.music-panel').forEach(p => p.classList.remove('active'));
     event.currentTarget.classList.add('active');
     const panel = document.getElementById('music-' + id);
     panel.classList.add('active');
-    // 切换分区时重新应用当前搜索词
     const q = document.querySelector('.music-search').value;
     if (q) filterMusic(q);
     updateMusicCount(panel);
+    // 懒加载该分区封面
+    loadPanelArtwork(panel);
   }
 
   function filterMusic(q) {
@@ -1755,7 +1823,6 @@
       item.classList.toggle('hidden', !match);
       if (match) visible++;
     });
-    // 更新空态
     const empty = panel.querySelector('.music-empty');
     if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
     updateMusicCount(panel, kw ? visible : null);
@@ -1770,10 +1837,13 @@
       : `${total} 首`;
   }
 
-  // 初始化计数
+  // 初始化：页面加载后先加载默认激活分区的封面
   document.addEventListener('DOMContentLoaded', () => {
     const activePanel = document.querySelector('.music-panel.active');
-    if (activePanel) updateMusicCount(activePanel);
+    if (activePanel) {
+      updateMusicCount(activePanel);
+      loadPanelArtwork(activePanel);
+    }
   });
 
   // ── 分类面板切换 ──
