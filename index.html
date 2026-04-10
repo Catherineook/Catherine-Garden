@@ -233,7 +233,25 @@
     }
     .tl-school strong {
       color: var(--text);
-      font-weight: 500;
+      font-weight: 700;
+    }
+    .tl-dept {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 12px;
+      color: var(--accent);
+      margin-left: 6px;
+      font-style: italic;
+    }
+    .tl-dept::before { content: '· '; color: var(--line); }
+    .tl-major {
+      font-size: 11px;
+      color: var(--text-l);
+      margin-left: 4px;
+      background: var(--pink-ll);
+      border: 1px solid var(--pink-l);
+      border-radius: 999px;
+      padding: 1px 8px;
+      vertical-align: middle;
     }
 
     .hero-modules {
@@ -473,6 +491,13 @@
     }
     .gallery-placeholder svg { width: 24px; height: 24px; color: var(--text-l); }
     .gallery-placeholder span { font-size: 12px; color: var(--text-l); }
+    .gallery-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
 
     /* ── Chat ── */
     #chat { background: var(--bg); }
@@ -584,6 +609,142 @@
     }
     .footer-heart { color: var(--accent); }
 
+    /* ── Modal ── */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(20, 35, 55, 0.45);
+      backdrop-filter: blur(6px);
+      z-index: 500;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      max-width: 680px; width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 36px 40px;
+      position: relative;
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.25s ease;
+      box-shadow: 0 24px 64px rgba(30,50,80,0.15);
+    }
+    .modal-overlay.open .modal { transform: translateY(0) scale(1); }
+    .modal-close {
+      position: absolute; top: 20px; right: 20px;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-l);
+      font-size: 16px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .modal-close:hover { background: var(--pink-ll); color: var(--accent); }
+    .modal-icon {
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+    }
+    .modal-icon svg { width: 24px; height: 24px; }
+    .modal-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .modal-subtitle {
+      font-size: 13px;
+      color: var(--text-l);
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+    }
+    .modal-section { margin-bottom: 22px; }
+    .modal-section-title {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .modal-body {
+      font-size: 14px;
+      color: var(--text-m);
+      line-height: 1.8;
+    }
+    .modal-body p { margin-bottom: 10px; }
+    .modal-body p:last-child { margin-bottom: 0; }
+    .modal-body strong { color: var(--text); font-weight: 600; }
+    .modal-steps {
+      display: flex; flex-direction: column; gap: 10px;
+      margin-top: 10px;
+    }
+    .modal-step {
+      display: flex; gap: 12px; align-items: flex-start;
+    }
+    .modal-step-num {
+      flex-shrink: 0;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--pink-ll);
+      border: 1px solid var(--pink-l);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-top: 2px;
+    }
+    .modal-step-text {
+      font-size: 13.5px;
+      color: var(--text-m);
+      line-height: 1.75;
+    }
+    .modal-step-text strong { color: var(--text); }
+    .modal-tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-top: 16px;
+    }
+    .modal-tag {
+      font-size: 11px;
+      padding: 4px 11px;
+      border-radius: 999px;
+      background: var(--bg2);
+      color: var(--text-l);
+      border: 1px solid var(--line);
+    }
+    .modal-tip {
+      background: var(--pink-ll);
+      border: 1px solid var(--pink-l);
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 13px;
+      color: var(--text-m);
+      line-height: 1.7;
+      margin-top: 14px;
+    }
+    .modal-tip::before { content: '💡 '; }
+    .k-card-arrow {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 12px;
+      color: var(--accent);
+      margin-top: 14px;
+      opacity: 0.7;
+      transition: opacity 0.2s, gap 0.2s;
+    }
+    .k-card:hover .k-card-arrow { opacity: 1; gap: 7px; }
+    .k-card-arrow svg { width: 12px; height: 12px; }
+
     /* ── Scroll reveal ── */
     .reveal {
       opacity: 1;
@@ -673,21 +834,28 @@
         <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
         <div class="tl-right">
           <div class="tl-year">2019 — 2022</div>
-          <div class="tl-school"><strong>上海交通大学附属中心</strong></div>
+          <div class="tl-school"><strong>上海交通大学附属中学</strong></div>
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
         <div class="tl-right">
           <div class="tl-year">2022 — 2026</div>
-          <div class="tl-school"><strong>北京大学</strong> · 哲学系 + 国际发展研究院</div>
+          <div class="tl-school"><strong>北京大学</strong> <span class="tl-dept">哲学系</span> <span class="tl-major">哲学</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-right">
+          <div class="tl-year">2022 — 2026</div>
+          <div class="tl-school"><strong>北京大学</strong> <span class="tl-dept">国家发展研究院</span> <span class="tl-major">经济学</span></div>
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
         <div class="tl-right">
           <div class="tl-year">2026 — 2029</div>
-          <div class="tl-school"><strong>北京大学汇丰商学院</strong> · 财经传媒</div>
+          <div class="tl-school"><strong>北京大学</strong> <span class="tl-dept">汇丰商学院</span> <span class="tl-major">新闻与传播</span></div>
         </div>
       </div>
     </div>
@@ -725,52 +893,85 @@
         <span class="section-line"></span>
       </div>
       <div class="knowledge-grid">
-        <a href="#" class="k-card reveal">
+
+        <!-- 卡片1: 种草漏斗模型 -->
+        <div class="k-card reveal" onclick="openModal('funnel')">
           <div class="k-card-icon icon-pink">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L13 13.414V19a1 1 0 01-.553.894l-4 2A1 1 0 017 21v-7.586L3.293 6.707A1 1 0 013 6V4z"/></svg>
+          </div>
+          <div class="k-card-title">种草漏斗模型</div>
+          <div class="k-card-desc">从曝光到成交，每一层漏斗的核心指标和优化思路，把投放逻辑讲清楚</div>
+          <div class="k-card-tags">
+            <span class="tag">投放逻辑</span><span class="tag">效果指标</span><span class="tag">漏斗分析</span>
+          </div>
+          <div class="k-card-arrow">点击查看详情 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></div>
+        </div>
+
+        <!-- 卡片2: 好笔记的三要素 -->
+        <div class="k-card reveal" onclick="openModal('goodnote')">
+          <div class="k-card-icon icon-sage">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          </div>
+          <div class="k-card-title">好笔记的三要素</div>
+          <div class="k-card-desc">人设真实、痛点共鸣、搜索可见——选博主和定内容方向的底层框架</div>
+          <div class="k-card-tags">
+            <span class="tag">内容策略</span><span class="tag">博主选择</span><span class="tag">种草</span>
+          </div>
+          <div class="k-card-arrow">点击查看详情 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></div>
+        </div>
+
+        <!-- 卡片3: 搜索 vs 信息流 -->
+        <div class="k-card reveal" onclick="openModal('search_vs_feed')">
+          <div class="k-card-icon icon-sky">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+          </div>
+          <div class="k-card-title">搜索口径 vs 信息流口径</div>
+          <div class="k-card-desc">两种投放场景的本质差异、适用时机，以及核心指标的不同解读方式</div>
+          <div class="k-card-tags">
+            <span class="tag">搜索广告</span><span class="tag">信息流</span><span class="tag">场景选择</span>
+          </div>
+          <div class="k-card-arrow">点击查看详情 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></div>
+        </div>
+
+        <!-- 卡片4: 效果指标解读 -->
+        <div class="k-card reveal" onclick="openModal('metrics')">
+          <div class="k-card-icon icon-warm">
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
           </div>
-          <div class="k-card-title">商业化策划</div>
-          <div class="k-card-desc">在小红书学到的投放逻辑、种草方法论、行业洞察——记录从实习生视角看到的商业世界</div>
+          <div class="k-card-title">站外效果指标解读</div>
+          <div class="k-card-desc">CPUV、CPTI、成交UV、三方归因……这些指标到底怎么理解，用哪个衡量笔记质量</div>
           <div class="k-card-tags">
-            <span class="tag">种草</span>
-            <span class="tag">投放策略</span>
-            <span class="tag">案例复盘</span>
+            <span class="tag">CPUV</span><span class="tag">CPTI</span><span class="tag">成交UV</span>
           </div>
-        </a>
-        <a href="#" class="k-card reveal">
+          <div class="k-card-arrow">点击查看详情 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></div>
+        </div>
+
+        <!-- 卡片5: 策略期 vs 非策略期 -->
+        <div class="k-card reveal" onclick="openModal('strategy_period')">
+          <div class="k-card-icon icon-pink">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          </div>
+          <div class="k-card-title">策略期 vs 非策略期</div>
+          <div class="k-card-desc">为什么要做对照组？怎么设计投放时段来验证策略是否真的有效</div>
+          <div class="k-card-tags">
+            <span class="tag">效果验证</span><span class="tag">对照组</span><span class="tag">数据归因</span>
+          </div>
+          <div class="k-card-arrow">点击查看详情 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></div>
+        </div>
+
+        <!-- 卡片6: KOC选角逻辑 -->
+        <div class="k-card reveal" onclick="openModal('koc')">
           <div class="k-card-icon icon-sage">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
           </div>
-          <div class="k-card-title">专业课知识</div>
-          <div class="k-card-desc">本科和研究生课内的学习笔记整理，把课堂里的东西变成真正属于自己的认知框架</div>
+          <div class="k-card-title">KOC 选角逻辑</div>
+          <div class="k-card-desc">从粉丝量到互动质量，再到人设匹配度——一套完整的种草博主筛选框架</div>
           <div class="k-card-tags">
-            <span class="tag">读书笔记</span>
-            <span class="tag">课程总结</span>
+            <span class="tag">KOC</span><span class="tag">博主筛选</span><span class="tag">人设匹配</span>
           </div>
-        </a>
-        <a href="#" class="k-card reveal">
-          <div class="k-card-icon icon-sky">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-          </div>
-          <div class="k-card-title">实习求职经历</div>
-          <div class="k-card-desc">找实习路上的经验、踩过的坑、投过的简历和面过的试——写给也在路上的你</div>
-          <div class="k-card-tags">
-            <span class="tag">简历</span>
-            <span class="tag">面试</span>
-            <span class="tag">经验贴</span>
-          </div>
-        </a>
-        <a href="#" class="k-card reveal">
-          <div class="k-card-icon icon-warm">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
-          </div>
-          <div class="k-card-title">想法碎片</div>
-          <div class="k-card-desc">那些还没想清楚但又舍不得丢的念头，可能是一句话，可能是一个问题，留在这里慢慢发酵</div>
-          <div class="k-card-tags">
-            <span class="tag">随想</span>
-            <span class="tag">草稿</span>
-          </div>
-        </a>
+          <div class="k-card-arrow">点击查看详情 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -860,34 +1061,19 @@
       </div>
       <div class="gallery-grid reveal">
         <div class="gallery-item tall">
-          <div class="gallery-placeholder">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-            <span>你的照片</span>
-          </div>
+          <img src="微信图片_20260410153352_90_11.jpg" alt="Catherine's photo" loading="lazy" />
         </div>
         <div class="gallery-item">
-          <div class="gallery-placeholder" style="background: linear-gradient(135deg, #cce4f8 0%, #b8d8f2 100%)">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-            <span>你的照片</span>
-          </div>
+          <img src="微信图片_20260410153355_91_11.jpg" alt="Catherine's photo" loading="lazy" />
         </div>
         <div class="gallery-item">
-          <div class="gallery-placeholder" style="background: linear-gradient(135deg, #d4ecf8 0%, #b0d4ee 100%)">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-            <span>你的照片</span>
-          </div>
+          <img src="微信图片_20260410153443_92_11.jpg" alt="Catherine's photo" loading="lazy" />
         </div>
         <div class="gallery-item wide">
-          <div class="gallery-placeholder" style="background: linear-gradient(135deg, #e0f0fc 0%, #c4e0f5 100%)">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-            <span>你的照片</span>
-          </div>
+          <img src="微信图片_20260410153444_93_11.jpg" alt="Catherine's photo" loading="lazy" />
         </div>
         <div class="gallery-item">
-          <div class="gallery-placeholder">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-            <span>你的照片</span>
-          </div>
+          <img src="微信图片_20260410153444_94_11.jpg" alt="Catherine's photo" loading="lazy" />
         </div>
       </div>
     </div>
@@ -942,6 +1128,14 @@
     </div>
   </section>
 
+  <!-- Knowledge Modals -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnBg(event)">
+    <div class="modal" id="modalBox">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
   <!-- Footer -->
   <footer>
     <div class="footer-name">Catherine's Garden</div>
@@ -951,6 +1145,223 @@
 </div>
 
 <script>
+  // ── Knowledge Modal Data ──
+  const KNOWLEDGE = {
+    funnel: {
+      icon: 'icon-pink',
+      iconSvg: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L13 13.414V19a1 1 0 01-.553.894l-4 2A1 1 0 017 21v-7.586L3.293 6.707A1 1 0 013 6V4z"/></svg>`,
+      title: '种草漏斗模型',
+      subtitle: '投放链路的全局视角 · 小红书商业化核心方法论之一',
+      sections: [
+        {
+          title: '漏斗的五层结构',
+          steps: [
+            { n:'1', text: '<strong>曝光（Impression）</strong> — 笔记被多少人看到。核心指标：CPM（千次曝光成本）。决定曝光量的是竞价出价和素材质量分。' },
+            { n:'2', text: '<strong>点击（Click）</strong> — 曝光后有多少人点进来看。核心指标：CTR（点击率）。封面图和标题是决定 CTR 的关键。' },
+            { n:'3', text: '<strong>互动（Engagement）</strong> — 点进来后有多少人点赞/收藏/评论。核心指标：互动率、CPE（互动成本）。正文内容和情绪共鸣决定互动深度。' },
+            { n:'4', text: '<strong>进店（Visit）</strong> — 看完笔记后有多少人去了品牌店铺/搜索了品牌词。核心指标：CPTI（进店成本）、搜索进店UV。' },
+            { n:'5', text: '<strong>成交（Conversion）</strong> — 最终有多少人下单。核心指标：成交UV、CPUV（UV成本）、ROI。' },
+          ]
+        },
+        {
+          title: '实战核心洞察',
+          body: `<p>每一层漏斗的优化策略完全不同，<strong>不能用底层指标倒推顶层问题</strong>。比如 ROI 差，不一定是笔记质量问题，可能是进店之后的转化页面出了问题。</p>
+          <p>小红书的种草漏斗有一个特点：<strong>互动到进店之间的断层最大</strong>。用户可能点赞了但不会去搜。这中间的桥梁是"搜索心智"——笔记是否让用户产生了"我要去找找"的冲动。</p>`,
+          tip: '日常复盘时，先看哪层漏斗跌幅最大，再定位原因。不要一上来就改素材——先诊断，再开刀。'
+        }
+      ],
+      tags: ['CPM', 'CTR', 'CPE', 'CPTI', 'ROI', '漏斗分析', '投放复盘']
+    },
+
+    goodnote: {
+      icon: 'icon-sage',
+      iconSvg: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>`,
+      title: '好笔记的三要素',
+      subtitle: '选博主和定内容方向的底层框架 · 种草内容策略核心',
+      sections: [
+        {
+          title: '三要素拆解',
+          steps: [
+            { n:'①', text: '<strong>人设真实</strong> — 博主本人就是目标用户，或者有可信的使用场景。假种草一眼就能看出来，用户不买账。真实感来自：博主日常内容调性、评论区互动质量、粉丝画像匹配度。' },
+            { n:'②', text: '<strong>痛点共鸣</strong> — 笔记触达的问题，是目标用户真正在意的事。好的种草笔记不说"这个产品很好用"，而是说"我也有这个困扰，然后我发现了这个"。叙事顺序：先痛后爽。' },
+            { n:'③', text: '<strong>搜索可见</strong> — 笔记要能被搜到。标题、正文、标签中植入用户真实搜索词。搜索词≠广告语，要去搜索框里看用户真正输入什么。' },
+          ]
+        },
+        {
+          title: '选博主的三个维度',
+          body: `<p><strong>粉丝画像优于粉丝数量。</strong> 10万精准粉 > 100万泛粉。看博主粉丝的年龄、性别、消费力是否匹配目标人群。</p>
+          <p><strong>互动质量优于互动数量。</strong> 评论区有没有真实讨论？有没有人问"哪里买"、"多少钱"？这种评论比点赞数更能说明种草效果。</p>
+          <p><strong>内容垂直度优于知名度。</strong> 垂类达人的转化效率通常高于泛娱乐大V，因为受众本身就有需求。</p>`,
+          tip: '在教育赛道做选号时：优先找有孩子的真实家长博主，或者本身是学生/教师的人——人设真实度直接影响种草可信度。'
+        }
+      ],
+      tags: ['博主筛选', '内容策略', '搜索词', '痛点叙事', '垂类达人', '人设匹配']
+    },
+
+    search_vs_feed: {
+      icon: 'icon-sky',
+      iconSvg: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>`,
+      title: '搜索口径 vs 信息流口径',
+      subtitle: '两种投放场景的本质差异与适用时机',
+      sections: [
+        {
+          title: '本质差异',
+          body: `<p><strong>信息流</strong>是"主动打扰"——用户刷着刷着，看到了你的广告。用户是被动接触的，需求可能还没被激活。核心目标是<strong>制造需求、建立认知</strong>。</p>
+          <p><strong>搜索广告</strong>是"守株待兔"——用户主动在搜索框输入关键词，你的内容出现在结果里。需求已经存在，用户在主动找解决方案。核心目标是<strong>承接需求、促成决策</strong>。</p>`,
+        },
+        {
+          title: '适用时机判断',
+          steps: [
+            { n:'搜', text: '<strong>优先搜索</strong>：品类已有搜索心智、品牌有一定知名度、想要精准截流竞品用户。关键词选择比素材更重要。' },
+            { n:'流', text: '<strong>优先信息流</strong>：新品类教育、品牌知名度低、需要大范围种草。素材创意是核心竞争力。' },
+            { n:'组', text: '<strong>组合投放</strong>：先用信息流种草建立认知，再用搜索广告截流有意向的用户。两者互补，效率最高。' },
+          ]
+        },
+        {
+          title: '核心指标对比',
+          body: `<p>信息流看 <strong>CPM、CTR、互动率</strong>——衡量内容是否吸引人；搜索广告看 <strong>点击率、进店UV、转化率</strong>——衡量承接是否精准。</p>`,
+          tip: '在小红书，搜索场景的转化效率通常比信息流高 2-3 倍，但量级更小。两者不是替代关系，是互补关系。'
+        }
+      ],
+      tags: ['信息流', '搜索广告', 'CPM', 'CTR', '关键词', '场景策略']
+    },
+
+    metrics: {
+      icon: 'icon-warm',
+      iconSvg: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>`,
+      title: '站外效果指标解读',
+      subtitle: 'CPUV · CPTI · 成交UV · 三方归因 — 搞清楚每个指标在说什么',
+      sections: [
+        {
+          title: '核心指标一览',
+          steps: [
+            { n:'UV', text: '<strong>站外活跃UV</strong> — 看了笔记后去品牌站外（天猫/京东等）产生了活跃行为的去重用户数。衡量笔记的"引流能力"，是最核心的种草效果指标。' },
+            { n:'CPUV', text: '<strong>三方CPUV（Cost per UV）</strong> — 获得每个站外活跃UV的成本。= 竞价消耗 ÷ 站外活跃UV数。数字越小说明这篇笔记的引流效率越高。' },
+            { n:'CPTI', text: '<strong>CPTI（Cost per Target Impression）</strong> — 触达目标人群的千次曝光成本。衡量人群精准度，不是所有曝光都值钱，CPTI越低说明越精准地打到了目标受众。' },
+            { n:'成交', text: '<strong>成交UV</strong> — 看了笔记后在站外下单的去重用户数。直接衡量种草到购买的转化，是最终结果指标，但受到站外页面、价格、库存等因素影响，不能只看笔记。' },
+          ]
+        },
+        {
+          title: '归因口径的坑',
+          body: `<p>同一篇笔记，不同归因口径算出来的UV数字差异很大：</p>
+          <p>• <strong>阅读时间口径</strong>：以用户读笔记的时间为起点算后续行为，窗口期较短</p>
+          <p>• <strong>阅读日期归因口径（三方转化后）</strong>：将转化行为归因回笔记发布/投放日，周期更长，通常数字更大</p>
+          <p>• <strong>30天设备归因</strong>：以30天为窗口，从设备维度归因，累计值最大</p>
+          <p><strong>复盘时务必对齐口径，不同口径的数字不能直接比较！</strong></p>`,
+          tip: '衡量笔记单篇质量，优先看三方CPUV。横向对比多篇笔记时，确保用的是同一个归因口径。'
+        }
+      ],
+      tags: ['CPUV', 'CPTI', '站外UV', '成交UV', '归因口径', '效果评估']
+    },
+
+    strategy_period: {
+      icon: 'icon-pink',
+      iconSvg: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>`,
+      title: '策略期 vs 非策略期',
+      subtitle: '用对照组验证投放策略是否真的有效',
+      sections: [
+        {
+          title: '为什么需要对照组',
+          body: `<p>投放效果好，是策略本身起了作用，还是恰好赶上了旺季、产品本身自然增长？<strong>如果没有对照组，你永远不知道。</strong></p>
+          <p>策略期（改变了投放策略的时段）和非策略期（维持原有投放或不投的时段）放在一起比较，才能量化策略带来的增量。</p>`
+        },
+        {
+          title: '如何设计对照',
+          steps: [
+            { n:'1', text: '<strong>时间对照</strong>：同一产品，策略调整前后各取一段时间（注意排除大促节点、季节性影响）。例：12月非策略期 vs 1-3月策略期。' },
+            { n:'2', text: '<strong>笔记维度对照</strong>：用同口径指标（如CPUV、站外UV均值）比较两个时期的笔记表现，排除笔记数量差异的干扰，用"均值"而非"总量"。' },
+            { n:'3', text: '<strong>指标方向校验</strong>：策略期的目标指标（如站外UV）是否提升？成本指标（如CPUV）是否下降？两个方向同时验证，才能说明策略有效。' },
+          ]
+        },
+        {
+          title: '实际案例',
+          body: `<p>有道答疑笔项目：非策略期（12月）站外活跃UV均值 <strong>29.9</strong>，三方CPUV均值 <strong>58.7元</strong>；策略期（1-3月）站外活跃UV均值 <strong>100.7</strong>，三方CPUV均值 <strong>21.7元</strong>。</p>
+          <p>UV提升 3.4 倍，成本降低 63%。这才能说明策略调整带来了真实的效率提升。</p>`,
+          tip: '对照组的时间段要尽量"干净"——尽量没有大促节点、产品重大变化、预算波动，减少干扰变量。'
+        }
+      ],
+      tags: ['对照组', 'A/B对比', '效果归因', '策略验证', '均值比较']
+    },
+
+    koc: {
+      icon: 'icon-sage',
+      iconSvg: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>`,
+      title: 'KOC 选角逻辑',
+      subtitle: '从粉丝量到人设匹配——完整的种草博主筛选框架',
+      sections: [
+        {
+          title: 'KOC vs KOL 的定位差异',
+          body: `<p><strong>KOL（Key Opinion Leader）</strong> — 知名度高、覆盖面广、价格贵。适合做品牌声量和出圈曝光。</p>
+          <p><strong>KOC（Key Opinion Consumer）</strong> — 粉丝少但真实，像"真实用户分享"，转化效率高、成本低。适合做精准种草和口碑积累。</p>
+          <p>在教育/工具类产品中，<strong>KOC 的种草效果通常优于 KOL</strong>——因为用户在买学习工具时更相信"和我一样的人"的推荐。</p>`
+        },
+        {
+          title: '筛选框架：三看',
+          steps: [
+            { n:'看①', text: '<strong>看粉丝画像，不看粉丝数</strong> — 粉丝年龄、性别、教育背景是否匹配产品目标用户？1万精准粉的价值可能高于10万泛粉。' },
+            { n:'看②', text: '<strong>看评论质量，不看点赞数</strong> — 评论区有没有真实的产品讨论、购买询问、场景分享？刷来的数据在评论区很容易露馅。' },
+            { n:'看③', text: '<strong>看内容调性，不看颜值/人气</strong> — 博主的日常内容风格是否与产品使用场景自然契合？强行植入会破坏可信度。' },
+          ]
+        },
+        {
+          title: '实战筛选流程',
+          body: `<p>① 根据产品人群画像，定义"理想博主"的用户标签（如：有中小学孩子的家长、本身是学生/老师）</p>
+          <p>② 在小红书搜索相关关键词，找到内容垂直、粉丝精准的博主</p>
+          <p>③ 看最近30条内容，判断调性和活跃度</p>
+          <p>④ 看历史合作笔记的评论区（如果有），判断粉丝真实性和种草效果</p>`,
+          tip: '教育行业的 KOC 选角时，特别注意"真实家长"人设——内容里出现真实孩子、真实使用场景的博主，可信度和转化率都会更高。'
+        }
+      ],
+      tags: ['KOC', 'KOL', '博主筛选', '粉丝画像', '互动质量', '人设匹配', '教育赛道']
+    }
+  };
+
+  function openModal(id) {
+    const data = KNOWLEDGE[id];
+    if (!data) return;
+    const overlay = document.getElementById('modalOverlay');
+    const content = document.getElementById('modalContent');
+
+    let html = `
+      <div class="modal-icon ${data.icon}">${data.iconSvg}</div>
+      <div class="modal-title">${data.title}</div>
+      <div class="modal-subtitle">${data.subtitle}</div>
+    `;
+
+    data.sections.forEach(sec => {
+      html += `<div class="modal-section"><div class="modal-section-title">${sec.title}</div>`;
+      if (sec.steps) {
+        html += `<div class="modal-steps">`;
+        sec.steps.forEach(s => {
+          html += `<div class="modal-step"><div class="modal-step-num">${s.n}</div><div class="modal-step-text">${s.text}</div></div>`;
+        });
+        html += `</div>`;
+      }
+      if (sec.body) html += `<div class="modal-body">${sec.body}</div>`;
+      if (sec.tip)  html += `<div class="modal-tip">${sec.tip}</div>`;
+      html += `</div>`;
+    });
+
+    html += `<div class="modal-tags">`;
+    data.tags.forEach(t => { html += `<span class="modal-tag">${t}</span>`; });
+    html += `</div>`;
+
+    content.innerHTML = html;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeModalOnBg(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
   // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
