@@ -306,6 +306,87 @@
 
     /* ── Knowledge Garden ── */
     #knowledge { background: var(--bg2); }
+
+    /* 分类导航 */
+    .kg-categories {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      margin-bottom: 32px;
+    }
+    .kg-cat-btn {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 20px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      font-size: 14px;
+      color: var(--text-m);
+      cursor: pointer;
+      transition: all 0.22s;
+      position: relative;
+    }
+    .kg-cat-btn:hover {
+      border-color: var(--pink-l);
+      background: var(--pink-ll);
+      color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(74,134,184,0.1);
+    }
+    .kg-cat-btn.active {
+      border-color: var(--accent);
+      background: var(--pink-ll);
+      color: var(--accent);
+      box-shadow: 0 4px 14px rgba(74,134,184,0.15);
+    }
+    .kg-cat-btn .cat-icon { font-size: 16px; }
+    .kg-cat-btn .cat-count {
+      font-size: 11px;
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 1px 7px;
+      color: var(--text-l);
+    }
+    .kg-cat-btn.active .cat-count {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+    .kg-cat-btn .cat-arrow {
+      font-size: 11px;
+      opacity: 0.5;
+      transition: transform 0.22s;
+    }
+    .kg-cat-btn.active .cat-arrow { transform: rotate(90deg); opacity: 1; }
+
+    /* 卡片面板 */
+    .kg-panel {
+      display: none;
+    }
+    .kg-panel.open {
+      display: block;
+      animation: panelIn 0.28s ease;
+    }
+    @keyframes panelIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .kg-panel-header {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+    .kg-panel-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .kg-panel-desc {
+      font-size: 13px;
+      color: var(--text-l);
+    }
+
     .knowledge-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -786,8 +867,7 @@
     <a href="#hobbies">兴趣</a>
     <span class="nav-dot"></span>
     <a href="#gallery">相册</a>
-    <span class="nav-dot"></span>
-    <a href="#chat">聊天室</a>
+
   </nav>
 
   <!-- Hero -->
@@ -892,7 +972,35 @@
         <span class="section-en">Knowledge Garden</span>
         <span class="section-line"></span>
       </div>
-      <div class="knowledge-grid">
+      <!-- 分类导航按钮 -->
+      <div class="kg-categories reveal">
+        <button class="kg-cat-btn" onclick="togglePanel('marketing')">
+          <span class="cat-icon">📊</span> 商业化策划
+          <span class="cat-count">6</span>
+          <span class="cat-arrow">›</span>
+        </button>
+        <button class="kg-cat-btn" onclick="togglePanel('ai')">
+          <span class="cat-icon">🌙</span> AI 知识
+          <span class="cat-count">3</span>
+          <span class="cat-arrow">›</span>
+        </button>
+        <button class="kg-cat-btn" onclick="togglePanel('philosophy')">
+          <span class="cat-icon">🔭</span> 哲学 / 奇思妙想
+          <span class="cat-count">即将更新</span>
+          <span class="cat-arrow">›</span>
+        </button>
+      </div>
+
+      <!-- 面板：商业化策划 -->
+      <div class="kg-panel" id="panel-marketing">
+        <div class="kg-panel-header">
+          <span style="font-size:20px">📊</span>
+          <div>
+            <div class="kg-panel-title">商业化策划方法论</div>
+            <div class="kg-panel-desc">在小红书实习学到的投放逻辑、种草框架、效果指标——点卡片查看详细教程</div>
+          </div>
+        </div>
+        <div class="knowledge-grid">
 
         <!-- 卡片1: 种草漏斗模型 -->
         <div class="k-card reveal" onclick="openModal('funnel')">
@@ -972,7 +1080,67 @@
           <div class="k-card-arrow">点击查看详情 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></div>
         </div>
 
+      </div><!-- end knowledge-grid marketing -->
+      </div><!-- end panel-marketing -->
+
+      <!-- 面板：AI 知识 -->
+      <div class="kg-panel" id="panel-ai">
+        <div class="kg-panel-header">
+          <span style="font-size:20px">🌙</span>
+          <div>
+            <div class="kg-panel-title">AI 知识体系</div>
+            <div class="kg-panel-desc">Lumi 整理的 AI 核心认知——从大模型原理到 Agent 架构到工程实践，点卡片查看详解</div>
+          </div>
+        </div>
+        <div class="knowledge-grid">
+
+          <div class="k-card reveal" onclick="openModal('ai_core')">
+            <div class="k-card-icon icon-sky">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            </div>
+            <div class="k-card-title">AI 核心概念</div>
+            <div class="k-card-desc">LLM、Token、Embedding、RAG、Prompt 工程……搞懂这个时代最基础的 AI 词汇</div>
+            <div class="k-card-tags"><span class="tag">LLM</span><span class="tag">Transformer</span><span class="tag">Prompt</span><span class="tag">RAG</span></div>
+            <div class="k-card-arrow">点击查看详情 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></div>
+          </div>
+
+          <div class="k-card reveal" onclick="openModal('ai_agent')">
+            <div class="k-card-icon icon-sage">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+            </div>
+            <div class="k-card-title">Agent 架构解析</div>
+            <div class="k-card-desc">大脑·知识·记忆·工具·技能——一个 Agent 的五大器官，以及 ReAct vs Plan-and-Solve 决策矩阵</div>
+            <div class="k-card-tags"><span class="tag">Agent</span><span class="tag">ReAct</span><span class="tag">Memory</span><span class="tag">MCP</span></div>
+            <div class="k-card-arrow">点击查看详情 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></div>
+          </div>
+
+          <div class="k-card reveal" onclick="openModal('ai_engineering')">
+            <div class="k-card-icon icon-warm">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </div>
+            <div class="k-card-title">AI 工程学三层体系</div>
+            <div class="k-card-desc">Prompt Engineering → Context Engineering → Harness Engineering，从"怎么跟 AI 说话"到"怎么让 AI 稳定干活"</div>
+            <div class="k-card-tags"><span class="tag">Prompt</span><span class="tag">Context</span><span class="tag">Harness</span><span class="tag">CoT</span></div>
+            <div class="k-card-arrow">点击查看详情 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></div>
+          </div>
+
+        </div><!-- end knowledge-grid ai -->
+      </div><!-- end panel-ai -->
+
+      <!-- 面板：哲学 / 奇思妙想 -->
+      <div class="kg-panel" id="panel-philosophy">
+        <div class="kg-panel-header">
+          <span style="font-size:20px">🔭</span>
+          <div>
+            <div class="kg-panel-title">哲学 / 奇思妙想</div>
+            <div class="kg-panel-desc">还没整理好，但那些念头一直都在——很快就会出现在这里</div>
+          </div>
+        </div>
+        <div style="text-align:center; padding: 60px 0; color: var(--text-l); font-size: 14px;">
+          🌱 内容正在生长中，敬请期待
+        </div>
       </div>
+
     </div>
   </section>
 
@@ -1079,55 +1247,6 @@
     </div>
   </section>
 
-  <!-- Chat -->
-  <section id="chat">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-label">匿名聊天室</span>
-        <span class="section-en">Anonymous Chat</span>
-        <span class="section-line"></span>
-      </div>
-      <div class="chat-box reveal">
-        <div class="chat-header">
-          <span class="chat-header-dot r"></span>
-          <span class="chat-header-dot y"></span>
-          <span class="chat-header-dot g"></span>
-          <span class="chat-title">Catherine's Garden · 聊天室 · 匿名 · 所有人都是朋友</span>
-        </div>
-        <div class="chat-messages" id="chatMessages">
-          <div class="msg left">
-            <div class="msg-avatar">🌸</div>
-            <div>
-              <div class="msg-bubble">欢迎来到这里！随便聊什么都可以 ☁️</div>
-              <div class="msg-time">Catherine · 刚刚</div>
-            </div>
-          </div>
-          <div class="msg right">
-            <div class="msg-avatar">🌙</div>
-            <div>
-              <div class="msg-bubble">这里很治愈！</div>
-              <div class="msg-time">匿名朋友 · 刚刚</div>
-            </div>
-          </div>
-          <div class="msg left">
-            <div class="msg-avatar">🌸</div>
-            <div>
-              <div class="msg-bubble">谢谢你来 🎀 这里大家都是朋友</div>
-              <div class="msg-time">Catherine · 刚刚</div>
-            </div>
-          </div>
-        </div>
-        <div class="chat-input-wrap">
-          <input class="chat-input" type="text" id="chatInput" placeholder="说点什么吧，匿名的～" />
-          <button class="chat-send" id="chatSendBtn" aria-label="发送">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
-          </button>
-        </div>
-        <div class="chat-anon-note">完全匿名 · 不记录 IP · 只是想和你聊聊天</div>
-      </div>
-    </div>
-  </section>
-
   <!-- Knowledge Modals -->
   <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnBg(event)">
     <div class="modal" id="modalBox">
@@ -1145,6 +1264,25 @@
 </div>
 
 <script>
+  // ── 分类面板切换 ──
+  function togglePanel(id) {
+    const panelId = 'panel-' + id;
+    const btn = document.querySelector(`[onclick="togglePanel('${id}')"]`);
+    const panel = document.getElementById(panelId);
+    const isOpen = panel.classList.contains('open');
+
+    // 关闭所有面板和按钮
+    document.querySelectorAll('.kg-panel').forEach(p => p.classList.remove('open'));
+    document.querySelectorAll('.kg-cat-btn').forEach(b => b.classList.remove('active'));
+
+    // 如果之前是关闭的就打开，否则全收起
+    if (!isOpen) {
+      panel.classList.add('open');
+      btn.classList.add('active');
+      setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+    }
+  }
+
   // ── Knowledge Modal Data ──
   const KNOWLEDGE = {
     funnel: {
@@ -1316,6 +1454,101 @@
     }
   };
 
+  // ── AI 知识 Modals ──
+  KNOWLEDGE['ai_core'] = {
+    icon: 'icon-sky',
+    iconSvg: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>`,
+    title: 'AI 核心概念词典',
+    subtitle: '从 LLM 到 Prompt 工程——建立 AI 时代的基础认知',
+    sections: [
+      {
+        title: '基础引擎',
+        steps: [
+          { n:'LLM', text: '<strong>大语言模型</strong> — 基于海量数据训练的深度学习模型，核心能力是"文字接龙"（预测下一个词的概率）。不是在"思考"，而是在推算最合理的下文。' },
+          { n:'Token', text: '<strong>令牌</strong> — AI 处理和计费的最小文本单位。1 Token ≈ 0.5 个汉字。<strong>Context Window（上下文窗口）</strong>= 一次能吃进多少 Token，决定了 AI 的"工作记忆"上限。' },
+          { n:'Emb', text: '<strong>Embedding（向量化）</strong> — 把文本翻译成机器的"坐标系"，语义相近的词在坐标空间里距离很近。搜索和推荐系统的核心技术。' },
+          { n:'RAG', text: '<strong>检索增强生成</strong> — 将私有数据向量化存储，AI 回答前先"开卷考试"提取相关片段再总结。给 AI 配备"内部手册"，让它少吹牛、多说实话。' },
+        ]
+      },
+      {
+        title: 'Prompt 工程 · CRISPE 框架',
+        body: `<p>写好 Prompt 的核心框架，六个维度缺一不可：</p>
+        <p><strong>C</strong> Capacity & Role（角色）· <strong>R</strong> Restriction（边界限制）· <strong>I</strong> Insight（背景信息）· <strong>S</strong> Statement（核心任务）· <strong>P</strong> Personality（语气风格）· <strong>E</strong> Experiment（输出格式）</p>
+        <p>实用技巧：<strong>Few-shot（少样本）</strong>——直接扔 3 个好例子给 AI，效果远胜于只讲规则。"照着这个风格写"比"要求文风简洁"有效得多。</p>`,
+        tip: 'Prompt 要当代码写——版本管理、持续优化、像对待工程文档一样认真。'
+      },
+      {
+        title: '局限与边界',
+        steps: [
+          { n:'⚠️', text: '<strong>幻觉（Hallucination）</strong> — AI 会一本正经地胡说八道。本质是在"拼凑"看起来合理的答案，而非检索绝对真理。严格要求准确性的内容必须加 RAG 或人工审核。' },
+          { n:'🔒', text: '<strong>合规红线</strong> — 禁止将用户手机号、核心算法代码、未公开商业战略输入到未私有化部署的第三方 AI 模型。' },
+        ]
+      }
+    ],
+    tags: ['LLM', 'Transformer', 'Token', 'Embedding', 'RAG', 'Prompt', 'CRISPE', 'Few-shot', '幻觉']
+  };
+
+  KNOWLEDGE['ai_agent'] = {
+    icon: 'icon-sage',
+    iconSvg: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>`,
+    title: 'Agent 架构深度解析',
+    subtitle: 'Agent = LLM + 规划 + 知识 + 记忆 + 工具 + 技能',
+    sections: [
+      {
+        title: 'Agent 五大器官',
+        steps: [
+          { n:'🧠', text: '<strong>大脑（LLM + 规划）</strong> — Agent 的 CPU。规划三阶段：CoT（思维链，让 AI 一步步想）→ ReAct（边想边做，与真实环境交互）→ Plan-and-Solve（先一次性出完整计划，再执行，Token 成本更低）。' },
+          { n:'📚', text: '<strong>知识（Knowledge）</strong> — 突破训练数据的时间冻结。静态领域知识（文档、API Schema）+ 动态业务快照（实时数据、账户状态）。RAG 工程三关键：语义切分 Chunking、混合检索（向量+BM25）、Re-ranking 重排降噪。' },
+          { n:'💾', text: '<strong>记忆（Memory）</strong> — 短期记忆（Context Window，关闭即清零）+ 长期记忆（向量数据库持久化）+ 实体记忆（针对特定对象建立专属档案，实现个性化）。' },
+          { n:'🔧', text: '<strong>工具（Tool）</strong> — Agent 的手和脚。感知类（Read，低风险）vs 行动类（Write，高风险，必须人工审批）。LLM 永远不直接执行代码——它输出 JSON 意图声明，由工程框架去实际执行。' },
+          { n:'🎯', text: '<strong>技能（Skill）</strong> — 最高维器官。把多个工具+条件分支+循环封装成标准化 SOP。MCP 协议（Anthropic 提出）让技能跨语言、跨网络复用——Write Once, Run Anywhere。' },
+        ]
+      },
+      {
+        title: 'ReAct vs Plan-and-Solve',
+        body: `<p><strong>ReAct</strong>：Thought → Action → Observation 闭环，动态修正，灵活但 Token 成本高。适合探索式、非确定性任务。</p>
+        <p><strong>Plan-and-Solve</strong>：一次性生成完整执行蓝图，轻量代码框架执行，最后才调大模型生成文本。成本低、响应快。适合结构化 SOP 任务（如数据报表生成）。</p>`,
+        tip: 'Critic & Reflection（反思纠错）机制：在执行高危写操作前，Critic 拦截审核，审核不通过触发重规划——这是工业级 Agent 对抗错误的核心容错机制。'
+      }
+    ],
+    tags: ['Agent', 'ReAct', 'Plan-and-Solve', 'CoT', 'RAG', 'Memory', 'Tool', 'Skill', 'MCP', 'Human-in-Loop']
+  };
+
+  KNOWLEDGE['ai_engineering'] = {
+    icon: 'icon-warm',
+    iconSvg: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
+    title: 'AI 工程学三层体系',
+    subtitle: '从"怎么跟 AI 说话"到"怎么让 AI 稳定地干活" · 2026 最重要的工程范式',
+    sections: [
+      {
+        title: '三层演进',
+        steps: [
+          { n:'①', text: '<strong>Prompt Engineering（2023-2024）</strong>——"怎么跟 AI 说话"。核心：Role 角色锚定、CoT 思维链、Few-shot 少样本、Output Formatting 结构化输出。Prompt 要当代码写，版本管理、持续优化。' },
+          { n:'②', text: '<strong>Context Engineering（2025）</strong>——"给 AI 看什么信息"。大模型胡说的根源往往不是推理能力不足，而是信息断层。四大模块：异构数据摄入→混合检索（语义+BM25+图谱）→重排降噪→实时状态注入。' },
+          { n:'③', text: '<strong>Harness Engineering（2026）</strong>——"构建什么环境让 AI 工作"。终极冲突：大模型是概率/非确定性系统 ↔ 商业需要确定性和安全边界。Harness = AI 的操作系统，在 Agent 自由发挥时修建坚不可摧的护栏。' },
+        ]
+      },
+      {
+        title: 'Harness 五大核心模块',
+        steps: [
+          { n:'1', text: '<strong>Context Assembly</strong> — 毫秒级将业务快照动态装配进上下文，只喂高优线索，过多无效信息导致注意力涣散。' },
+          { n:'2', text: '<strong>Tool Dispatch</strong> — 强类型工具网关，所有能力封装为 JSON Schema。Read 工具给高自主权，Write 工具强制人工审批+熔断机制。' },
+          { n:'3', text: '<strong>Process Constraints</strong> — 用状态机强制约束 Agent 执行顺序（SOP），Agent 试图跳步或幻觉时硬性拦截拉回主线。' },
+          { n:'4', text: '<strong>Externalized State</strong> — Agent 状态持久化到数据库，进程可随时释放，审批通过后续接断点，实现进程级高可用。' },
+          { n:'5', text: '<strong>Observability & Eval</strong> — 全链路追踪+黄金数据集回归测试，CI/CD 集成，新模型上线自动跑 Eval，确保任务达成率不退化。' },
+        ]
+      },
+      {
+        title: 'Reasoning Sandwich（推理三明治）',
+        body: `<p>推理力度不是越高越好，要按阶段分配：</p>
+        <p><strong>规划阶段：高推理</strong>（想清楚）→ <strong>实现阶段：普通推理</strong>（动手做）→ <strong>验证阶段：高推理</strong>（严格校验）</p>
+        <p>实验数据：全程高推理 53.9% ❌ / 全程普通 63.6% △ / <strong>三明治策略 66.5% ✅</strong></p>`,
+        tip: '工程师角色演变：代码作者 → Code Reviewer → 系统架构师 → AI Agent 工程经理。掌握 Harness Engineering，才是真正的 AI-Native 工程师。'
+      }
+    ],
+    tags: ['Prompt Engineering', 'Context Engineering', 'Harness Engineering', 'CoT', 'RAG', '状态机', 'Observability', '推理三明治']
+  };
+
   function openModal(id) {
     const data = KNOWLEDGE[id];
     if (!data) return;
@@ -1391,42 +1624,7 @@
     });
   });
 
-  // Chat demo
-  const avatars = ['🌷','🍀','🌻','⭐','🎐','🌈','🎑','🦋'];
-  const names   = ['匿名朋友','路过的人','神秘访客','小花园来客'];
-  const chatMessages = document.getElementById('chatMessages');
-  const chatInput    = document.getElementById('chatInput');
-  const chatSendBtn  = document.getElementById('chatSendBtn');
 
-  function addMsg(text, isRight) {
-    const avatar = isRight ? '😊' : avatars[Math.floor(Math.random() * avatars.length)];
-    const name   = isRight ? '你' : names[Math.floor(Math.random() * names.length)];
-    const div = document.createElement('div');
-    div.className = 'msg ' + (isRight ? 'right' : 'left');
-    div.innerHTML = `
-      <div class="msg-avatar">${avatar}</div>
-      <div>
-        <div class="msg-bubble">${text}</div>
-        <div class="msg-time">${name} · 刚刚</div>
-      </div>`;
-    chatMessages.appendChild(div);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
-
-  function sendMsg() {
-    const text = chatInput.value.trim();
-    if (!text) return;
-    addMsg(text, true);
-    chatInput.value = '';
-    // echo
-    const replies = ['收到啦 🌸','嗯嗯！','哈哈哈','说得对！','想了解更多～','治愈到了！'];
-    setTimeout(() => {
-      addMsg(replies[Math.floor(Math.random() * replies.length)], false);
-    }, 800 + Math.random() * 600);
-  }
-
-  chatSendBtn.addEventListener('click', sendMsg);
-  chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendMsg(); });
 </script>
 </body>
 </html>
