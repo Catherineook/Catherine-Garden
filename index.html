@@ -828,78 +828,165 @@
 
     /* ── Music Section ── */
     #music { background: var(--bg2); }
+
+    /* 每个分区的主题色变量 */
+    .music-panel[data-theme="qingzhen"]   { --mc: #c07070; --mc-l: #f5e6e6; --mc-ll: #fdf5f5; --mc-border: #e8c4c4; }
+    .music-panel[data-theme="fangdatong"] { --mc: #b8860b; --mc-l: #f5edcc; --mc-ll: #fdfaf0; --mc-border: #e8d898; }
+    .music-panel[data-theme="jpop"]       { --mc: #9b6fb5; --mc-l: #ecdff5; --mc-ll: #faf5fd; --mc-border: #d9c0ea; }
+    .music-panel[data-theme="queens"]     { --mc: #7a6baa; --mc-l: #e8e2f5; --mc-ll: #f8f5fd; --mc-border: #cdc0e8; }
+    .music-panel[data-theme="chinese"]    { --mc: #5c9e7c; --mc-l: #dff0e8; --mc-ll: #f2fbf6; --mc-border: #b0d8c4; }
+    .music-panel[data-theme="western"]    { --mc: #4a7ec0; --mc-l: #ddeaf8; --mc-ll: #f2f7fd; --mc-border: #b0ccea; }
+
+    /* 搜索框 */
+    .music-search-wrap {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .music-search {
+      width: 100%;
+      padding: 10px 16px 10px 40px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      font-family: inherit;
+    }
+    .music-search:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(74,134,184,0.12);
+    }
+    .music-search::placeholder { color: var(--text-l); }
+    .music-search-icon {
+      position: absolute;
+      left: 14px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-l);
+      font-size: 14px;
+      pointer-events: none;
+    }
+    .music-search-count {
+      position: absolute;
+      right: 16px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 11px;
+      color: var(--text-l);
+    }
+
+    /* 标签栏 */
     .music-tabs {
       display: flex; flex-wrap: wrap; gap: 8px;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
     .music-tab {
       display: flex; align-items: center; gap: 6px;
       padding: 8px 18px;
       background: var(--paper);
-      border: 1px solid var(--line);
+      border: 1.5px solid var(--line);
       border-radius: 999px;
       font-size: 13px;
       color: var(--text-m);
       cursor: pointer;
       transition: all 0.2s;
       white-space: nowrap;
+      font-family: inherit;
     }
-    .music-tab:hover {
-      border-color: var(--pink-l);
-      color: var(--accent);
-      background: var(--pink-ll);
-    }
-    .music-tab.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: white;
-    }
-    .music-tab .tab-count {
-      font-size: 11px;
-      opacity: 0.75;
-    }
+    .music-tab:hover { border-color: var(--pink-l); color: var(--accent); background: var(--pink-ll); }
+    .music-tab.active { background: var(--accent); border-color: var(--accent); color: white; }
+    .music-tab .tab-count { font-size: 11px; opacity: 0.75; }
+
+    /* 面板 */
     .music-panel { display: none; }
-    .music-panel.active {
-      display: block;
-      animation: panelIn 0.25s ease;
-    }
+    .music-panel.active { display: block; animation: panelIn 0.25s ease; }
+
+    /* 描述条 */
     .music-panel-desc {
+      display: flex; align-items: center; gap: 10px;
       font-size: 13px;
-      color: var(--text-l);
+      color: var(--mc, var(--text-l));
       margin-bottom: 20px;
       font-style: italic;
+      padding: 10px 16px;
+      background: var(--mc-ll, var(--bg));
+      border-left: 3px solid var(--mc, var(--line));
+      border-radius: 0 8px 8px 0;
     }
+
+    /* 网格 */
     .music-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 8px;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 10px;
     }
+
+    /* 卡片 */
     .music-item {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       padding: 10px 14px;
       background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: 10px;
+      border: 1px solid var(--mc-border, var(--line));
+      border-radius: 12px;
       transition: all 0.2s;
+      cursor: default;
     }
     .music-item:hover {
-      border-color: var(--pink-l);
-      background: var(--pink-ll);
-      transform: translateY(-1px);
+      border-color: var(--mc, var(--pink-l));
+      background: var(--mc-ll, var(--pink-ll));
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.07);
     }
-    .music-num {
-      font-size: 11px;
+    .music-item.hidden { display: none; }
+
+    /* 唱片图标 */
+    .music-disc {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--mc-l, #e8e8e8) 0%, var(--mc-border, #d0d0d0) 100%);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      transition: all 0.3s;
+    }
+    .music-disc::before {
+      content: '';
+      width: 10px; height: 10px;
+      background: var(--paper);
+      border-radius: 50%;
+      position: absolute;
+      border: 2px solid var(--mc-border, #ccc);
+    }
+    .music-disc .disc-num {
+      position: absolute;
+      font-size: 9px;
       color: var(--text-l);
-      width: 18px;
-      flex-shrink: 0;
-      text-align: right;
+      bottom: -2px; right: -2px;
+      background: var(--paper);
+      border-radius: 999px;
+      padding: 1px 4px;
+      border: 1px solid var(--line);
+      line-height: 1.4;
     }
-    .music-note {
-      font-size: 13px;
-      flex-shrink: 0;
+    .music-item:hover .music-disc {
+      animation: spin 2s linear infinite;
     }
+    .music-item:hover .music-disc::after {
+      content: '▶';
+      position: absolute;
+      font-size: 8px;
+      color: var(--mc, var(--accent));
+      top: 50%; left: 50%;
+      transform: translate(-40%, -50%);
+      z-index: 1;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
     .music-info { flex: 1; min-width: 0; }
     .music-title {
       font-size: 13px;
@@ -908,13 +995,24 @@
       overflow: hidden;
       text-overflow: ellipsis;
       line-height: 1.4;
+      font-weight: 500;
     }
     .music-artist {
       font-size: 11px;
-      color: var(--text-l);
+      color: var(--mc, var(--text-l));
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      opacity: 0.8;
+    }
+
+    /* 搜索无结果 */
+    .music-empty {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-l);
+      font-size: 13px;
     }
 
     /* ── Scroll reveal ── */
@@ -1287,6 +1385,13 @@
         <span class="section-line"></span>
       </div>
 
+      <!-- 搜索框 -->
+      <div class="music-search-wrap reveal">
+        <span class="music-search-icon">🔍</span>
+        <input class="music-search" type="text" placeholder="搜索歌曲或歌手…" oninput="filterMusic(this.value)" />
+        <span class="music-search-count" id="music-count"></span>
+      </div>
+
       <!-- 分区标签 -->
       <div class="music-tabs reveal">
         <button class="music-tab active" onclick="switchMusic('qingzhen')">🎸 陈绮贞 <span class="tab-count">18</span></button>
@@ -1298,276 +1403,281 @@
       </div>
 
       <!-- 陈绮贞 -->
-      <div class="music-panel active" id="music-qingzhen">
+      <div class="music-panel active" id="music-qingzhen" data-theme="qingzhen">
         <div class="music-panel-desc">最喜欢的华语创作人，每首都像一个独立的小宇宙 🎸</div>
         <div class="music-grid">
-          <div class="music-item"><span class="music-num">1</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">躺在你的衣柜 (Guitar)</div><div class="music-artist">陈绮贞</div></div></div>
-          <div class="music-item"><span class="music-num">2</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">还是会寂寞</div><div class="music-artist">陈绮贞</div></div></div>
-          <div class="music-item"><span class="music-num">3</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">柏拉图式的爱情</div><div class="music-artist">陈绮贞</div></div></div>
-          <div class="music-item"><span class="music-num">4</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">等待</div><div class="music-artist">陈绮贞</div></div></div>
-          <div class="music-item"><span class="music-num">5</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">花的姿态</div><div class="music-artist">陈绮贞</div></div></div>
-          <div class="music-item"><span class="music-num">6</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">腐朽</div><div class="music-artist">陈绮贞</div></div></div>
-          <div class="music-item"><span class="music-num">7</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">随便说说</div><div class="music-artist">陈绮贞</div></div></div>
-          <div class="music-item"><span class="music-num">8</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">雨水一盒</div><div class="music-artist">陈绮贞</div></div></div>
-          <div class="music-item"><span class="music-num">9</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">狂恋</div><div class="music-artist">陈绮贞</div></div></div>
-          <div class="music-item"><span class="music-num">10</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">1234567</div><div class="music-artist">陈绮贞</div></div></div>
-          <div class="music-item"><span class="music-num">11</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">小步舞曲</div><div class="music-artist">陈绮贞</div></div></div>
-          <div class="music-item"><span class="music-num">12</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">我亲爱的偏执狂</div><div class="music-artist">陈绮贞</div></div></div>
-          <div class="music-item"><span class="music-num">13</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Self</div><div class="music-artist">陈绮贞</div></div></div>
-          <div class="music-item"><span class="music-num">14</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">慢歌1</div><div class="music-artist">陈绮贞</div></div></div>
-          <div class="music-item"><span class="music-num">15</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">吉他手</div><div class="music-artist">陈绮贞</div></div></div>
-          <div class="music-item"><span class="music-num">16</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">表面的和平</div><div class="music-artist">陈绮贞</div></div></div>
-          <div class="music-item"><span class="music-num">17</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">太聪明</div><div class="music-artist">陈绮贞</div></div></div>
-          <div class="music-item"><span class="music-num">18</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">就算全世界与我为敌</div><div class="music-artist">陈绮贞</div></div></div>
+          <div class="music-item" data-title="躺在你的衣柜 (guitar)" data-artist="陈绮贞"><div class="music-disc"><span class="disc-num">1</span></div><div class="music-info"><div class="music-title">躺在你的衣柜 (Guitar)</div><div class="music-artist">陈绮贞</div></div></div>
+          <div class="music-item" data-title="还是会寂寞" data-artist="陈绮贞"><div class="music-disc"><span class="disc-num">2</span></div><div class="music-info"><div class="music-title">还是会寂寞</div><div class="music-artist">陈绮贞</div></div></div>
+          <div class="music-item" data-title="柏拉图式的爱情" data-artist="陈绮贞"><div class="music-disc"><span class="disc-num">3</span></div><div class="music-info"><div class="music-title">柏拉图式的爱情</div><div class="music-artist">陈绮贞</div></div></div>
+          <div class="music-item" data-title="等待" data-artist="陈绮贞"><div class="music-disc"><span class="disc-num">4</span></div><div class="music-info"><div class="music-title">等待</div><div class="music-artist">陈绮贞</div></div></div>
+          <div class="music-item" data-title="花的姿态" data-artist="陈绮贞"><div class="music-disc"><span class="disc-num">5</span></div><div class="music-info"><div class="music-title">花的姿态</div><div class="music-artist">陈绮贞</div></div></div>
+          <div class="music-item" data-title="腐朽" data-artist="陈绮贞"><div class="music-disc"><span class="disc-num">6</span></div><div class="music-info"><div class="music-title">腐朽</div><div class="music-artist">陈绮贞</div></div></div>
+          <div class="music-item" data-title="随便说说" data-artist="陈绮贞"><div class="music-disc"><span class="disc-num">7</span></div><div class="music-info"><div class="music-title">随便说说</div><div class="music-artist">陈绮贞</div></div></div>
+          <div class="music-item" data-title="雨水一盒" data-artist="陈绮贞"><div class="music-disc"><span class="disc-num">8</span></div><div class="music-info"><div class="music-title">雨水一盒</div><div class="music-artist">陈绮贞</div></div></div>
+          <div class="music-item" data-title="狂恋" data-artist="陈绮贞"><div class="music-disc"><span class="disc-num">9</span></div><div class="music-info"><div class="music-title">狂恋</div><div class="music-artist">陈绮贞</div></div></div>
+          <div class="music-item" data-title="1234567" data-artist="陈绮贞"><div class="music-disc"><span class="disc-num">10</span></div><div class="music-info"><div class="music-title">1234567</div><div class="music-artist">陈绮贞</div></div></div>
+          <div class="music-item" data-title="小步舞曲" data-artist="陈绮贞"><div class="music-disc"><span class="disc-num">11</span></div><div class="music-info"><div class="music-title">小步舞曲</div><div class="music-artist">陈绮贞</div></div></div>
+          <div class="music-item" data-title="我亲爱的偏执狂" data-artist="陈绮贞"><div class="music-disc"><span class="disc-num">12</span></div><div class="music-info"><div class="music-title">我亲爱的偏执狂</div><div class="music-artist">陈绮贞</div></div></div>
+          <div class="music-item" data-title="self" data-artist="陈绮贞"><div class="music-disc"><span class="disc-num">13</span></div><div class="music-info"><div class="music-title">Self</div><div class="music-artist">陈绮贞</div></div></div>
+          <div class="music-item" data-title="慢歌1" data-artist="陈绮贞"><div class="music-disc"><span class="disc-num">14</span></div><div class="music-info"><div class="music-title">慢歌1</div><div class="music-artist">陈绮贞</div></div></div>
+          <div class="music-item" data-title="吉他手" data-artist="陈绮贞"><div class="music-disc"><span class="disc-num">15</span></div><div class="music-info"><div class="music-title">吉他手</div><div class="music-artist">陈绮贞</div></div></div>
+          <div class="music-item" data-title="表面的和平" data-artist="陈绮贞"><div class="music-disc"><span class="disc-num">16</span></div><div class="music-info"><div class="music-title">表面的和平</div><div class="music-artist">陈绮贞</div></div></div>
+          <div class="music-item" data-title="太聪明" data-artist="陈绮贞"><div class="music-disc"><span class="disc-num">17</span></div><div class="music-info"><div class="music-title">太聪明</div><div class="music-artist">陈绮贞</div></div></div>
+          <div class="music-item" data-title="就算全世界与我为敌" data-artist="陈绮贞"><div class="music-disc"><span class="disc-num">18</span></div><div class="music-info"><div class="music-title">就算全世界与我为敌</div><div class="music-artist">陈绮贞</div></div></div>
         </div>
+        <div class="music-empty">没有找到匹配的歌曲 🎵</div>
       </div>
 
       <!-- 方大同 -->
-      <div class="music-panel" id="music-fangdatong">
+      <div class="music-panel" id="music-fangdatong" data-theme="fangdatong">
         <div class="music-panel-desc">R&B 里的广东话，每首都是故事 🎹</div>
         <div class="music-grid">
-          <div class="music-item"><span class="music-num">1</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">四人游</div><div class="music-artist">方大同 / 薛凯琪</div></div></div>
-          <div class="music-item"><span class="music-num">2</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">爱在</div><div class="music-artist">方大同</div></div></div>
-          <div class="music-item"><span class="music-num">3</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">春风吹之吹吹风mix</div><div class="music-artist">方大同</div></div></div>
-          <div class="music-item"><span class="music-num">4</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">为你写的歌</div><div class="music-artist">方大同</div></div></div>
-          <div class="music-item"><span class="music-num">5</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">桃花运</div><div class="music-artist">方大同</div></div></div>
-          <div class="music-item"><span class="music-num">6</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">那沙漠里的水</div><div class="music-artist">方大同</div></div></div>
-          <div class="music-item"><span class="music-num">7</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Rosy(Live)</div><div class="music-artist">方大同</div></div></div>
-          <div class="music-item"><span class="music-num">8</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Ring Finger</div><div class="music-artist">方大同</div></div></div>
-          <div class="music-item"><span class="music-num">9</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">1234567</div><div class="music-artist">方大同</div></div></div>
-          <div class="music-item"><span class="music-num">10</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">总结</div><div class="music-artist">方大同</div></div></div>
-          <div class="music-item"><span class="music-num">11</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">黑洞里</div><div class="music-artist">方大同</div></div></div>
-          <div class="music-item"><span class="music-num">12</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Goodbye Melody Rose</div><div class="music-artist">方大同</div></div></div>
-          <div class="music-item"><span class="music-num">13</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">If You Leave Me Now</div><div class="music-artist">方大同</div></div></div>
-          <div class="music-item"><span class="music-num">14</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">春风吹</div><div class="music-artist">方大同</div></div></div>
-          <div class="music-item"><span class="music-num">15</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">没啥好说</div><div class="music-artist">方大同</div></div></div>
-          <div class="music-item"><span class="music-num">16</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">回留</div><div class="music-artist">方大同</div></div></div>
-          <div class="music-item"><span class="music-num">17</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">叫我怎么说</div><div class="music-artist">方大同</div></div></div>
-          <div class="music-item"><span class="music-num">18</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">谁知爱是什么</div><div class="music-artist">方大同</div></div></div>
-          <div class="music-item"><span class="music-num">19</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">歌手与模特儿</div><div class="music-artist">方大同</div></div></div>
-          <div class="music-item"><span class="music-num">20</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">爱爱爱</div><div class="music-artist">方大同</div></div></div>
-          <div class="music-item"><span class="music-num">21</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">每天每天</div><div class="music-artist">方大同</div></div></div>
-          <div class="music-item"><span class="music-num">22</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">复刻回忆</div><div class="music-artist">薛凯琪 / 方大同</div></div></div>
-          <div class="music-item"><span class="music-num">23</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">梦蝴蝶</div><div class="music-artist">方大同</div></div></div>
-          <div class="music-item"><span class="music-num">24</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">才二十三</div><div class="music-artist">方大同</div></div></div>
+          <div class="music-item" data-title="四人游" data-artist="方大同 / 薛凯琪"><div class="music-disc"><span class="disc-num">1</span></div><div class="music-info"><div class="music-title">四人游</div><div class="music-artist">方大同 / 薛凯琪</div></div></div>
+          <div class="music-item" data-title="爱在" data-artist="方大同"><div class="music-disc"><span class="disc-num">2</span></div><div class="music-info"><div class="music-title">爱在</div><div class="music-artist">方大同</div></div></div>
+          <div class="music-item" data-title="春风吹之吹吹风mix" data-artist="方大同"><div class="music-disc"><span class="disc-num">3</span></div><div class="music-info"><div class="music-title">春风吹之吹吹风mix</div><div class="music-artist">方大同</div></div></div>
+          <div class="music-item" data-title="为你写的歌" data-artist="方大同"><div class="music-disc"><span class="disc-num">4</span></div><div class="music-info"><div class="music-title">为你写的歌</div><div class="music-artist">方大同</div></div></div>
+          <div class="music-item" data-title="桃花运" data-artist="方大同"><div class="music-disc"><span class="disc-num">5</span></div><div class="music-info"><div class="music-title">桃花运</div><div class="music-artist">方大同</div></div></div>
+          <div class="music-item" data-title="那沙漠里的水" data-artist="方大同"><div class="music-disc"><span class="disc-num">6</span></div><div class="music-info"><div class="music-title">那沙漠里的水</div><div class="music-artist">方大同</div></div></div>
+          <div class="music-item" data-title="rosy(live)" data-artist="方大同"><div class="music-disc"><span class="disc-num">7</span></div><div class="music-info"><div class="music-title">Rosy(Live)</div><div class="music-artist">方大同</div></div></div>
+          <div class="music-item" data-title="ring finger" data-artist="方大同"><div class="music-disc"><span class="disc-num">8</span></div><div class="music-info"><div class="music-title">Ring Finger</div><div class="music-artist">方大同</div></div></div>
+          <div class="music-item" data-title="1234567" data-artist="方大同"><div class="music-disc"><span class="disc-num">9</span></div><div class="music-info"><div class="music-title">1234567</div><div class="music-artist">方大同</div></div></div>
+          <div class="music-item" data-title="总结" data-artist="方大同"><div class="music-disc"><span class="disc-num">10</span></div><div class="music-info"><div class="music-title">总结</div><div class="music-artist">方大同</div></div></div>
+          <div class="music-item" data-title="黑洞里" data-artist="方大同"><div class="music-disc"><span class="disc-num">11</span></div><div class="music-info"><div class="music-title">黑洞里</div><div class="music-artist">方大同</div></div></div>
+          <div class="music-item" data-title="goodbye melody rose" data-artist="方大同"><div class="music-disc"><span class="disc-num">12</span></div><div class="music-info"><div class="music-title">Goodbye Melody Rose</div><div class="music-artist">方大同</div></div></div>
+          <div class="music-item" data-title="if you leave me now" data-artist="方大同"><div class="music-disc"><span class="disc-num">13</span></div><div class="music-info"><div class="music-title">If You Leave Me Now</div><div class="music-artist">方大同</div></div></div>
+          <div class="music-item" data-title="春风吹" data-artist="方大同"><div class="music-disc"><span class="disc-num">14</span></div><div class="music-info"><div class="music-title">春风吹</div><div class="music-artist">方大同</div></div></div>
+          <div class="music-item" data-title="没啥好说" data-artist="方大同"><div class="music-disc"><span class="disc-num">15</span></div><div class="music-info"><div class="music-title">没啥好说</div><div class="music-artist">方大同</div></div></div>
+          <div class="music-item" data-title="回留" data-artist="方大同"><div class="music-disc"><span class="disc-num">16</span></div><div class="music-info"><div class="music-title">回留</div><div class="music-artist">方大同</div></div></div>
+          <div class="music-item" data-title="叫我怎么说" data-artist="方大同"><div class="music-disc"><span class="disc-num">17</span></div><div class="music-info"><div class="music-title">叫我怎么说</div><div class="music-artist">方大同</div></div></div>
+          <div class="music-item" data-title="谁知爱是什么" data-artist="方大同"><div class="music-disc"><span class="disc-num">18</span></div><div class="music-info"><div class="music-title">谁知爱是什么</div><div class="music-artist">方大同</div></div></div>
+          <div class="music-item" data-title="歌手与模特儿" data-artist="方大同"><div class="music-disc"><span class="disc-num">19</span></div><div class="music-info"><div class="music-title">歌手与模特儿</div><div class="music-artist">方大同</div></div></div>
+          <div class="music-item" data-title="爱爱爱" data-artist="方大同"><div class="music-disc"><span class="disc-num">20</span></div><div class="music-info"><div class="music-title">爱爱爱</div><div class="music-artist">方大同</div></div></div>
+          <div class="music-item" data-title="每天每天" data-artist="方大同"><div class="music-disc"><span class="disc-num">21</span></div><div class="music-info"><div class="music-title">每天每天</div><div class="music-artist">方大同</div></div></div>
+          <div class="music-item" data-title="复刻回忆" data-artist="薛凯琪 / 方大同"><div class="music-disc"><span class="disc-num">22</span></div><div class="music-info"><div class="music-title">复刻回忆</div><div class="music-artist">薛凯琪 / 方大同</div></div></div>
+          <div class="music-item" data-title="梦蝴蝶" data-artist="方大同"><div class="music-disc"><span class="disc-num">23</span></div><div class="music-info"><div class="music-title">梦蝴蝶</div><div class="music-artist">方大同</div></div></div>
+          <div class="music-item" data-title="才二十三" data-artist="方大同"><div class="music-disc"><span class="disc-num">24</span></div><div class="music-info"><div class="music-title">才二十三</div><div class="music-artist">方大同</div></div></div>
         </div>
+        <div class="music-empty">没有找到匹配的歌曲 🎵</div>
       </div>
 
       <!-- 日系 -->
-      <div class="music-panel" id="music-jpop">
+      <div class="music-panel" id="music-jpop" data-theme="jpop">
         <div class="music-panel-desc">从宇多田到藤井風，日语歌好在不用听懂歌词就能感受到情绪 🌸</div>
         <div class="music-grid">
-          <div class="music-item"><span class="music-num">1</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">First Love</div><div class="music-artist">宇多田ヒカル</div></div></div>
-          <div class="music-item"><span class="music-num">2</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Close to You</div><div class="music-artist">宇多田ヒカル</div></div></div>
-          <div class="music-item"><span class="music-num">3</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Stay Gold</div><div class="music-artist">宇多田ヒカル</div></div></div>
-          <div class="music-item"><span class="music-num">4</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Wait &amp; See ～リスク～</div><div class="music-artist">宇多田ヒカル</div></div></div>
-          <div class="music-item"><span class="music-num">5</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Eternally</div><div class="music-artist">宇多田ヒカル</div></div></div>
-          <div class="music-item"><span class="music-num">6</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Apple And Cinnamon</div><div class="music-artist">宇多田ヒカル</div></div></div>
-          <div class="music-item"><span class="music-num">7</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">甘いワナ 〜Paint It, Black</div><div class="music-artist">宇多田ヒカル</div></div></div>
-          <div class="music-item"><span class="music-num">8</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Prisoner Of Love</div><div class="music-artist">宇多田ヒカル</div></div></div>
-          <div class="music-item"><span class="music-num">9</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Distance</div><div class="music-artist">宇多田ヒカル</div></div></div>
-          <div class="music-item"><span class="music-num">10</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">For You</div><div class="music-artist">宇多田ヒカル</div></div></div>
-          <div class="music-item"><span class="music-num">11</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">君に夢中</div><div class="music-artist">宇多田ヒカル</div></div></div>
-          <div class="music-item"><span class="music-num">12</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Merry Christmas Mr. Lawrence - FYI</div><div class="music-artist">宇多田ヒカル</div></div></div>
-          <div class="music-item"><span class="music-num">13</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">T</div><div class="music-artist">88rising / 宇多田ヒカル / Warren Hue</div></div></div>
-          <div class="music-item"><span class="music-num">14</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Home (feat. Hikaru Utada)</div><div class="music-artist">Charlie Puth / 宇多田ヒカル</div></div></div>
-          <div class="music-item"><span class="music-num">15</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">きらり</div><div class="music-artist">藤井風</div></div></div>
-          <div class="music-item"><span class="music-num">16</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Love Like This</div><div class="music-artist">藤井風</div></div></div>
-          <div class="music-item"><span class="music-num">17</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Close To You</div><div class="music-artist">藤井風</div></div></div>
-          <div class="music-item"><span class="music-num">18</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">死ぬのがいいわ</div><div class="music-artist">藤井風</div></div></div>
-          <div class="music-item"><span class="music-num">19</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">歌舞伎町の女王</div><div class="music-artist">椎名林檎</div></div></div>
-          <div class="music-item"><span class="music-num">20</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">なんでもないや (movie ver.)</div><div class="music-artist">RADWIMPS</div></div></div>
-          <div class="music-item"><span class="music-num">21</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">真夜中のドア〜stay with me (シングルver.)</div><div class="music-artist">松原みき</div></div></div>
-          <div class="music-item"><span class="music-num">22</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">モノクローム</div><div class="music-artist">具島直子</div></div></div>
-          <div class="music-item"><span class="music-num">23</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">まどろみ</div><div class="music-artist">具島直子</div></div></div>
-          <div class="music-item"><span class="music-num">24</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">そばにいるね</div><div class="music-artist">青山テルマ / SoulJa</div></div></div>
-          <div class="music-item"><span class="music-num">25</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">キャシィ</div><div class="music-artist">当山ひとみ</div></div></div>
-          <div class="music-item"><span class="music-num">26</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">渡月橋 ～君 想ふ～</div><div class="music-artist">倉木麻衣</div></div></div>
-          <div class="music-item"><span class="music-num">27</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">ハルノユキ from polaris</div><div class="music-artist">リリィ、さよなら。 / 増田俊樹</div></div></div>
-          <div class="music-item"><span class="music-num">28</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">L.o.L.</div><div class="music-artist">松下優也</div></div></div>
-          <div class="music-item"><span class="music-num">29</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">LAST SNOW</div><div class="music-artist">松下優也</div></div></div>
-          <div class="music-item"><span class="music-num">30</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">雪の光</div><div class="music-artist">福原美穂</div></div></div>
-          <div class="music-item"><span class="music-num">31</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">絶え間なく (Taemanaku)</div><div class="music-artist">福原美穂</div></div></div>
-          <div class="music-item"><span class="music-num">32</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Missin&#39; U</div><div class="music-artist">石田裕子</div></div></div>
-          <div class="music-item"><span class="music-num">33</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">クリスマスソング</div><div class="music-artist">back number</div></div></div>
-          <div class="music-item"><span class="music-num">34</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">SMALL HAPPINESS</div><div class="music-artist">麗美</div></div></div>
-          <div class="music-item"><span class="music-num">35</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">A WINTER STORY</div><div class="music-artist">麗美</div></div></div>
-          <div class="music-item"><span class="music-num">36</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">WINTER WITHOUT YOU</div><div class="music-artist">XG</div></div></div>
+          <div class="music-item" data-title="first love" data-artist="宇多田ヒカル"><div class="music-disc"><span class="disc-num">1</span></div><div class="music-info"><div class="music-title">First Love</div><div class="music-artist">宇多田ヒカル</div></div></div>
+          <div class="music-item" data-title="close to you" data-artist="宇多田ヒカル"><div class="music-disc"><span class="disc-num">2</span></div><div class="music-info"><div class="music-title">Close to You</div><div class="music-artist">宇多田ヒカル</div></div></div>
+          <div class="music-item" data-title="stay gold" data-artist="宇多田ヒカル"><div class="music-disc"><span class="disc-num">3</span></div><div class="music-info"><div class="music-title">Stay Gold</div><div class="music-artist">宇多田ヒカル</div></div></div>
+          <div class="music-item" data-title="wait &amp; see ～リスク～" data-artist="宇多田ヒカル"><div class="music-disc"><span class="disc-num">4</span></div><div class="music-info"><div class="music-title">Wait &amp; See ～リスク～</div><div class="music-artist">宇多田ヒカル</div></div></div>
+          <div class="music-item" data-title="eternally" data-artist="宇多田ヒカル"><div class="music-disc"><span class="disc-num">5</span></div><div class="music-info"><div class="music-title">Eternally</div><div class="music-artist">宇多田ヒカル</div></div></div>
+          <div class="music-item" data-title="apple and cinnamon" data-artist="宇多田ヒカル"><div class="music-disc"><span class="disc-num">6</span></div><div class="music-info"><div class="music-title">Apple And Cinnamon</div><div class="music-artist">宇多田ヒカル</div></div></div>
+          <div class="music-item" data-title="甘いワナ 〜paint it, black" data-artist="宇多田ヒカル"><div class="music-disc"><span class="disc-num">7</span></div><div class="music-info"><div class="music-title">甘いワナ 〜Paint It, Black</div><div class="music-artist">宇多田ヒカル</div></div></div>
+          <div class="music-item" data-title="prisoner of love" data-artist="宇多田ヒカル"><div class="music-disc"><span class="disc-num">8</span></div><div class="music-info"><div class="music-title">Prisoner Of Love</div><div class="music-artist">宇多田ヒカル</div></div></div>
+          <div class="music-item" data-title="distance" data-artist="宇多田ヒカル"><div class="music-disc"><span class="disc-num">9</span></div><div class="music-info"><div class="music-title">Distance</div><div class="music-artist">宇多田ヒカル</div></div></div>
+          <div class="music-item" data-title="for you" data-artist="宇多田ヒカル"><div class="music-disc"><span class="disc-num">10</span></div><div class="music-info"><div class="music-title">For You</div><div class="music-artist">宇多田ヒカル</div></div></div>
+          <div class="music-item" data-title="君に夢中" data-artist="宇多田ヒカル"><div class="music-disc"><span class="disc-num">11</span></div><div class="music-info"><div class="music-title">君に夢中</div><div class="music-artist">宇多田ヒカル</div></div></div>
+          <div class="music-item" data-title="merry christmas mr. lawrence - fyi" data-artist="宇多田ヒカル"><div class="music-disc"><span class="disc-num">12</span></div><div class="music-info"><div class="music-title">Merry Christmas Mr. Lawrence - FYI</div><div class="music-artist">宇多田ヒカル</div></div></div>
+          <div class="music-item" data-title="t" data-artist="88rising / 宇多田ヒカル / warren hue"><div class="music-disc"><span class="disc-num">13</span></div><div class="music-info"><div class="music-title">T</div><div class="music-artist">88rising / 宇多田ヒカル / Warren Hue</div></div></div>
+          <div class="music-item" data-title="home (feat. hikaru utada)" data-artist="charlie puth / 宇多田ヒカル"><div class="music-disc"><span class="disc-num">14</span></div><div class="music-info"><div class="music-title">Home (feat. Hikaru Utada)</div><div class="music-artist">Charlie Puth / 宇多田ヒカル</div></div></div>
+          <div class="music-item" data-title="きらり" data-artist="藤井風"><div class="music-disc"><span class="disc-num">15</span></div><div class="music-info"><div class="music-title">きらり</div><div class="music-artist">藤井風</div></div></div>
+          <div class="music-item" data-title="love like this" data-artist="藤井風"><div class="music-disc"><span class="disc-num">16</span></div><div class="music-info"><div class="music-title">Love Like This</div><div class="music-artist">藤井風</div></div></div>
+          <div class="music-item" data-title="close to you" data-artist="藤井風"><div class="music-disc"><span class="disc-num">17</span></div><div class="music-info"><div class="music-title">Close To You</div><div class="music-artist">藤井風</div></div></div>
+          <div class="music-item" data-title="死ぬのがいいわ" data-artist="藤井風"><div class="music-disc"><span class="disc-num">18</span></div><div class="music-info"><div class="music-title">死ぬのがいいわ</div><div class="music-artist">藤井風</div></div></div>
+          <div class="music-item" data-title="歌舞伎町の女王" data-artist="椎名林檎"><div class="music-disc"><span class="disc-num">19</span></div><div class="music-info"><div class="music-title">歌舞伎町の女王</div><div class="music-artist">椎名林檎</div></div></div>
+          <div class="music-item" data-title="なんでもないや (movie ver.)" data-artist="radwimps"><div class="music-disc"><span class="disc-num">20</span></div><div class="music-info"><div class="music-title">なんでもないや (movie ver.)</div><div class="music-artist">RADWIMPS</div></div></div>
+          <div class="music-item" data-title="真夜中のドア〜stay with me (シングルver.)" data-artist="松原みき"><div class="music-disc"><span class="disc-num">21</span></div><div class="music-info"><div class="music-title">真夜中のドア〜stay with me (シングルver.)</div><div class="music-artist">松原みき</div></div></div>
+          <div class="music-item" data-title="モノクローム" data-artist="具島直子"><div class="music-disc"><span class="disc-num">22</span></div><div class="music-info"><div class="music-title">モノクローム</div><div class="music-artist">具島直子</div></div></div>
+          <div class="music-item" data-title="まどろみ" data-artist="具島直子"><div class="music-disc"><span class="disc-num">23</span></div><div class="music-info"><div class="music-title">まどろみ</div><div class="music-artist">具島直子</div></div></div>
+          <div class="music-item" data-title="そばにいるね" data-artist="青山テルマ / soulja"><div class="music-disc"><span class="disc-num">24</span></div><div class="music-info"><div class="music-title">そばにいるね</div><div class="music-artist">青山テルマ / SoulJa</div></div></div>
+          <div class="music-item" data-title="キャシィ" data-artist="当山ひとみ"><div class="music-disc"><span class="disc-num">25</span></div><div class="music-info"><div class="music-title">キャシィ</div><div class="music-artist">当山ひとみ</div></div></div>
+          <div class="music-item" data-title="渡月橋 ～君 想ふ～" data-artist="倉木麻衣"><div class="music-disc"><span class="disc-num">26</span></div><div class="music-info"><div class="music-title">渡月橋 ～君 想ふ～</div><div class="music-artist">倉木麻衣</div></div></div>
+          <div class="music-item" data-title="ハルノユキ from polaris" data-artist="リリィ、さよなら。 / 増田俊樹"><div class="music-disc"><span class="disc-num">27</span></div><div class="music-info"><div class="music-title">ハルノユキ from polaris</div><div class="music-artist">リリィ、さよなら。 / 増田俊樹</div></div></div>
+          <div class="music-item" data-title="l.o.l." data-artist="松下優也"><div class="music-disc"><span class="disc-num">28</span></div><div class="music-info"><div class="music-title">L.o.L.</div><div class="music-artist">松下優也</div></div></div>
+          <div class="music-item" data-title="last snow" data-artist="松下優也"><div class="music-disc"><span class="disc-num">29</span></div><div class="music-info"><div class="music-title">LAST SNOW</div><div class="music-artist">松下優也</div></div></div>
+          <div class="music-item" data-title="雪の光" data-artist="福原美穂"><div class="music-disc"><span class="disc-num">30</span></div><div class="music-info"><div class="music-title">雪の光</div><div class="music-artist">福原美穂</div></div></div>
+          <div class="music-item" data-title="絶え間なく (taemanaku)" data-artist="福原美穂"><div class="music-disc"><span class="disc-num">31</span></div><div class="music-info"><div class="music-title">絶え間なく (Taemanaku)</div><div class="music-artist">福原美穂</div></div></div>
+          <div class="music-item" data-title="missin&#39; u" data-artist="石田裕子"><div class="music-disc"><span class="disc-num">32</span></div><div class="music-info"><div class="music-title">Missin&#39; U</div><div class="music-artist">石田裕子</div></div></div>
+          <div class="music-item" data-title="クリスマスソング" data-artist="back number"><div class="music-disc"><span class="disc-num">33</span></div><div class="music-info"><div class="music-title">クリスマスソング</div><div class="music-artist">back number</div></div></div>
+          <div class="music-item" data-title="small happiness" data-artist="麗美"><div class="music-disc"><span class="disc-num">34</span></div><div class="music-info"><div class="music-title">SMALL HAPPINESS</div><div class="music-artist">麗美</div></div></div>
+          <div class="music-item" data-title="a winter story" data-artist="麗美"><div class="music-disc"><span class="disc-num">35</span></div><div class="music-info"><div class="music-title">A WINTER STORY</div><div class="music-artist">麗美</div></div></div>
+          <div class="music-item" data-title="winter without you" data-artist="xg"><div class="music-disc"><span class="disc-num">36</span></div><div class="music-info"><div class="music-title">WINTER WITHOUT YOU</div><div class="music-artist">XG</div></div></div>
         </div>
+        <div class="music-empty">没有找到匹配的歌曲 🎵</div>
       </div>
 
       <!-- 天后们 -->
-      <div class="music-panel" id="music-queens">
+      <div class="music-panel" id="music-queens" data-theme="queens">
         <div class="music-panel-desc">Mariah、Whitney、Janet、Beyoncé、王菲——每一个都是时代 👑</div>
         <div class="music-grid">
-          <div class="music-item"><span class="music-num">1</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Emotions</div><div class="music-artist">Mariah Carey</div></div></div>
-          <div class="music-item"><span class="music-num">2</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Always Be My Baby</div><div class="music-artist">Mariah Carey</div></div></div>
-          <div class="music-item"><span class="music-num">3</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">We Belong Together</div><div class="music-artist">Mariah Carey</div></div></div>
-          <div class="music-item"><span class="music-num">4</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">My All</div><div class="music-artist">Mariah Carey</div></div></div>
-          <div class="music-item"><span class="music-num">5</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Without You</div><div class="music-artist">Mariah Carey</div></div></div>
-          <div class="music-item"><span class="music-num">6</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Through the Rain</div><div class="music-artist">Mariah Carey</div></div></div>
-          <div class="music-item"><span class="music-num">7</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Anytime You Need a Friend</div><div class="music-artist">Mariah Carey</div></div></div>
-          <div class="music-item"><span class="music-num">8</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Melt Away</div><div class="music-artist">Mariah Carey</div></div></div>
-          <div class="music-item"><span class="music-num">9</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Bye Bye</div><div class="music-artist">Mariah Carey</div></div></div>
-          <div class="music-item"><span class="music-num">10</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">I Stay In Love</div><div class="music-artist">Mariah Carey</div></div></div>
-          <div class="music-item"><span class="music-num">11</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Circles</div><div class="music-artist">Mariah Carey</div></div></div>
-          <div class="music-item"><span class="music-num">12</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Here For It All</div><div class="music-artist">Mariah Carey</div></div></div>
-          <div class="music-item"><span class="music-num">13</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Sugar Sweet (feat. Shenseea &amp; Kehlani)</div><div class="music-artist">Mariah Carey / Shenseea / Kehlani</div></div></div>
-          <div class="music-item"><span class="music-num">14</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Cruise Control</div><div class="music-artist">Mariah Carey / Damian Marley</div></div></div>
-          <div class="music-item"><span class="music-num">15</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Oh Santa!</div><div class="music-artist">Mariah Carey / Ariana Grande / Jennifer Hudson</div></div></div>
-          <div class="music-item"><span class="music-num">16</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">I Will Always Love You</div><div class="music-artist">Whitney Houston</div></div></div>
-          <div class="music-item"><span class="music-num">17</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">I Have Nothing</div><div class="music-artist">Whitney Houston</div></div></div>
-          <div class="music-item"><span class="music-num">18</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">When You Believe</div><div class="music-artist">Whitney Houston / Mariah Carey</div></div></div>
-          <div class="music-item"><span class="music-num">19</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Worth It</div><div class="music-artist">Whitney Houston</div></div></div>
-          <div class="music-item"><span class="music-num">20</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">That&#39;s The Way Love Goes</div><div class="music-artist">Janet Jackson</div></div></div>
-          <div class="music-item"><span class="music-num">21</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">I Get Lonely</div><div class="music-artist">Janet Jackson</div></div></div>
-          <div class="music-item"><span class="music-num">22</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Enjoy</div><div class="music-artist">Janet Jackson</div></div></div>
-          <div class="music-item"><span class="music-num">23</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">I Want You</div><div class="music-artist">Janet Jackson</div></div></div>
-          <div class="music-item"><span class="music-num">24</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Every Time</div><div class="music-artist">Janet Jackson</div></div></div>
-          <div class="music-item"><span class="music-num">25</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">CUFF IT</div><div class="music-artist">Beyoncé</div></div></div>
-          <div class="music-item"><span class="music-num">26</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Donk</div><div class="music-artist">Beyoncé</div></div></div>
-          <div class="music-item"><span class="music-num">27</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Me, Myself and I</div><div class="music-artist">Beyoncé</div></div></div>
-          <div class="music-item"><span class="music-num">28</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Summertime</div><div class="music-artist">Beyoncé / Puff Daddy</div></div></div>
-          <div class="music-item"><span class="music-num">29</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">浮躁</div><div class="music-artist">王菲</div></div></div>
-          <div class="music-item"><span class="music-num">30</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">分裂</div><div class="music-artist">王菲</div></div></div>
-          <div class="music-item"><span class="music-num">31</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">无常</div><div class="music-artist">王菲</div></div></div>
-          <div class="music-item"><span class="music-num">32</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">红粉菲菲</div><div class="music-artist">王菲</div></div></div>
-          <div class="music-item"><span class="music-num">33</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">可爱眼睛</div><div class="music-artist">王菲</div></div></div>
-          <div class="music-item"><span class="music-num">34</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">再见萤火虫</div><div class="music-artist">王菲</div></div></div>
-          <div class="music-item"><span class="music-num">35</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">当时的月亮</div><div class="music-artist">王菲</div></div></div>
-          <div class="music-item"><span class="music-num">36</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">执迷不悔</div><div class="music-artist">王菲</div></div></div>
-          <div class="music-item"><span class="music-num">37</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">蝴蝶</div><div class="music-artist">王菲</div></div></div>
-          <div class="music-item"><span class="music-num">38</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">你快乐所以我快乐</div><div class="music-artist">王菲</div></div></div>
-          <div class="music-item"><span class="music-num">39</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">天使</div><div class="music-artist">王菲</div></div></div>
-          <div class="music-item"><span class="music-num">40</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Don&#39;t Break My Heart (Live)</div><div class="music-artist">王菲</div></div></div>
-          <div class="music-item"><span class="music-num">41</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">你喜欢不如我喜欢</div><div class="music-artist">王菲</div></div></div>
-          <div class="music-item"><span class="music-num">42</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">MY ALL</div><div class="music-artist">浜崎あゆみ</div></div></div>
-          <div class="music-item"><span class="music-num">43</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">I Will Survive (The Aretha Version)</div><div class="music-artist">Aretha Franklin</div></div></div>
+          <div class="music-item" data-title="emotions" data-artist="mariah carey"><div class="music-disc"><span class="disc-num">1</span></div><div class="music-info"><div class="music-title">Emotions</div><div class="music-artist">Mariah Carey</div></div></div>
+          <div class="music-item" data-title="always be my baby" data-artist="mariah carey"><div class="music-disc"><span class="disc-num">2</span></div><div class="music-info"><div class="music-title">Always Be My Baby</div><div class="music-artist">Mariah Carey</div></div></div>
+          <div class="music-item" data-title="we belong together" data-artist="mariah carey"><div class="music-disc"><span class="disc-num">3</span></div><div class="music-info"><div class="music-title">We Belong Together</div><div class="music-artist">Mariah Carey</div></div></div>
+          <div class="music-item" data-title="my all" data-artist="mariah carey"><div class="music-disc"><span class="disc-num">4</span></div><div class="music-info"><div class="music-title">My All</div><div class="music-artist">Mariah Carey</div></div></div>
+          <div class="music-item" data-title="without you" data-artist="mariah carey"><div class="music-disc"><span class="disc-num">5</span></div><div class="music-info"><div class="music-title">Without You</div><div class="music-artist">Mariah Carey</div></div></div>
+          <div class="music-item" data-title="through the rain" data-artist="mariah carey"><div class="music-disc"><span class="disc-num">6</span></div><div class="music-info"><div class="music-title">Through the Rain</div><div class="music-artist">Mariah Carey</div></div></div>
+          <div class="music-item" data-title="anytime you need a friend" data-artist="mariah carey"><div class="music-disc"><span class="disc-num">7</span></div><div class="music-info"><div class="music-title">Anytime You Need a Friend</div><div class="music-artist">Mariah Carey</div></div></div>
+          <div class="music-item" data-title="melt away" data-artist="mariah carey"><div class="music-disc"><span class="disc-num">8</span></div><div class="music-info"><div class="music-title">Melt Away</div><div class="music-artist">Mariah Carey</div></div></div>
+          <div class="music-item" data-title="bye bye" data-artist="mariah carey"><div class="music-disc"><span class="disc-num">9</span></div><div class="music-info"><div class="music-title">Bye Bye</div><div class="music-artist">Mariah Carey</div></div></div>
+          <div class="music-item" data-title="i stay in love" data-artist="mariah carey"><div class="music-disc"><span class="disc-num">10</span></div><div class="music-info"><div class="music-title">I Stay In Love</div><div class="music-artist">Mariah Carey</div></div></div>
+          <div class="music-item" data-title="circles" data-artist="mariah carey"><div class="music-disc"><span class="disc-num">11</span></div><div class="music-info"><div class="music-title">Circles</div><div class="music-artist">Mariah Carey</div></div></div>
+          <div class="music-item" data-title="here for it all" data-artist="mariah carey"><div class="music-disc"><span class="disc-num">12</span></div><div class="music-info"><div class="music-title">Here For It All</div><div class="music-artist">Mariah Carey</div></div></div>
+          <div class="music-item" data-title="sugar sweet (feat. shenseea &amp; kehlani)" data-artist="mariah carey / shenseea / kehlani"><div class="music-disc"><span class="disc-num">13</span></div><div class="music-info"><div class="music-title">Sugar Sweet (feat. Shenseea &amp; Kehlani)</div><div class="music-artist">Mariah Carey / Shenseea / Kehlani</div></div></div>
+          <div class="music-item" data-title="cruise control" data-artist="mariah carey / damian marley"><div class="music-disc"><span class="disc-num">14</span></div><div class="music-info"><div class="music-title">Cruise Control</div><div class="music-artist">Mariah Carey / Damian Marley</div></div></div>
+          <div class="music-item" data-title="oh santa!" data-artist="mariah carey / ariana grande / jennifer hudson"><div class="music-disc"><span class="disc-num">15</span></div><div class="music-info"><div class="music-title">Oh Santa!</div><div class="music-artist">Mariah Carey / Ariana Grande / Jennifer Hudson</div></div></div>
+          <div class="music-item" data-title="i will always love you" data-artist="whitney houston"><div class="music-disc"><span class="disc-num">16</span></div><div class="music-info"><div class="music-title">I Will Always Love You</div><div class="music-artist">Whitney Houston</div></div></div>
+          <div class="music-item" data-title="i have nothing" data-artist="whitney houston"><div class="music-disc"><span class="disc-num">17</span></div><div class="music-info"><div class="music-title">I Have Nothing</div><div class="music-artist">Whitney Houston</div></div></div>
+          <div class="music-item" data-title="when you believe" data-artist="whitney houston / mariah carey"><div class="music-disc"><span class="disc-num">18</span></div><div class="music-info"><div class="music-title">When You Believe</div><div class="music-artist">Whitney Houston / Mariah Carey</div></div></div>
+          <div class="music-item" data-title="worth it" data-artist="whitney houston"><div class="music-disc"><span class="disc-num">19</span></div><div class="music-info"><div class="music-title">Worth It</div><div class="music-artist">Whitney Houston</div></div></div>
+          <div class="music-item" data-title="that&#39;s the way love goes" data-artist="janet jackson"><div class="music-disc"><span class="disc-num">20</span></div><div class="music-info"><div class="music-title">That&#39;s The Way Love Goes</div><div class="music-artist">Janet Jackson</div></div></div>
+          <div class="music-item" data-title="i get lonely" data-artist="janet jackson"><div class="music-disc"><span class="disc-num">21</span></div><div class="music-info"><div class="music-title">I Get Lonely</div><div class="music-artist">Janet Jackson</div></div></div>
+          <div class="music-item" data-title="enjoy" data-artist="janet jackson"><div class="music-disc"><span class="disc-num">22</span></div><div class="music-info"><div class="music-title">Enjoy</div><div class="music-artist">Janet Jackson</div></div></div>
+          <div class="music-item" data-title="i want you" data-artist="janet jackson"><div class="music-disc"><span class="disc-num">23</span></div><div class="music-info"><div class="music-title">I Want You</div><div class="music-artist">Janet Jackson</div></div></div>
+          <div class="music-item" data-title="every time" data-artist="janet jackson"><div class="music-disc"><span class="disc-num">24</span></div><div class="music-info"><div class="music-title">Every Time</div><div class="music-artist">Janet Jackson</div></div></div>
+          <div class="music-item" data-title="cuff it" data-artist="beyoncé"><div class="music-disc"><span class="disc-num">25</span></div><div class="music-info"><div class="music-title">CUFF IT</div><div class="music-artist">Beyoncé</div></div></div>
+          <div class="music-item" data-title="donk" data-artist="beyoncé"><div class="music-disc"><span class="disc-num">26</span></div><div class="music-info"><div class="music-title">Donk</div><div class="music-artist">Beyoncé</div></div></div>
+          <div class="music-item" data-title="me, myself and i" data-artist="beyoncé"><div class="music-disc"><span class="disc-num">27</span></div><div class="music-info"><div class="music-title">Me, Myself and I</div><div class="music-artist">Beyoncé</div></div></div>
+          <div class="music-item" data-title="summertime" data-artist="beyoncé / puff daddy"><div class="music-disc"><span class="disc-num">28</span></div><div class="music-info"><div class="music-title">Summertime</div><div class="music-artist">Beyoncé / Puff Daddy</div></div></div>
+          <div class="music-item" data-title="浮躁" data-artist="王菲"><div class="music-disc"><span class="disc-num">29</span></div><div class="music-info"><div class="music-title">浮躁</div><div class="music-artist">王菲</div></div></div>
+          <div class="music-item" data-title="分裂" data-artist="王菲"><div class="music-disc"><span class="disc-num">30</span></div><div class="music-info"><div class="music-title">分裂</div><div class="music-artist">王菲</div></div></div>
+          <div class="music-item" data-title="无常" data-artist="王菲"><div class="music-disc"><span class="disc-num">31</span></div><div class="music-info"><div class="music-title">无常</div><div class="music-artist">王菲</div></div></div>
+          <div class="music-item" data-title="红粉菲菲" data-artist="王菲"><div class="music-disc"><span class="disc-num">32</span></div><div class="music-info"><div class="music-title">红粉菲菲</div><div class="music-artist">王菲</div></div></div>
+          <div class="music-item" data-title="可爱眼睛" data-artist="王菲"><div class="music-disc"><span class="disc-num">33</span></div><div class="music-info"><div class="music-title">可爱眼睛</div><div class="music-artist">王菲</div></div></div>
+          <div class="music-item" data-title="再见萤火虫" data-artist="王菲"><div class="music-disc"><span class="disc-num">34</span></div><div class="music-info"><div class="music-title">再见萤火虫</div><div class="music-artist">王菲</div></div></div>
+          <div class="music-item" data-title="当时的月亮" data-artist="王菲"><div class="music-disc"><span class="disc-num">35</span></div><div class="music-info"><div class="music-title">当时的月亮</div><div class="music-artist">王菲</div></div></div>
+          <div class="music-item" data-title="执迷不悔" data-artist="王菲"><div class="music-disc"><span class="disc-num">36</span></div><div class="music-info"><div class="music-title">执迷不悔</div><div class="music-artist">王菲</div></div></div>
+          <div class="music-item" data-title="蝴蝶" data-artist="王菲"><div class="music-disc"><span class="disc-num">37</span></div><div class="music-info"><div class="music-title">蝴蝶</div><div class="music-artist">王菲</div></div></div>
+          <div class="music-item" data-title="你快乐所以我快乐" data-artist="王菲"><div class="music-disc"><span class="disc-num">38</span></div><div class="music-info"><div class="music-title">你快乐所以我快乐</div><div class="music-artist">王菲</div></div></div>
+          <div class="music-item" data-title="天使" data-artist="王菲"><div class="music-disc"><span class="disc-num">39</span></div><div class="music-info"><div class="music-title">天使</div><div class="music-artist">王菲</div></div></div>
+          <div class="music-item" data-title="don&#39;t break my heart (live)" data-artist="王菲"><div class="music-disc"><span class="disc-num">40</span></div><div class="music-info"><div class="music-title">Don&#39;t Break My Heart (Live)</div><div class="music-artist">王菲</div></div></div>
+          <div class="music-item" data-title="你喜欢不如我喜欢" data-artist="王菲"><div class="music-disc"><span class="disc-num">41</span></div><div class="music-info"><div class="music-title">你喜欢不如我喜欢</div><div class="music-artist">王菲</div></div></div>
+          <div class="music-item" data-title="my all" data-artist="浜崎あゆみ"><div class="music-disc"><span class="disc-num">42</span></div><div class="music-info"><div class="music-title">MY ALL</div><div class="music-artist">浜崎あゆみ</div></div></div>
+          <div class="music-item" data-title="i will survive (the aretha version)" data-artist="aretha franklin"><div class="music-disc"><span class="disc-num">43</span></div><div class="music-info"><div class="music-title">I Will Survive (The Aretha Version)</div><div class="music-artist">Aretha Franklin</div></div></div>
         </div>
+        <div class="music-empty">没有找到匹配的歌曲 🎵</div>
       </div>
 
       <!-- 华语 -->
-      <div class="music-panel" id="music-chinese">
+      <div class="music-panel" id="music-chinese" data-theme="chinese">
         <div class="music-panel-desc">陈粒、陶喆、蔡健雅、张悬……这些人的词写的都是心里话 💫</div>
         <div class="music-grid">
-          <div class="music-item"><span class="music-num">1</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">妙龄童</div><div class="music-artist">陈粒</div></div></div>
-          <div class="music-item"><span class="music-num">2</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">绝对占有 相对自由</div><div class="music-artist">陈粒</div></div></div>
-          <div class="music-item"><span class="music-num">3</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">不妙</div><div class="music-artist">陈粒</div></div></div>
-          <div class="music-item"><span class="music-num">4</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">怪不得</div><div class="music-artist">陈粒</div></div></div>
-          <div class="music-item"><span class="music-num">5</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">芳草地</div><div class="music-artist">陈粒</div></div></div>
-          <div class="music-item"><span class="music-num">6</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">⭐️</div><div class="music-artist">陈粒</div></div></div>
-          <div class="music-item"><span class="music-num">7</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">果实</div><div class="music-artist">陈粒</div></div></div>
-          <div class="music-item"><span class="music-num">8</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">普通朋友</div><div class="music-artist">陶喆</div></div></div>
-          <div class="music-item"><span class="music-num">9</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">普通朋友 (Live)</div><div class="music-artist">陶喆</div></div></div>
-          <div class="music-item"><span class="music-num">10</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">似曾相识</div><div class="music-artist">陶喆</div></div></div>
-          <div class="music-item"><span class="music-num">11</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">说走就走</div><div class="music-artist">陶喆</div></div></div>
-          <div class="music-item"><span class="music-num">12</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Katrina</div><div class="music-artist">陶喆</div></div></div>
-          <div class="music-item"><span class="music-num">13</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">沙滩+Somewhere Over The Rainbow (Live)</div><div class="music-artist">陶喆</div></div></div>
-          <div class="music-item"><span class="music-num">14</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">无地自容(live版)</div><div class="music-artist">韩红 / 孙楠 / 萧敬腾 / 黄绮珊 / 陶喆</div></div></div>
-          <div class="music-item"><span class="music-num">15</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">双栖动物</div><div class="music-artist">蔡健雅</div></div></div>
-          <div class="music-item"><span class="music-num">16</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">抛物线</div><div class="music-artist">蔡健雅</div></div></div>
-          <div class="music-item"><span class="music-num">17</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">假想敌</div><div class="music-artist">蔡健雅</div></div></div>
-          <div class="music-item"><span class="music-num">18</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">无底洞</div><div class="music-artist">蔡健雅</div></div></div>
-          <div class="music-item"><span class="music-num">19</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">儿歌</div><div class="music-artist">张悬</div></div></div>
-          <div class="music-item"><span class="music-num">20</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">空虚</div><div class="music-artist">张悬</div></div></div>
-          <div class="music-item"><span class="music-num">21</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">喜欢</div><div class="music-artist">张悬</div></div></div>
-          <div class="music-item"><span class="music-num">22</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">平常心</div><div class="music-artist">张惠妹</div></div></div>
-          <div class="music-item"><span class="music-num">23</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">忘记</div><div class="music-artist">张惠妹</div></div></div>
-          <div class="music-item"><span class="music-num">24</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">听海</div><div class="music-artist">张惠妹</div></div></div>
-          <div class="music-item"><span class="music-num">25</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">真实</div><div class="music-artist">张惠妹</div></div></div>
-          <div class="music-item"><span class="music-num">26</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">漩涡</div><div class="music-artist">孙燕姿</div></div></div>
-          <div class="music-item"><span class="music-num">27</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">爱情字典</div><div class="music-artist">孙燕姿</div></div></div>
-          <div class="music-item"><span class="music-num">28</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">同类</div><div class="music-artist">孙燕姿</div></div></div>
-          <div class="music-item"><span class="music-num">29</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">心之科学</div><div class="music-artist">容祖儿</div></div></div>
-          <div class="music-item"><span class="music-num">30</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">东京人寿</div><div class="music-artist">容祖儿</div></div></div>
-          <div class="music-item"><span class="music-num">31</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">烟霞</div><div class="music-artist">容祖儿</div></div></div>
-          <div class="music-item"><span class="music-num">32</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">没有寄的信</div><div class="music-artist">安溥</div></div></div>
-          <div class="music-item"><span class="music-num">33</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">困在</div><div class="music-artist">魏如萱</div></div></div>
-          <div class="music-item"><span class="music-num">34</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">失忆蝴蝶</div><div class="music-artist">陈奕迅</div></div></div>
-          <div class="music-item"><span class="music-num">35</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">情歌</div><div class="music-artist">梁静茹</div></div></div>
-          <div class="music-item"><span class="music-num">36</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">枯荣</div><div class="music-artist">林忆莲</div></div></div>
-          <div class="music-item"><span class="music-num">37</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">I&#39;m Not Strong Enough</div><div class="music-artist">林忆莲</div></div></div>
-          <div class="music-item"><span class="music-num">38</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">好想你</div><div class="music-artist">蔡依林</div></div></div>
-          <div class="music-item"><span class="music-num">39</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">飞女正传</div><div class="music-artist">杨千嬅</div></div></div>
-          <div class="music-item"><span class="music-num">40</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">仰望</div><div class="music-artist">杨丞琳</div></div></div>
-          <div class="music-item"><span class="music-num">41</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">习惯这样</div><div class="music-artist">戴佩妮</div></div></div>
-          <div class="music-item"><span class="music-num">42</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">是非题</div><div class="music-artist">莫文蔚</div></div></div>
-          <div class="music-item"><span class="music-num">43</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">十二楼</div><div class="music-artist">莫文蔚</div></div></div>
-          <div class="music-item"><span class="music-num">44</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">夏日倾情</div><div class="music-artist">卫兰</div></div></div>
-          <div class="music-item"><span class="music-num">45</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">挚友</div><div class="music-artist">黄丽玲</div></div></div>
-          <div class="music-item"><span class="music-num">46</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Last Dance (Live)</div><div class="music-artist">徐佳莹</div></div></div>
-          <div class="music-item"><span class="music-num">47</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">All Tied Up In You</div><div class="music-artist">李玟</div></div></div>
-          <div class="music-item"><span class="music-num">48</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Can We Talk About It</div><div class="music-artist">李玟</div></div></div>
-          <div class="music-item"><span class="music-num">49</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">感觉</div><div class="music-artist">梦飞船</div></div></div>
-          <div class="music-item"><span class="music-num">50</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">7-11 的爱恋</div><div class="music-artist">梦飞船</div></div></div>
-          <div class="music-item"><span class="music-num">51</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">白色羽毛</div><div class="music-artist">芮恩</div></div></div>
-          <div class="music-item"><span class="music-num">52</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">讨厌</div><div class="music-artist">芮恩</div></div></div>
-          <div class="music-item"><span class="music-num">53</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">泪桥</div><div class="music-artist">蛋炒饭</div></div></div>
-          <div class="music-item"><span class="music-num">54</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">和尚</div><div class="music-artist">胡彦斌</div></div></div>
-          <div class="music-item"><span class="music-num">55</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">让她降落</div><div class="music-artist">何璐</div></div></div>
-          <div class="music-item"><span class="music-num">56</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">欲影</div><div class="music-artist">代号鸢</div></div></div>
-          <div class="music-item"><span class="music-num">57</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Mulan</div><div class="music-artist">刘柏辛Lexie</div></div></div>
-          <div class="music-item"><span class="music-num">58</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">别无他求 (黄)</div><div class="music-artist">Xiunism 杨陈秀一 / 赵超凡</div></div></div>
-          <div class="music-item"><span class="music-num">59</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">[方大同]新鸳鸯蝴蝶梦</div><div class="music-artist">O v O</div></div></div>
+          <div class="music-item" data-title="妙龄童" data-artist="陈粒"><div class="music-disc"><span class="disc-num">1</span></div><div class="music-info"><div class="music-title">妙龄童</div><div class="music-artist">陈粒</div></div></div>
+          <div class="music-item" data-title="绝对占有 相对自由" data-artist="陈粒"><div class="music-disc"><span class="disc-num">2</span></div><div class="music-info"><div class="music-title">绝对占有 相对自由</div><div class="music-artist">陈粒</div></div></div>
+          <div class="music-item" data-title="不妙" data-artist="陈粒"><div class="music-disc"><span class="disc-num">3</span></div><div class="music-info"><div class="music-title">不妙</div><div class="music-artist">陈粒</div></div></div>
+          <div class="music-item" data-title="怪不得" data-artist="陈粒"><div class="music-disc"><span class="disc-num">4</span></div><div class="music-info"><div class="music-title">怪不得</div><div class="music-artist">陈粒</div></div></div>
+          <div class="music-item" data-title="芳草地" data-artist="陈粒"><div class="music-disc"><span class="disc-num">5</span></div><div class="music-info"><div class="music-title">芳草地</div><div class="music-artist">陈粒</div></div></div>
+          <div class="music-item" data-title="⭐️" data-artist="陈粒"><div class="music-disc"><span class="disc-num">6</span></div><div class="music-info"><div class="music-title">⭐️</div><div class="music-artist">陈粒</div></div></div>
+          <div class="music-item" data-title="果实" data-artist="陈粒"><div class="music-disc"><span class="disc-num">7</span></div><div class="music-info"><div class="music-title">果实</div><div class="music-artist">陈粒</div></div></div>
+          <div class="music-item" data-title="普通朋友" data-artist="陶喆"><div class="music-disc"><span class="disc-num">8</span></div><div class="music-info"><div class="music-title">普通朋友</div><div class="music-artist">陶喆</div></div></div>
+          <div class="music-item" data-title="普通朋友 (live)" data-artist="陶喆"><div class="music-disc"><span class="disc-num">9</span></div><div class="music-info"><div class="music-title">普通朋友 (Live)</div><div class="music-artist">陶喆</div></div></div>
+          <div class="music-item" data-title="似曾相识" data-artist="陶喆"><div class="music-disc"><span class="disc-num">10</span></div><div class="music-info"><div class="music-title">似曾相识</div><div class="music-artist">陶喆</div></div></div>
+          <div class="music-item" data-title="说走就走" data-artist="陶喆"><div class="music-disc"><span class="disc-num">11</span></div><div class="music-info"><div class="music-title">说走就走</div><div class="music-artist">陶喆</div></div></div>
+          <div class="music-item" data-title="katrina" data-artist="陶喆"><div class="music-disc"><span class="disc-num">12</span></div><div class="music-info"><div class="music-title">Katrina</div><div class="music-artist">陶喆</div></div></div>
+          <div class="music-item" data-title="沙滩+somewhere over the rainbow (live)" data-artist="陶喆"><div class="music-disc"><span class="disc-num">13</span></div><div class="music-info"><div class="music-title">沙滩+Somewhere Over The Rainbow (Live)</div><div class="music-artist">陶喆</div></div></div>
+          <div class="music-item" data-title="无地自容(live版)" data-artist="韩红 / 孙楠 / 萧敬腾 / 黄绮珊 / 陶喆"><div class="music-disc"><span class="disc-num">14</span></div><div class="music-info"><div class="music-title">无地自容(live版)</div><div class="music-artist">韩红 / 孙楠 / 萧敬腾 / 黄绮珊 / 陶喆</div></div></div>
+          <div class="music-item" data-title="双栖动物" data-artist="蔡健雅"><div class="music-disc"><span class="disc-num">15</span></div><div class="music-info"><div class="music-title">双栖动物</div><div class="music-artist">蔡健雅</div></div></div>
+          <div class="music-item" data-title="抛物线" data-artist="蔡健雅"><div class="music-disc"><span class="disc-num">16</span></div><div class="music-info"><div class="music-title">抛物线</div><div class="music-artist">蔡健雅</div></div></div>
+          <div class="music-item" data-title="假想敌" data-artist="蔡健雅"><div class="music-disc"><span class="disc-num">17</span></div><div class="music-info"><div class="music-title">假想敌</div><div class="music-artist">蔡健雅</div></div></div>
+          <div class="music-item" data-title="无底洞" data-artist="蔡健雅"><div class="music-disc"><span class="disc-num">18</span></div><div class="music-info"><div class="music-title">无底洞</div><div class="music-artist">蔡健雅</div></div></div>
+          <div class="music-item" data-title="儿歌" data-artist="张悬"><div class="music-disc"><span class="disc-num">19</span></div><div class="music-info"><div class="music-title">儿歌</div><div class="music-artist">张悬</div></div></div>
+          <div class="music-item" data-title="空虚" data-artist="张悬"><div class="music-disc"><span class="disc-num">20</span></div><div class="music-info"><div class="music-title">空虚</div><div class="music-artist">张悬</div></div></div>
+          <div class="music-item" data-title="喜欢" data-artist="张悬"><div class="music-disc"><span class="disc-num">21</span></div><div class="music-info"><div class="music-title">喜欢</div><div class="music-artist">张悬</div></div></div>
+          <div class="music-item" data-title="平常心" data-artist="张惠妹"><div class="music-disc"><span class="disc-num">22</span></div><div class="music-info"><div class="music-title">平常心</div><div class="music-artist">张惠妹</div></div></div>
+          <div class="music-item" data-title="忘记" data-artist="张惠妹"><div class="music-disc"><span class="disc-num">23</span></div><div class="music-info"><div class="music-title">忘记</div><div class="music-artist">张惠妹</div></div></div>
+          <div class="music-item" data-title="听海" data-artist="张惠妹"><div class="music-disc"><span class="disc-num">24</span></div><div class="music-info"><div class="music-title">听海</div><div class="music-artist">张惠妹</div></div></div>
+          <div class="music-item" data-title="真实" data-artist="张惠妹"><div class="music-disc"><span class="disc-num">25</span></div><div class="music-info"><div class="music-title">真实</div><div class="music-artist">张惠妹</div></div></div>
+          <div class="music-item" data-title="漩涡" data-artist="孙燕姿"><div class="music-disc"><span class="disc-num">26</span></div><div class="music-info"><div class="music-title">漩涡</div><div class="music-artist">孙燕姿</div></div></div>
+          <div class="music-item" data-title="爱情字典" data-artist="孙燕姿"><div class="music-disc"><span class="disc-num">27</span></div><div class="music-info"><div class="music-title">爱情字典</div><div class="music-artist">孙燕姿</div></div></div>
+          <div class="music-item" data-title="同类" data-artist="孙燕姿"><div class="music-disc"><span class="disc-num">28</span></div><div class="music-info"><div class="music-title">同类</div><div class="music-artist">孙燕姿</div></div></div>
+          <div class="music-item" data-title="心之科学" data-artist="容祖儿"><div class="music-disc"><span class="disc-num">29</span></div><div class="music-info"><div class="music-title">心之科学</div><div class="music-artist">容祖儿</div></div></div>
+          <div class="music-item" data-title="东京人寿" data-artist="容祖儿"><div class="music-disc"><span class="disc-num">30</span></div><div class="music-info"><div class="music-title">东京人寿</div><div class="music-artist">容祖儿</div></div></div>
+          <div class="music-item" data-title="烟霞" data-artist="容祖儿"><div class="music-disc"><span class="disc-num">31</span></div><div class="music-info"><div class="music-title">烟霞</div><div class="music-artist">容祖儿</div></div></div>
+          <div class="music-item" data-title="没有寄的信" data-artist="安溥"><div class="music-disc"><span class="disc-num">32</span></div><div class="music-info"><div class="music-title">没有寄的信</div><div class="music-artist">安溥</div></div></div>
+          <div class="music-item" data-title="困在" data-artist="魏如萱"><div class="music-disc"><span class="disc-num">33</span></div><div class="music-info"><div class="music-title">困在</div><div class="music-artist">魏如萱</div></div></div>
+          <div class="music-item" data-title="失忆蝴蝶" data-artist="陈奕迅"><div class="music-disc"><span class="disc-num">34</span></div><div class="music-info"><div class="music-title">失忆蝴蝶</div><div class="music-artist">陈奕迅</div></div></div>
+          <div class="music-item" data-title="情歌" data-artist="梁静茹"><div class="music-disc"><span class="disc-num">35</span></div><div class="music-info"><div class="music-title">情歌</div><div class="music-artist">梁静茹</div></div></div>
+          <div class="music-item" data-title="枯荣" data-artist="林忆莲"><div class="music-disc"><span class="disc-num">36</span></div><div class="music-info"><div class="music-title">枯荣</div><div class="music-artist">林忆莲</div></div></div>
+          <div class="music-item" data-title="i&#39;m not strong enough" data-artist="林忆莲"><div class="music-disc"><span class="disc-num">37</span></div><div class="music-info"><div class="music-title">I&#39;m Not Strong Enough</div><div class="music-artist">林忆莲</div></div></div>
+          <div class="music-item" data-title="好想你" data-artist="蔡依林"><div class="music-disc"><span class="disc-num">38</span></div><div class="music-info"><div class="music-title">好想你</div><div class="music-artist">蔡依林</div></div></div>
+          <div class="music-item" data-title="飞女正传" data-artist="杨千嬅"><div class="music-disc"><span class="disc-num">39</span></div><div class="music-info"><div class="music-title">飞女正传</div><div class="music-artist">杨千嬅</div></div></div>
+          <div class="music-item" data-title="仰望" data-artist="杨丞琳"><div class="music-disc"><span class="disc-num">40</span></div><div class="music-info"><div class="music-title">仰望</div><div class="music-artist">杨丞琳</div></div></div>
+          <div class="music-item" data-title="习惯这样" data-artist="戴佩妮"><div class="music-disc"><span class="disc-num">41</span></div><div class="music-info"><div class="music-title">习惯这样</div><div class="music-artist">戴佩妮</div></div></div>
+          <div class="music-item" data-title="是非题" data-artist="莫文蔚"><div class="music-disc"><span class="disc-num">42</span></div><div class="music-info"><div class="music-title">是非题</div><div class="music-artist">莫文蔚</div></div></div>
+          <div class="music-item" data-title="十二楼" data-artist="莫文蔚"><div class="music-disc"><span class="disc-num">43</span></div><div class="music-info"><div class="music-title">十二楼</div><div class="music-artist">莫文蔚</div></div></div>
+          <div class="music-item" data-title="夏日倾情" data-artist="卫兰"><div class="music-disc"><span class="disc-num">44</span></div><div class="music-info"><div class="music-title">夏日倾情</div><div class="music-artist">卫兰</div></div></div>
+          <div class="music-item" data-title="挚友" data-artist="黄丽玲"><div class="music-disc"><span class="disc-num">45</span></div><div class="music-info"><div class="music-title">挚友</div><div class="music-artist">黄丽玲</div></div></div>
+          <div class="music-item" data-title="last dance (live)" data-artist="徐佳莹"><div class="music-disc"><span class="disc-num">46</span></div><div class="music-info"><div class="music-title">Last Dance (Live)</div><div class="music-artist">徐佳莹</div></div></div>
+          <div class="music-item" data-title="all tied up in you" data-artist="李玟"><div class="music-disc"><span class="disc-num">47</span></div><div class="music-info"><div class="music-title">All Tied Up In You</div><div class="music-artist">李玟</div></div></div>
+          <div class="music-item" data-title="can we talk about it" data-artist="李玟"><div class="music-disc"><span class="disc-num">48</span></div><div class="music-info"><div class="music-title">Can We Talk About It</div><div class="music-artist">李玟</div></div></div>
+          <div class="music-item" data-title="感觉" data-artist="梦飞船"><div class="music-disc"><span class="disc-num">49</span></div><div class="music-info"><div class="music-title">感觉</div><div class="music-artist">梦飞船</div></div></div>
+          <div class="music-item" data-title="7-11 的爱恋" data-artist="梦飞船"><div class="music-disc"><span class="disc-num">50</span></div><div class="music-info"><div class="music-title">7-11 的爱恋</div><div class="music-artist">梦飞船</div></div></div>
+          <div class="music-item" data-title="白色羽毛" data-artist="芮恩"><div class="music-disc"><span class="disc-num">51</span></div><div class="music-info"><div class="music-title">白色羽毛</div><div class="music-artist">芮恩</div></div></div>
+          <div class="music-item" data-title="讨厌" data-artist="芮恩"><div class="music-disc"><span class="disc-num">52</span></div><div class="music-info"><div class="music-title">讨厌</div><div class="music-artist">芮恩</div></div></div>
+          <div class="music-item" data-title="泪桥" data-artist="蛋炒饭"><div class="music-disc"><span class="disc-num">53</span></div><div class="music-info"><div class="music-title">泪桥</div><div class="music-artist">蛋炒饭</div></div></div>
+          <div class="music-item" data-title="和尚" data-artist="胡彦斌"><div class="music-disc"><span class="disc-num">54</span></div><div class="music-info"><div class="music-title">和尚</div><div class="music-artist">胡彦斌</div></div></div>
+          <div class="music-item" data-title="让她降落" data-artist="何璐"><div class="music-disc"><span class="disc-num">55</span></div><div class="music-info"><div class="music-title">让她降落</div><div class="music-artist">何璐</div></div></div>
+          <div class="music-item" data-title="欲影" data-artist="代号鸢"><div class="music-disc"><span class="disc-num">56</span></div><div class="music-info"><div class="music-title">欲影</div><div class="music-artist">代号鸢</div></div></div>
+          <div class="music-item" data-title="mulan" data-artist="刘柏辛lexie"><div class="music-disc"><span class="disc-num">57</span></div><div class="music-info"><div class="music-title">Mulan</div><div class="music-artist">刘柏辛Lexie</div></div></div>
+          <div class="music-item" data-title="别无他求 (黄)" data-artist="xiunism 杨陈秀一 / 赵超凡"><div class="music-disc"><span class="disc-num">58</span></div><div class="music-info"><div class="music-title">别无他求 (黄)</div><div class="music-artist">Xiunism 杨陈秀一 / 赵超凡</div></div></div>
+          <div class="music-item" data-title="[方大同]新鸳鸯蝴蝶梦" data-artist="o v o"><div class="music-disc"><span class="disc-num">59</span></div><div class="music-info"><div class="music-title">[方大同]新鸳鸯蝴蝶梦</div><div class="music-artist">O v O</div></div></div>
         </div>
+        <div class="music-empty">没有找到匹配的歌曲 🎵</div>
       </div>
 
       <!-- 欧美 -->
-      <div class="music-panel" id="music-western">
+      <div class="music-panel" id="music-western" data-theme="western">
         <div class="music-panel-desc">Ariana、Taylor、Billie、Lana，以及那些永远不会过时的经典 🌍</div>
         <div class="music-grid">
-          <div class="music-item"><span class="music-num">1</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">God is a woman</div><div class="music-artist">Ariana Grande</div></div></div>
-          <div class="music-item"><span class="music-num">2</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">yes, and?</div><div class="music-artist">Ariana Grande</div></div></div>
-          <div class="music-item"><span class="music-num">3</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">we can&#39;t be friends (wait for your love)</div><div class="music-artist">Ariana Grande</div></div></div>
-          <div class="music-item"><span class="music-num">4</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">nasty</div><div class="music-artist">Ariana Grande</div></div></div>
-          <div class="music-item"><span class="music-num">5</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">needy</div><div class="music-artist">Ariana Grande</div></div></div>
-          <div class="music-item"><span class="music-num">6</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Santa Tell Me</div><div class="music-artist">Ariana Grande</div></div></div>
-          <div class="music-item"><span class="music-num">7</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Good Luck, Babe!</div><div class="music-artist">Chappell Roan</div></div></div>
-          <div class="music-item"><span class="music-num">8</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Love Story</div><div class="music-artist">Taylor Swift</div></div></div>
-          <div class="music-item"><span class="music-num">9</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">august</div><div class="music-artist">Taylor Swift</div></div></div>
-          <div class="music-item"><span class="music-num">10</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">New Year&#39;s Day</div><div class="music-artist">Taylor Swift</div></div></div>
-          <div class="music-item"><span class="music-num">11</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">The Fate of Ophelia</div><div class="music-artist">Taylor Swift</div></div></div>
-          <div class="music-item"><span class="music-num">12</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">LUNCH</div><div class="music-artist">Billie Eilish</div></div></div>
-          <div class="music-item"><span class="music-num">13</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">SKINNY</div><div class="music-artist">Billie Eilish</div></div></div>
-          <div class="music-item"><span class="music-num">14</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">L&#39;AMOUR DE MA VIE</div><div class="music-artist">Billie Eilish</div></div></div>
-          <div class="music-item"><span class="music-num">15</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">bad guy</div><div class="music-artist">Billie Eilish</div></div></div>
-          <div class="music-item"><span class="music-num">16</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Summertime Sadness</div><div class="music-artist">Lana Del Rey</div></div></div>
-          <div class="music-item"><span class="music-num">17</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Young And Beautiful</div><div class="music-artist">Lana Del Rey</div></div></div>
-          <div class="music-item"><span class="music-num">18</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Cherry</div><div class="music-artist">Lana Del Rey</div></div></div>
-          <div class="music-item"><span class="music-num">19</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">No One</div><div class="music-artist">Alicia Keys</div></div></div>
-          <div class="music-item"><span class="music-num">20</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Fallin&#39;</div><div class="music-artist">Alicia Keys</div></div></div>
-          <div class="music-item"><span class="music-num">21</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Girl On Fire</div><div class="music-artist">Alicia Keys</div></div></div>
-          <div class="music-item"><span class="music-num">22</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">A Woman&#39;s Worth</div><div class="music-artist">Alicia Keys</div></div></div>
-          <div class="music-item"><span class="music-num">23</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Other Side Of Love (Remix)</div><div class="music-artist">Coco Jones / Alicia Keys</div></div></div>
-          <div class="music-item"><span class="music-num">24</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Bleeding Love</div><div class="music-artist">Leona Lewis</div></div></div>
-          <div class="music-item"><span class="music-num">25</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Yesterday</div><div class="music-artist">Leona Lewis</div></div></div>
-          <div class="music-item"><span class="music-num">26</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Pain</div><div class="music-artist">Muni Long</div></div></div>
-          <div class="music-item"><span class="music-num">27</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Made For Me</div><div class="music-artist">Muni Long</div></div></div>
-          <div class="music-item"><span class="music-num">28</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Say My Name</div><div class="music-artist">Destiny&#39;s Child</div></div></div>
-          <div class="music-item"><span class="music-num">29</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">S&amp;M</div><div class="music-artist">Rihanna</div></div></div>
-          <div class="music-item"><span class="music-num">30</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Taste</div><div class="music-artist">Coco Jones</div></div></div>
-          <div class="music-item"><span class="music-num">31</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Love</div><div class="music-artist">Keyshia Cole</div></div></div>
-          <div class="music-item"><span class="music-num">32</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Losing You</div><div class="music-artist">FLO</div></div></div>
-          <div class="music-item"><span class="music-num">33</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Where I Stand</div><div class="music-artist">Ashanti</div></div></div>
-          <div class="music-item"><span class="music-num">34</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Sugar Talking</div><div class="music-artist">Sabrina Carpenter</div></div></div>
-          <div class="music-item"><span class="music-num">35</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Manchild</div><div class="music-artist">Sabrina Carpenter</div></div></div>
-          <div class="music-item"><span class="music-num">36</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Gimme More</div><div class="music-artist">Britney Spears</div></div></div>
-          <div class="music-item"><span class="music-num">37</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Million Years Ago</div><div class="music-artist">Adele</div></div></div>
-          <div class="music-item"><span class="music-num">38</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Dreaming Of You</div><div class="music-artist">Selena Quintanilla-Perez</div></div></div>
-          <div class="music-item"><span class="music-num">39</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Can&#39;t Take My Eyes Off You</div><div class="music-artist">Lauryn Hill</div></div></div>
-          <div class="music-item"><span class="music-num">40</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Just One Last Dance</div><div class="music-artist">Sarah Connor / Natural</div></div></div>
-          <div class="music-item"><span class="music-num">41</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">What You Won&#39;t Do for Love</div><div class="music-artist">Bobby Caldwell</div></div></div>
-          <div class="music-item"><span class="music-num">42</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Mystery of Love</div><div class="music-artist">Sufjan Stevens</div></div></div>
-          <div class="music-item"><span class="music-num">43</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">My Heart Will Go On (Love Theme from &quot;Titanic&quot;)</div><div class="music-artist">Céline Dion / James Horner</div></div></div>
-          <div class="music-item"><span class="music-num">44</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Everybody Come out in the Sunshine (feat. Jamie Pineda)</div><div class="music-artist">Sweetbox</div></div></div>
-          <div class="music-item"><span class="music-num">45</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Say You Love Me</div><div class="music-artist">Patti Austin</div></div></div>
-          <div class="music-item"><span class="music-num">46</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">冬天一个游</div><div class="music-artist">Gordon Flanders</div></div></div>
-          <div class="music-item"><span class="music-num">47</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Wishing You Were Somehow Here Again (Live)</div><div class="music-artist">Andrew Lloyd Webber / Sierra Boggess</div></div></div>
-          <div class="music-item"><span class="music-num">48</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">The Point of No Return (Live)</div><div class="music-artist">Andrew Lloyd Webber</div></div></div>
-          <div class="music-item"><span class="music-num">49</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Don&#39;t Lose Ur Head (feat. Christina Modestou)</div><div class="music-artist">SIX / Christina Modestou</div></div></div>
-          <div class="music-item"><span class="music-num">50</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Who Lives, Who Dies, Who Tells Your Story</div><div class="music-artist">Original Broadway Cast of Hamilton</div></div></div>
-          <div class="music-item"><span class="music-num">51</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Eviter les roses</div><div class="music-artist">Vincent Baguian / Haylen / Côme</div></div></div>
-          <div class="music-item"><span class="music-num">52</span><span class="music-note">♪</span><div class="music-info"><div class="music-title">Ich gehör nur mir</div><div class="music-artist">Theater an der Wien Ensemble</div></div></div>
+          <div class="music-item" data-title="god is a woman" data-artist="ariana grande"><div class="music-disc"><span class="disc-num">1</span></div><div class="music-info"><div class="music-title">God is a woman</div><div class="music-artist">Ariana Grande</div></div></div>
+          <div class="music-item" data-title="yes, and?" data-artist="ariana grande"><div class="music-disc"><span class="disc-num">2</span></div><div class="music-info"><div class="music-title">yes, and?</div><div class="music-artist">Ariana Grande</div></div></div>
+          <div class="music-item" data-title="we can&#39;t be friends (wait for your love)" data-artist="ariana grande"><div class="music-disc"><span class="disc-num">3</span></div><div class="music-info"><div class="music-title">we can&#39;t be friends (wait for your love)</div><div class="music-artist">Ariana Grande</div></div></div>
+          <div class="music-item" data-title="nasty" data-artist="ariana grande"><div class="music-disc"><span class="disc-num">4</span></div><div class="music-info"><div class="music-title">nasty</div><div class="music-artist">Ariana Grande</div></div></div>
+          <div class="music-item" data-title="needy" data-artist="ariana grande"><div class="music-disc"><span class="disc-num">5</span></div><div class="music-info"><div class="music-title">needy</div><div class="music-artist">Ariana Grande</div></div></div>
+          <div class="music-item" data-title="santa tell me" data-artist="ariana grande"><div class="music-disc"><span class="disc-num">6</span></div><div class="music-info"><div class="music-title">Santa Tell Me</div><div class="music-artist">Ariana Grande</div></div></div>
+          <div class="music-item" data-title="good luck, babe!" data-artist="chappell roan"><div class="music-disc"><span class="disc-num">7</span></div><div class="music-info"><div class="music-title">Good Luck, Babe!</div><div class="music-artist">Chappell Roan</div></div></div>
+          <div class="music-item" data-title="love story" data-artist="taylor swift"><div class="music-disc"><span class="disc-num">8</span></div><div class="music-info"><div class="music-title">Love Story</div><div class="music-artist">Taylor Swift</div></div></div>
+          <div class="music-item" data-title="august" data-artist="taylor swift"><div class="music-disc"><span class="disc-num">9</span></div><div class="music-info"><div class="music-title">august</div><div class="music-artist">Taylor Swift</div></div></div>
+          <div class="music-item" data-title="new year&#39;s day" data-artist="taylor swift"><div class="music-disc"><span class="disc-num">10</span></div><div class="music-info"><div class="music-title">New Year&#39;s Day</div><div class="music-artist">Taylor Swift</div></div></div>
+          <div class="music-item" data-title="the fate of ophelia" data-artist="taylor swift"><div class="music-disc"><span class="disc-num">11</span></div><div class="music-info"><div class="music-title">The Fate of Ophelia</div><div class="music-artist">Taylor Swift</div></div></div>
+          <div class="music-item" data-title="lunch" data-artist="billie eilish"><div class="music-disc"><span class="disc-num">12</span></div><div class="music-info"><div class="music-title">LUNCH</div><div class="music-artist">Billie Eilish</div></div></div>
+          <div class="music-item" data-title="skinny" data-artist="billie eilish"><div class="music-disc"><span class="disc-num">13</span></div><div class="music-info"><div class="music-title">SKINNY</div><div class="music-artist">Billie Eilish</div></div></div>
+          <div class="music-item" data-title="l&#39;amour de ma vie" data-artist="billie eilish"><div class="music-disc"><span class="disc-num">14</span></div><div class="music-info"><div class="music-title">L&#39;AMOUR DE MA VIE</div><div class="music-artist">Billie Eilish</div></div></div>
+          <div class="music-item" data-title="bad guy" data-artist="billie eilish"><div class="music-disc"><span class="disc-num">15</span></div><div class="music-info"><div class="music-title">bad guy</div><div class="music-artist">Billie Eilish</div></div></div>
+          <div class="music-item" data-title="summertime sadness" data-artist="lana del rey"><div class="music-disc"><span class="disc-num">16</span></div><div class="music-info"><div class="music-title">Summertime Sadness</div><div class="music-artist">Lana Del Rey</div></div></div>
+          <div class="music-item" data-title="young and beautiful" data-artist="lana del rey"><div class="music-disc"><span class="disc-num">17</span></div><div class="music-info"><div class="music-title">Young And Beautiful</div><div class="music-artist">Lana Del Rey</div></div></div>
+          <div class="music-item" data-title="cherry" data-artist="lana del rey"><div class="music-disc"><span class="disc-num">18</span></div><div class="music-info"><div class="music-title">Cherry</div><div class="music-artist">Lana Del Rey</div></div></div>
+          <div class="music-item" data-title="no one" data-artist="alicia keys"><div class="music-disc"><span class="disc-num">19</span></div><div class="music-info"><div class="music-title">No One</div><div class="music-artist">Alicia Keys</div></div></div>
+          <div class="music-item" data-title="fallin&#39;" data-artist="alicia keys"><div class="music-disc"><span class="disc-num">20</span></div><div class="music-info"><div class="music-title">Fallin&#39;</div><div class="music-artist">Alicia Keys</div></div></div>
+          <div class="music-item" data-title="girl on fire" data-artist="alicia keys"><div class="music-disc"><span class="disc-num">21</span></div><div class="music-info"><div class="music-title">Girl On Fire</div><div class="music-artist">Alicia Keys</div></div></div>
+          <div class="music-item" data-title="a woman&#39;s worth" data-artist="alicia keys"><div class="music-disc"><span class="disc-num">22</span></div><div class="music-info"><div class="music-title">A Woman&#39;s Worth</div><div class="music-artist">Alicia Keys</div></div></div>
+          <div class="music-item" data-title="other side of love (remix)" data-artist="coco jones / alicia keys"><div class="music-disc"><span class="disc-num">23</span></div><div class="music-info"><div class="music-title">Other Side Of Love (Remix)</div><div class="music-artist">Coco Jones / Alicia Keys</div></div></div>
+          <div class="music-item" data-title="bleeding love" data-artist="leona lewis"><div class="music-disc"><span class="disc-num">24</span></div><div class="music-info"><div class="music-title">Bleeding Love</div><div class="music-artist">Leona Lewis</div></div></div>
+          <div class="music-item" data-title="yesterday" data-artist="leona lewis"><div class="music-disc"><span class="disc-num">25</span></div><div class="music-info"><div class="music-title">Yesterday</div><div class="music-artist">Leona Lewis</div></div></div>
+          <div class="music-item" data-title="pain" data-artist="muni long"><div class="music-disc"><span class="disc-num">26</span></div><div class="music-info"><div class="music-title">Pain</div><div class="music-artist">Muni Long</div></div></div>
+          <div class="music-item" data-title="made for me" data-artist="muni long"><div class="music-disc"><span class="disc-num">27</span></div><div class="music-info"><div class="music-title">Made For Me</div><div class="music-artist">Muni Long</div></div></div>
+          <div class="music-item" data-title="say my name" data-artist="destiny&#39;s child"><div class="music-disc"><span class="disc-num">28</span></div><div class="music-info"><div class="music-title">Say My Name</div><div class="music-artist">Destiny&#39;s Child</div></div></div>
+          <div class="music-item" data-title="s&amp;m" data-artist="rihanna"><div class="music-disc"><span class="disc-num">29</span></div><div class="music-info"><div class="music-title">S&amp;M</div><div class="music-artist">Rihanna</div></div></div>
+          <div class="music-item" data-title="taste" data-artist="coco jones"><div class="music-disc"><span class="disc-num">30</span></div><div class="music-info"><div class="music-title">Taste</div><div class="music-artist">Coco Jones</div></div></div>
+          <div class="music-item" data-title="love" data-artist="keyshia cole"><div class="music-disc"><span class="disc-num">31</span></div><div class="music-info"><div class="music-title">Love</div><div class="music-artist">Keyshia Cole</div></div></div>
+          <div class="music-item" data-title="losing you" data-artist="flo"><div class="music-disc"><span class="disc-num">32</span></div><div class="music-info"><div class="music-title">Losing You</div><div class="music-artist">FLO</div></div></div>
+          <div class="music-item" data-title="where i stand" data-artist="ashanti"><div class="music-disc"><span class="disc-num">33</span></div><div class="music-info"><div class="music-title">Where I Stand</div><div class="music-artist">Ashanti</div></div></div>
+          <div class="music-item" data-title="sugar talking" data-artist="sabrina carpenter"><div class="music-disc"><span class="disc-num">34</span></div><div class="music-info"><div class="music-title">Sugar Talking</div><div class="music-artist">Sabrina Carpenter</div></div></div>
+          <div class="music-item" data-title="manchild" data-artist="sabrina carpenter"><div class="music-disc"><span class="disc-num">35</span></div><div class="music-info"><div class="music-title">Manchild</div><div class="music-artist">Sabrina Carpenter</div></div></div>
+          <div class="music-item" data-title="gimme more" data-artist="britney spears"><div class="music-disc"><span class="disc-num">36</span></div><div class="music-info"><div class="music-title">Gimme More</div><div class="music-artist">Britney Spears</div></div></div>
+          <div class="music-item" data-title="million years ago" data-artist="adele"><div class="music-disc"><span class="disc-num">37</span></div><div class="music-info"><div class="music-title">Million Years Ago</div><div class="music-artist">Adele</div></div></div>
+          <div class="music-item" data-title="dreaming of you" data-artist="selena quintanilla-perez"><div class="music-disc"><span class="disc-num">38</span></div><div class="music-info"><div class="music-title">Dreaming Of You</div><div class="music-artist">Selena Quintanilla-Perez</div></div></div>
+          <div class="music-item" data-title="can&#39;t take my eyes off you" data-artist="lauryn hill"><div class="music-disc"><span class="disc-num">39</span></div><div class="music-info"><div class="music-title">Can&#39;t Take My Eyes Off You</div><div class="music-artist">Lauryn Hill</div></div></div>
+          <div class="music-item" data-title="just one last dance" data-artist="sarah connor / natural"><div class="music-disc"><span class="disc-num">40</span></div><div class="music-info"><div class="music-title">Just One Last Dance</div><div class="music-artist">Sarah Connor / Natural</div></div></div>
+          <div class="music-item" data-title="what you won&#39;t do for love" data-artist="bobby caldwell"><div class="music-disc"><span class="disc-num">41</span></div><div class="music-info"><div class="music-title">What You Won&#39;t Do for Love</div><div class="music-artist">Bobby Caldwell</div></div></div>
+          <div class="music-item" data-title="mystery of love" data-artist="sufjan stevens"><div class="music-disc"><span class="disc-num">42</span></div><div class="music-info"><div class="music-title">Mystery of Love</div><div class="music-artist">Sufjan Stevens</div></div></div>
+          <div class="music-item" data-title="my heart will go on (love theme from &quot;titanic&quot;)" data-artist="céline dion / james horner"><div class="music-disc"><span class="disc-num">43</span></div><div class="music-info"><div class="music-title">My Heart Will Go On (Love Theme from &quot;Titanic&quot;)</div><div class="music-artist">Céline Dion / James Horner</div></div></div>
+          <div class="music-item" data-title="everybody come out in the sunshine (feat. jamie pineda)" data-artist="sweetbox"><div class="music-disc"><span class="disc-num">44</span></div><div class="music-info"><div class="music-title">Everybody Come out in the Sunshine (feat. Jamie Pineda)</div><div class="music-artist">Sweetbox</div></div></div>
+          <div class="music-item" data-title="say you love me" data-artist="patti austin"><div class="music-disc"><span class="disc-num">45</span></div><div class="music-info"><div class="music-title">Say You Love Me</div><div class="music-artist">Patti Austin</div></div></div>
+          <div class="music-item" data-title="冬天一个游" data-artist="gordon flanders"><div class="music-disc"><span class="disc-num">46</span></div><div class="music-info"><div class="music-title">冬天一个游</div><div class="music-artist">Gordon Flanders</div></div></div>
+          <div class="music-item" data-title="wishing you were somehow here again (live)" data-artist="andrew lloyd webber / sierra boggess"><div class="music-disc"><span class="disc-num">47</span></div><div class="music-info"><div class="music-title">Wishing You Were Somehow Here Again (Live)</div><div class="music-artist">Andrew Lloyd Webber / Sierra Boggess</div></div></div>
+          <div class="music-item" data-title="the point of no return (live)" data-artist="andrew lloyd webber"><div class="music-disc"><span class="disc-num">48</span></div><div class="music-info"><div class="music-title">The Point of No Return (Live)</div><div class="music-artist">Andrew Lloyd Webber</div></div></div>
+          <div class="music-item" data-title="don&#39;t lose ur head (feat. christina modestou)" data-artist="six / christina modestou"><div class="music-disc"><span class="disc-num">49</span></div><div class="music-info"><div class="music-title">Don&#39;t Lose Ur Head (feat. Christina Modestou)</div><div class="music-artist">SIX / Christina Modestou</div></div></div>
+          <div class="music-item" data-title="who lives, who dies, who tells your story" data-artist="original broadway cast of hamilton"><div class="music-disc"><span class="disc-num">50</span></div><div class="music-info"><div class="music-title">Who Lives, Who Dies, Who Tells Your Story</div><div class="music-artist">Original Broadway Cast of Hamilton</div></div></div>
+          <div class="music-item" data-title="eviter les roses" data-artist="vincent baguian / haylen / côme"><div class="music-disc"><span class="disc-num">51</span></div><div class="music-info"><div class="music-title">Eviter les roses</div><div class="music-artist">Vincent Baguian / Haylen / Côme</div></div></div>
+          <div class="music-item" data-title="ich gehör nur mir" data-artist="theater an der wien ensemble"><div class="music-disc"><span class="disc-num">52</span></div><div class="music-info"><div class="music-title">Ich gehör nur mir</div><div class="music-artist">Theater an der Wien Ensemble</div></div></div>
         </div>
       </div>
 
@@ -1624,8 +1734,47 @@
     document.querySelectorAll('.music-tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.music-panel').forEach(p => p.classList.remove('active'));
     event.currentTarget.classList.add('active');
-    document.getElementById('music-' + id).classList.add('active');
+    const panel = document.getElementById('music-' + id);
+    panel.classList.add('active');
+    // 切换分区时重新应用当前搜索词
+    const q = document.querySelector('.music-search').value;
+    if (q) filterMusic(q);
+    updateMusicCount(panel);
   }
+
+  function filterMusic(q) {
+    const kw = q.trim().toLowerCase();
+    const panel = document.querySelector('.music-panel.active');
+    if (!panel) return;
+    const items = panel.querySelectorAll('.music-item');
+    let visible = 0;
+    items.forEach(item => {
+      const title = item.dataset.title || '';
+      const artist = item.dataset.artist || '';
+      const match = !kw || title.includes(kw) || artist.includes(kw);
+      item.classList.toggle('hidden', !match);
+      if (match) visible++;
+    });
+    // 更新空态
+    const empty = panel.querySelector('.music-empty');
+    if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
+    updateMusicCount(panel, kw ? visible : null);
+  }
+
+  function updateMusicCount(panel, filtered) {
+    const countEl = document.getElementById('music-count');
+    if (!countEl || !panel) return;
+    const total = panel.querySelectorAll('.music-item').length;
+    countEl.textContent = filtered !== null && filtered !== undefined
+      ? `${filtered} / ${total} 首`
+      : `${total} 首`;
+  }
+
+  // 初始化计数
+  document.addEventListener('DOMContentLoaded', () => {
+    const activePanel = document.querySelector('.music-panel.active');
+    if (activePanel) updateMusicCount(activePanel);
+  });
 
   // ── 分类面板切换 ──
   function togglePanel(id) {
